@@ -67,6 +67,7 @@ html_template = """
 </html>
 """
 
+
 # Funkcia na načítanie inventára zo súboru
 def fetch_inventory():
     try:
@@ -89,6 +90,7 @@ def fetch_inventory():
     except json.JSONDecodeError:
         raise Exception("Chyba pri čítaní JSON údajov zo súboru.")
 
+
 # Hlavná trasa (route) pre zobrazenie inventára
 @app.route("/")
 def display_inventory():
@@ -98,6 +100,7 @@ def display_inventory():
     except Exception as e:
         return f"Chyba: {e}"
 
+
 # Endpoint pre získanie inventára ako JSON (voliteľné)
 @app.route("/api/inventory")
 def get_inventory_json():
@@ -106,6 +109,7 @@ def get_inventory_json():
         return jsonify({"total": total, "skins": skins})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
 
 # Spustenie aplikácie na localhoste
 if __name__ == "__main__":
