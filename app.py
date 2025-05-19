@@ -166,6 +166,8 @@ def fetch_inventory_from_api():
         response = requests.get(API_URL, params=params, headers=headers)
         response.raise_for_status()  # Raise exception for HTTP errors
         data = response.json()
+        print(json.dumps(data, indent=2))
+
 
         if "response" not in data:
             raise Exception("Invalid API response structure.")
@@ -222,11 +224,15 @@ def load_inventory_from_file():
 # Attempt to update inventory at startup
 try:
     skins, total = fetch_inventory_from_api()
-    save_inventory_to_file(skins, total)
-    print(f"Inventory successfully updated at startup. Total items: {total}.")
+    if total > 0:
+        save_inventory_to_file(skins, total)
+        print(f"Inventory successfully updated at startup. Total items: {total}.")
+    else:
+        raise Exception("Empty inventory received from Steam API.")
 except Exception as e:
     startup_error = f"{e}"
     print(f"Error updating inventory at startup: {startup_error.replace('Forbidden:', '').strip()}")
+
 
 
 # Route to display inventory
