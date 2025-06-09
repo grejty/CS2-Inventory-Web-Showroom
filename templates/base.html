@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CS2 Inventory Showroom{% endblock %}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    {% block styles %}{% endblock %}
+</head>
+<body>
+    <div class="top-nav">
+        <div class="site-branding">
+            <a href="{% url 'inventory:index' %}">
+                <h1>Grejty - CS2 SHOP</h1>
+            </a>
+        </div>
+        <div class="nav-controls">
+            {% if request.resolver_match.url_name == 'admin' %}
+                <a href="{% url 'inventory:index' %}" class="nav-link">View Showroom</a>
+            {% else %}
+                <a href="{% url 'inventory:admin' %}" class="nav-link">Admin Panel</a>
+            {% endif %}
+            <!-- Simplified theme toggle -->
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">🌙</button>
+        </div>
+    </div>
+    
+    <main>
+        <div class="page-header">
+            <h2>{% block header %}CS2 Inventory{% endblock %}</h2>
+        </div>
+        
+        {% block content %}{% endblock %}
+    </main>
+    
+    <script>
+        // Simplified theme toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            
+            // Check for saved theme preference or use default dark theme
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            
+            // Set the icon based on current theme
+            themeToggle.textContent = currentTheme === 'light' ? '☀️' : '🌙';
+            
+            // Function to switch theme
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                themeToggle.textContent = newTheme === 'light' ? '☀️' : '🌙';
+            });
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Format skin names - replace | with line breaks but keep same style
+            document.querySelectorAll('.skin-details h3').forEach(function(nameElement) {
+                const originalName = nameElement.textContent;
+                if (originalName.includes('|')) {
+                    const nameParts = originalName.split('|');
+                    nameElement.innerHTML = nameParts[0].trim() + '<br>' + nameParts[1].trim();
+                }
+            });
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all skin items
+            const skinItems = document.querySelectorAll('.skin-item');
+            
+            // Add click event listener to each skin item
+            skinItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Toggle selected class
+                    this.classList.toggle('selected');
+                    
+                    // If there's a checkbox inside, update its state
+                    const checkbox = this.querySelector('input[type="checkbox"]');
+                    if (checkbox) {
+                        checkbox.checked = this.classList.contains('selected');
+                    }
+                });
+                
+                // Prevent clicks on links inside the item from selecting the item
+                const links = item.querySelectorAll('a');
+                links.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                    });
+                });
+            });
+        });
+    </script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html>
