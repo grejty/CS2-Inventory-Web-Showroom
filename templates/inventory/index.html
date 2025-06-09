@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+{% block title %}CS2 Inventory Showroom{% endblock %}
+
+{% block header %}Skins for sale:{% endblock %}
+
+{% block content %}
+    {% if error %}
+        <div class="error-message"><strong>Error updating inventory:</strong><br>{{ error|cut:"Forbidden:"|striptags }}</div>
+        <div><a href="{{ access_token_url }}" target="_blank" class="button">Get Access Token</a></div>
+    {% else %}
+        <!-- Unified search and filter container -->
+        <div class="search-filter-container">
+            <div class="search-input-wrapper">
+                <input type="text" id="search-box" placeholder="Search items..." />
+                <button id="filter-panel-toggle" class="filter-button" type="button" aria-label="Toggle filters">
+                    🔍
+                </button>
+            </div>
+        </div>
+
+        <div id="filter-panel">
+            <div id="filters">
+                <!-- Item type filters (first) -->
+                <div class="filter-group">
+                    <h4>Type</h4>
+                    <div class="filter-items">
+                        {% for name, count in filters.item_types %}
+                            <label class="filter-item">
+                                <input type="checkbox" data-filter="type" value="{{ name }}">
+                                <span>{{ name }}</span><span class="filter-count">({{ count }})</span>
+                            </label>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <!-- Weapon type filters (second) -->
+                <div class="filter-group">
+                    <h4>Weapon</h4>
+                    <div class="filter-items">
+                        {% for name, count in filters.weapon_types %}
+                            <label class="filter-item">
+                                <input type="checkbox" data-filter="weapon" value="{{ name }}">
+                                <span>{{ name }}</span>
+                                <span class="filter-count">({{ count }})</span>
+                            </label>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <!-- Tradable filters (last) -->
+                <div class="filter-group">
+                    <h4>Tradability</h4>
+                    <div class="filter-items">
+                        {% for name, count in filters.tradable %}
+                            <label class="filter-item">
+                                <input type="checkbox" data-filter="tradable" value="{{ name }}">
+                                <span>{{ name }}</span>
+                                <span class="filter-count">({{ count }})</span>
+                            </label>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats display showing total/visible counts -->
+        <div class="inventory-stats">
+            <span>Total Items: {{ total }} (showing <span id="showing-count">{{ total }}</span>)</span>
+        </div>
+
+        <div id="inventory">
+            {% for skin in skins %}
+                <div class="skin-item" 
+                     data-tradable="{{ skin.tradable }}"
+                     data-weapon="{{ skin.weapon_type }}"
+                     data-type="{{ skin.item_type }}">
+                    <div class="skin-image">
+                        <img src="https://community.cloudflare.steamstatic.com/economy/image/{{ skin.icon_url }}" alt="{{ skin.name }}">
+                    </div>
+                    <div class="skin-details">
+                        <h3>{{ skin.name }}</h3>
+                        {% if skin.exterior %}
+                            <div class="meta"><span class="label">Exterior:</span> {{ skin.exterior }}</div>
+                        {% endif %}
+                        <div class="meta"><span class="label">Tradable:</span> {{ skin.tradable }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    {% if not error %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle filter panel
+            const filterToggle = document.getElementById('filter-panel-toggle');
+            const filterPanel = document.getElementById('filter-panel');
+            
+            filterToggle.addEventListener('click', function() {
+                const isHidden = filterPanel.style.display === 'none' || !filterPanel.style.display;
+                filterPanel.style.display = isHidden ? 'block' : 'none';
+                
+                // Toggle class for SVG icon change instead of changing text
+                if (isHidden) {
+                    filterToggle.classList.add('panel-open');
+                } else {
+                    filterToggle.classList.remove('panel-open');
+                }
+            });
+            
+            // Handle filters and search
+            const searchBox = document.getElementById('search-box');
+            const items = document.querySelectorAll('.skin-item');
+            const showingCount = document.getElementById('showing-count');
+            const checkboxes = document.querySelectorAll('[data-filter]');
+            
+            function applyFilters() {
+                const searchTerm = searchBox.value.toLowerCase();
+                const activeFilters = {
+                    tradable: getActiveValues('tradable'),
+                    weapon: getActiveValues('weapon'),
+                    type: getActiveValues('type')
+                };
+                
+                let visibleCount = 0;
+                
+                // Apply filters to each item
+                items.forEach(item => {
+                    const tradable = item.dataset.tradable;
+                    const weapon = item.dataset.weapon;
+                    const type = item.dataset.type;
+                    const itemText = item.textContent.toLowerCase();
+                    
+                    const matchesTradable = activeFilters.tradable.length === 0 || activeFilters.tradable.includes(tradable);
+                    const matchesWeapon = activeFilters.weapon.length === 0 || activeFilters.weapon.includes(weapon);
+                    const matchesType = activeFilters.type.length === 0 || activeFilters.type.includes(type);
+                    const matchesSearch = searchTerm === '' || itemText.includes(searchTerm);
+                    
+                    const isVisible = matchesTradable && matchesWeapon && matchesType && matchesSearch;
+                    item.style.display = isVisible ? 'flex' : 'none';
+                    
+                    if (isVisible) {
+                        visibleCount++;
+                    }
+                });
+                
+                // Update count
+                showingCount.textContent = visibleCount;
+            }
+            
+            // Helper to get active values for a filter category
+            function getActiveValues(filterType) {
+                const values = [];
+                document.querySelectorAll(`[data-filter="${filterType}"]:checked`).forEach(cb => {
+                    values.push(cb.value);
+                });
+                return values;
+            }
+            
+            // Apply filters when inputs change
+            searchBox.addEventListener('input', applyFilters);
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', applyFilters);
+            });
+        });
+    </script>
+    {% endif %}
+{% endblock %}

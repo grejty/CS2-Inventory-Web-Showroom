@@ -1,0 +1,275 @@
+{% extends 'base.html' %}
+
+{% block title %}CS2 Inventory Admin{% endblock %}
+
+{% block header %}Admin Panel{% endblock %}
+
+{% block content %}
+    {% if error %}
+        <div class="error-message"><strong>Error updating inventory:</strong><br>{{ error|cut:"Forbidden:"|striptags }}</div>
+        <div><a href="{{ access_token_url }}" target="_blank" class="button">Get Access Token</a></div>
+    {% else %}
+        <form method="post" id="admin-form">
+            {% csrf_token %}
+             
+            <!-- Unified search and filter container -->
+            <div class="search-filter-container">
+                <div class="search-input-wrapper">
+                    <input type="text" id="search-box" placeholder="Search items..." />
+                    <button id="filter-panel-toggle" class="filter-button" type="button" aria-label="Toggle filters">
+                        🔍
+                    </button>
+                </div>
+            </div>
+
+            <div id="filter-panel">
+                <div id="filters">
+                    <!-- Item type filters (first) -->
+                    <div class="filter-group">
+                        <h4>Type</h4>
+                        <div class="filter-items">
+                            {% for name, count in filters.item_types %}
+                                <label class="filter-item">
+                                    <input type="checkbox" data-filter="type" value="{{ name }}">
+                                    <span>{{ name }}</span><span class="filter-count">({{ count }})</span>
+                                </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <!-- Weapon type filters (second) -->
+                    <div class="filter-group">
+                        <h4>Weapon</h4>
+                        <div class="filter-items">
+                            {% for name, count in filters.weapon_types %}
+                                <label class="filter-item">
+                                    <input type="checkbox" data-filter="weapon" value="{{ name }}">
+                                    <span>{{ name }}</span>
+                                    <span class="filter-count">({{ count }})</span>
+                                </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <!-- Tradable filters (last) -->
+                    <div class="filter-group">
+                        <h4>Tradability</h4>
+                        <div class="filter-items">
+                            {% for name, count in filters.tradable %}
+                                <label class="filter-item">
+                                    <input type="checkbox" data-filter="tradable" value="{{ name }}">
+                                    <span>{{ name }}</span>
+                                    <span class="filter-count">({{ count }})</span>
+                                </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls for selection now positioned after filters -->
+            <div class="controls-secondary">
+                <button id="select-all-btn" class="button" type="button">Select All</button>
+                <button id="clear-selection-btn" class="button" type="button">Clear Selection</button>
+                <!-- Update the save button to call our handler -->
+                <button type="submit" class="button save-btn" name="action" value="save_selection" id="save-btn">
+                    Save Selection
+                </button>
+            </div>
+
+            <!-- Stats display with refresh button -->
+            <div class="inventory-stats">
+                <span>Total Items: {{ total_before_filters }} (showing <span id="showing-count">{{ total }}</span>)</span>
+                <button type="submit" class="refresh-btn tooltip" name="action" value="refresh_inventory" data-tooltip="Refresh Inventory">
+                </button>
+            </div>
+
+            <div id="inventory">
+                {% for skin in skins %}
+                    <div class="skin-item" 
+                         data-tradable="{{ skin.tradable }}"
+                         data-weapon="{{ skin.weapon_type }}"
+                         data-type="{{ skin.item_type }}"
+                         {% if skin.selected %}class="selected"{% endif %}>
+                        <div class="skin-image">
+                            <img src="https://community.cloudflare.steamstatic.com/economy/image/{{ skin.icon_url }}" alt="{{ skin.name }}">
+                            <!-- Update this line to conditionally disable based on selection status -->
+                            <input type="hidden" name="selected_skins" value="{{ forloop.counter0 }}" {% if not skin.selected %}disabled{% endif %}>
+                        </div>
+                        <div class="skin-details">
+                            <h3>{{ skin.name }}</h3>
+                            {% if skin.exterior %}
+                                <div class="meta"><span class="label">Exterior:</span> {{ skin.exterior }}</div>
+                            {% endif %}
+                            <div class="meta"><span class="label">Tradable:</span> {{ skin.tradable }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </form>
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    {% if not error %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle filter panel
+            const filterToggle = document.getElementById('filter-panel-toggle');
+            const filterPanel = document.getElementById('filter-panel');
+            
+            // Add this line to disable the global handler in base.html
+            document.querySelectorAll('.skin-item').forEach(item => {
+                item.classList.add('admin-skin-item');
+            });
+            
+            filterToggle.addEventListener('click', function() {
+                const isHidden = filterPanel.style.display === 'none' || !filterPanel.style.display;
+                filterPanel.style.display = isHidden ? 'block' : 'none';
+                
+                // Toggle class for SVG icon change instead of changing text
+                if (isHidden) {
+                    filterToggle.classList.add('panel-open');
+                } else {
+                    filterToggle.classList.remove('panel-open');
+                }
+            });
+            
+            // Handle filters and search
+            const searchBox = document.getElementById('search-box');
+            let items = document.querySelectorAll('.skin-item'); // Change to let instead of const
+            const showingCount = document.getElementById('showing-count');
+            const filterCheckboxes = document.querySelectorAll('[data-filter]');
+            
+            // Update for clickable items
+            let skinItems = document.querySelectorAll('.skin-item');
+            
+            // Create a new array to store the new DOM elements
+            const newSkinItems = [];
+            const newHiddenInputs = []; // Create a new array to store the new hidden inputs
+            
+            // Make items clickable for selection
+            skinItems.forEach((item, index) => {
+                // Create a new element to replace the old one
+                const newItem = item.cloneNode(true);
+                item.parentNode.replaceChild(newItem, item);
+                
+                // Get the NEW hidden input from the cloned element and store it
+                const newHiddenInput = newItem.querySelector('input[name="selected_skins"]');
+                newHiddenInputs.push(newHiddenInput);
+                
+                // Store the new element in our array
+                newSkinItems.push(newItem);
+                
+                // Add our custom click handler
+                newItem.addEventListener('click', function(event) {
+                    // Prevent the form from submitting when clicking on skin items
+                    event.preventDefault();
+                    
+                    // Toggle the selected class
+                    this.classList.toggle('selected');
+                    
+                    // Update the hidden input's disabled property
+                    newHiddenInput.disabled = !this.classList.contains('selected');
+                    console.log(`Item ${index} selected: ${!newHiddenInput.disabled}`);
+                });
+            });
+            
+            // Update our reference to point to the new DOM elements
+            skinItems = newSkinItems;
+            items = newSkinItems; // Update the items reference to use the new DOM elements
+            
+            // Select/Deselect All functionality
+            const selectAllBtn = document.getElementById('select-all-btn');
+            const clearSelectionBtn = document.getElementById('clear-selection-btn');
+            
+            selectAllBtn.addEventListener('click', function() {
+                skinItems.forEach((item, index) => {
+                    // Only select visible items
+                    if (item.style.display !== 'none') {
+                        item.classList.add('selected');
+                        // Use the new hidden inputs array
+                        newHiddenInputs[index].disabled = false;
+                    }
+                });
+            });
+            
+            clearSelectionBtn.addEventListener('click', function() {
+                // Force ALL items to be deselected, not just visible ones
+                skinItems.forEach((item, index) => {
+                    item.classList.remove('selected');
+                    newHiddenInputs[index].disabled = true;
+                });
+                console.log("All selections cleared");
+            });
+            
+            function applyFilters() {
+                const searchTerm = searchBox.value.toLowerCase();
+                const activeFilters = {
+                    tradable: getActiveValues('tradable'),
+                    weapon: getActiveValues('weapon'),
+                    type: getActiveValues('type')
+                };
+                
+                let visibleCount = 0;
+                
+                // Apply filters to each item
+                items.forEach(item => {
+                    const tradable = item.dataset.tradable;
+                    const weapon = item.dataset.weapon;
+                    const type = item.dataset.type;
+                    const itemText = item.textContent.toLowerCase();
+                    
+                    const matchesTradable = activeFilters.tradable.length === 0 || activeFilters.tradable.includes(tradable);
+                    const matchesWeapon = activeFilters.weapon.length === 0 || activeFilters.weapon.includes(weapon);
+                    const matchesType = activeFilters.type.length === 0 || activeFilters.type.includes(type);
+                    const matchesSearch = searchTerm === '' || itemText.includes(searchTerm);
+                    
+                    const isVisible = matchesTradable && matchesWeapon && matchesType && matchesSearch;
+                    item.style.display = isVisible ? 'flex' : 'none';
+                    
+                    if (isVisible) {
+                        visibleCount++;
+                    }
+                });
+                
+                // Update count
+                showingCount.textContent = visibleCount;
+            }
+            
+            // Helper to get active values for a filter category
+            function getActiveValues(filterType) {
+                const values = [];
+                document.querySelectorAll(`[data-filter="${filterType}"]:checked`).forEach(cb => {
+                    values.push(cb.value);
+                });
+                return values;
+            }
+            
+            // Apply filters when inputs change
+            searchBox.addEventListener('input', applyFilters);
+            filterCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', applyFilters);
+            });
+            
+            // Add form submit handler to ensure correct submission
+            document.getElementById('admin-form').addEventListener('submit', function(event) {
+                // For debugging, log which inputs are enabled
+                const enabledInputs = Array.from(document.querySelectorAll('input[name="selected_skins"]:not([disabled])'))
+                    .map(input => input.value);
+                console.log("Submitting form with selected items:", enabledInputs);
+                
+                // If we want to allow empty selection
+                if (enabledInputs.length === 0) {
+                    // Add a hidden field to indicate we want to clear all selections
+                    const clearFlag = document.createElement('input');
+                    clearFlag.type = 'hidden';
+                    clearFlag.name = 'clear_all';
+                    clearFlag.value = 'true';
+                    this.appendChild(clearFlag);
+                }
+            });
+        });
+    </script>
+    {% endif %}
+{% endblock %}
