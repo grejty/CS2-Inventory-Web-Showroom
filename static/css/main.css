@@ -947,14 +947,3 @@ main {
 .justify-end {
     justify-content: flex-end !important;
 }
-
-.site-logo {
-    height: 36px;
-    width: auto;
-    display: block;
-    transition: transform 0.2s ease;
-}
-
-.site-branding a:hover .site-logo {
-    transform: scale(1.05);
-}
