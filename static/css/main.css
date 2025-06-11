@@ -179,7 +179,7 @@ main {
 
 #search-box {
     width: 100%;
-    padding: 8px 36px 8px 12px;
+    padding: 8px 0px 8px 12px;
     border: 1px solid var(--border-color);
     border-radius: 6px;
     background: var(--bg-primary);
@@ -643,7 +643,7 @@ main {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 3px 6px;
+    padding: 4px 8px;
     background: var(--bg-secondary);
     border-radius: 3px;
     border: 1px solid var(--border-color);
@@ -651,14 +651,17 @@ main {
 }
 
 .meta .label {
-    color: var(--text-secondary);
+    color: var(--accent-color); /* Changed from text-secondary to accent color */
     font-size: 12px;
     min-width: 60px;
+    font-weight: 600; /* Added bold font weight */
+    letter-spacing: 0.2px; /* Added slight letter spacing */
 }
 
 .meta .value {
     color: var(--text-color);
     font-size: 12px;
+    font-weight: 500; /* Made value slightly bolder too */
 }
 
 /* Tradability-specific styling */
