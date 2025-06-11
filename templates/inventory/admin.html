@@ -116,32 +116,31 @@
     {% if not error %}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Toggle filter panel
+            // DOM Elements
             const filterToggle = document.getElementById('filter-panel-toggle');
             const filterPanel = document.getElementById('filter-panel');
-            
-            filterToggle.addEventListener('click', function() {
-                const isHidden = filterPanel.style.display === 'none' || !filterPanel.style.display;
-                filterPanel.style.display = isHidden ? 'block' : 'none';
-                
-                if (isHidden) {
-                    filterToggle.classList.add('panel-open');
-                } else {
-                    filterToggle.classList.remove('panel-open');
-                }
-            });
-            
-            // Handle filters and search
             const searchBox = document.getElementById('search-box');
             const items = document.querySelectorAll('.skin-item');
             const showingCount = document.getElementById('showing-count');
             const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
+            const selectAllBtn = document.getElementById('select-all-btn');
+            const clearSelectionBtn = document.getElementById('clear-selection-btn');
+            const adminForm = document.getElementById('admin-form');
+            
+            // Initial filter panel state
+            filterPanel.style.display = 'none';
+
+            // Toggle filter panel with consistent behavior
+            filterToggle.addEventListener('click', function() {
+                const isHidden = filterPanel.style.display === 'none' || !filterPanel.style.display;
+                filterPanel.style.display = isHidden ? 'block' : 'none';
+                filterToggle.classList.toggle('panel-open', isHidden);
+            });
             
             // Make items clickable for selection
             items.forEach(item => {
                 const checkbox = item.querySelector('.skin-checkbox');
                 
-                // Add click event listener to the item
                 item.addEventListener('click', function(event) {
                     event.preventDefault();
                     event.stopPropagation();
@@ -156,16 +155,11 @@
                 });
             });
             
-            // Select/Deselect All functionality
-            const selectAllBtn = document.getElementById('select-all-btn');
-            const clearSelectionBtn = document.getElementById('clear-selection-btn');
-            
+            // Select All functionality - only visible items
             selectAllBtn.addEventListener('click', function(event) {
                 event.preventDefault();
-                event.stopPropagation();
                 
                 items.forEach(item => {
-                    // Only select visible items
                     if (item.style.display !== 'none') {
                         item.classList.add('selected');
                         const checkbox = item.querySelector('.skin-checkbox');
@@ -176,9 +170,9 @@
                 });
             });
             
+            // Clear Selection functionality
             clearSelectionBtn.addEventListener('click', function(event) {
                 event.preventDefault();
-                event.stopPropagation();
                 
                 items.forEach(item => {
                     item.classList.remove('selected');
@@ -189,6 +183,7 @@
                 });
             });
             
+            // Filter application function
             function applyFilters() {
                 const searchTerm = searchBox.value.toLowerCase();
                 const activeFilters = {
@@ -238,20 +233,24 @@
                 checkbox.addEventListener('change', applyFilters);
             });
             
-            // Add form submit handler
-            document.getElementById('admin-form').addEventListener('submit', function(event) {
-                const selectedCheckboxes = document.querySelectorAll('.skin-checkbox:checked');
-                
-                // If we want to allow empty selection
-                if (selectedCheckboxes.length === 0) {
-                    // Add a hidden field to indicate we want to clear all selections
-                    const clearFlag = document.createElement('input');
-                    clearFlag.type = 'hidden';
-                    clearFlag.name = 'clear_all';
-                    clearFlag.value = 'true';
-                    this.appendChild(clearFlag);
-                }
-            });
+            // Form submit handler for empty selection
+            if (adminForm) {
+                adminForm.addEventListener('submit', function(event) {
+                    const selectedCheckboxes = document.querySelectorAll('.skin-checkbox:checked');
+                    
+                    if (selectedCheckboxes.length === 0) {
+                        // Add a hidden field to indicate we want to clear all selections
+                        const clearFlag = document.createElement('input');
+                        clearFlag.type = 'hidden';
+                        clearFlag.name = 'clear_all';
+                        clearFlag.value = 'true';
+                        this.appendChild(clearFlag);
+                    }
+                });
+            }
+
+            // Initialize filters on page load
+            applyFilters();
         });
     </script>
     {% endif %}
