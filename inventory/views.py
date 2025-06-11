@@ -59,28 +59,10 @@ def admin_view(request):
     if request.method == "POST":
         action = request.POST.get('action')
         
-        if action == 'refresh_inventory':
-            try:
-                # This will update everything including both counts
-                skins, total, total_before_filters = update_inventory()
-            except Exception as e:
-                # Get filters with counts despite error
-                filters = get_filter_counts(skins)
-                context = {
-                    'skins': skins,
-                    'total': total,
-                    'total_before_filters': total_before_filters,
-                    'error': str(e),
-                    'access_token_url': settings.STEAM_ACCESS_TOKEN_URL,
-                    'filters': filters
-                }
-                return render(request, 'inventory/admin.html', context)
-        
-        elif action == 'save_selection':
+        if action == 'save_selection':
             # Get selected indices from form
             selected_indices = request.POST.getlist('selected_skins')
             
-           
             # If clear_all flag is set or no selections were made
             clear_all = request.POST.get('clear_all') == 'true' or not selected_indices
             
