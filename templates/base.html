@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}CS2 Inventory Showroom{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{% static 'images/thumbnail.png' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     {% block styles %}{% endblock %}
@@ -13,7 +14,8 @@
     <div class="top-nav">
         <div class="site-branding">
             <a href="{% url 'inventory:index' %}">
-                <h1>Grejty - CS2 SHOP</h1>
+                <img src="{% static 'images/Avatar-Transparent.png' %}" alt="Grejty - CS2 SHOP" class="site-logo">
+                <span class="site-title">Grejty - CS2 Shop</span>
             </a>
         </div>
         <div class="nav-controls">
