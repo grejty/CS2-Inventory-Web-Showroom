@@ -560,8 +560,8 @@ main {
     }
 
     #filter-panel {
-        margin: 0 16px 24px;
-        padding: 16px;
+        margin: 0 16px 2px;
+        padding: 2px;
     }
 
     .filter-group {
