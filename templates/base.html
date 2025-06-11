@@ -68,33 +68,6 @@
                 }
             });
         });
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get all skin items
-            const skinItems = document.querySelectorAll('.skin-item');
-            
-            // Add click event listener to each skin item
-            skinItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    // Toggle selected class
-                    this.classList.toggle('selected');
-                    
-                    // If there's a checkbox inside, update its state
-                    const checkbox = this.querySelector('input[type="checkbox"]');
-                    if (checkbox) {
-                        checkbox.checked = this.classList.contains('selected');
-                    }
-                });
-                
-                // Prevent clicks on links inside the item from selecting the item
-                const links = item.querySelectorAll('a');
-                links.forEach(link => {
-                    link.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                    });
-                });
-            });
-        });
     </script>
     
     {% block scripts %}{% endblock %}
