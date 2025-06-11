@@ -2,3 +2,6 @@
 inventory_data.json
 /config
 /pgdata
+cs2_showroom/__pycache__/
+inventory/__pycache__/
+inventory/migrations/__pycache__/
