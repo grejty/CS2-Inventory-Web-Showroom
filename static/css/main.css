@@ -432,13 +432,12 @@ main {
 /* Inventory Stats */
 .inventory-stats {
     color: var(--text-secondary);
-    font-size: 13px;
-    padding: 0 12px;
+    font-size: 14px;
     border-radius: 4px;
     display: inline-flex;
     align-items: center;
     white-space: nowrap;
-    height: 28px;
+    height: 1px;
 }
 
 .inventory-stats strong {
