@@ -9,7 +9,7 @@
         <div class="error-message"><strong>Error updating inventory:</strong><br>{{ error|cut:"Forbidden:"|striptags }}</div>
         <div><a href="{{ access_token_url }}" target="_blank" class="button">Get Access Token</a></div>
     {% else %}
-        <!-- Unified search and filter container -->
+        <!-- Search bar in the middle -->
         <div class="search-filter-container">
             <div class="search-input-wrapper">
                 <input type="text" id="search-box" placeholder="Search items..." />
@@ -19,54 +19,59 @@
             </div>
         </div>
 
-        <div id="filter-panel">
-            <div id="filters">
-                <!-- Item type filters (first) -->
-                <div class="filter-group">
-                    <h4>Type</h4>
-                    <div class="filter-items">
-                        {% for name, count in filters.item_types %}
-                            <label class="filter-item">
-                                <input type="checkbox" data-filter="type" value="{{ name }}">
-                                <span>{{ name }}</span><span class="filter-count">({{ count }})</span>
-                            </label>
-                        {% endfor %}
-                    </div>
-                </div>
-                
-                <!-- Weapon type filters (second) -->
-                <div class="filter-group">
-                    <h4>Weapon</h4>
-                    <div class="filter-items">
-                        {% for name, count in filters.weapon_types %}
-                            <label class="filter-item">
-                                <input type="checkbox" data-filter="weapon" value="{{ name }}">
-                                <span>{{ name }}</span>
-                                <span class="filter-count">({{ count }})</span>
-                            </label>
-                        {% endfor %}
-                    </div>
-                </div>
-                
-                <!-- Tradable filters (last) -->
-                <div class="filter-group">
-                    <h4>Tradability</h4>
-                    <div class="filter-items">
-                        {% for name, count in filters.tradable %}
-                            <label class="filter-item">
-                                <input type="checkbox" data-filter="tradable" value="{{ name }}">
-                                <span>{{ name }}</span>
-                                <span class="filter-count">({{ count }})</span>
-                            </label>
-                        {% endfor %}
-                    </div>
+        <!-- Stats container -->
+        <div class="stats-controls-container justify-end">
+            <div class="stats-row">
+                <div class="inventory-stats">
+                    Total:&nbsp;<strong>{{ total }}</strong>&nbsp;(showing&nbsp;<strong id="showing-count">{{ total }}</strong>)
                 </div>
             </div>
         </div>
 
-        <!-- Stats display showing total/visible counts -->
-        <div class="inventory-stats">
-            <span>Total Items: {{ total }} (showing <span id="showing-count">{{ total }}</span>)</span>
+        <div id="filter-panel">
+            <div id="filters">
+                <!-- Weapon Types -->
+                <div class="filter-group" data-type="weapon_types">
+                    <h3>Weapon Types</h3>
+                    <div class="filter-options-grid">
+                        {% for name, count in filters.weapon_types %}
+                            <div class="filter-option">
+                                <input type="checkbox" id="weapon_{{ name }}" value="{{ name }}" class="filter-checkbox" data-type="weapon_type">
+                                <label for="weapon_{{ name }}">{{ name }}</label>
+                                <span class="filter-count">{{ count }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Item Types -->
+                <div class="filter-group" data-type="item_types">
+                    <h3>Item Types</h3>
+                    <div class="filter-options-grid">
+                        {% for name, count in filters.item_types %}
+                            <div class="filter-option">
+                                <input type="checkbox" id="type_{{ name }}" value="{{ name }}" class="filter-checkbox" data-type="item_type">
+                                <label for="type_{{ name }}">{{ name }}</label>
+                                <span class="filter-count">{{ count }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Tradability -->
+                <div class="filter-group" data-type="tradable">
+                    <h3>Tradability</h3>
+                    <div class="filter-options-grid">
+                        {% for name, count in filters.tradable %}
+                            <div class="filter-option">
+                                <input type="checkbox" id="tradable_{{ name }}" value="{{ name }}" class="filter-checkbox" data-type="tradable">
+                                <label for="tradable_{{ name }}">{{ name }}</label>
+                                <span class="filter-count">{{ count }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div id="inventory">
@@ -81,9 +86,15 @@
                     <div class="skin-details">
                         <h3>{{ skin.name }}</h3>
                         {% if skin.exterior %}
-                            <div class="meta"><span class="label">Exterior:</span> {{ skin.exterior }}</div>
+                            <div class="meta">
+                                <span class="label">Exterior:</span>
+                                <span class="value">{{ skin.exterior }}</span>
+                            </div>
                         {% endif %}
-                        <div class="meta"><span class="label">Tradable:</span> {{ skin.tradable }}</div>
+                        <div class="meta" data-tradable="{{ skin.tradable }}">
+                            <span class="label">Tradable:</span>
+                            <span class="value">{{ skin.tradable }}</span>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
@@ -95,27 +106,19 @@
     {% if not error %}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Toggle filter panel
-            const filterToggle = document.getElementById('filter-panel-toggle');
             const filterPanel = document.getElementById('filter-panel');
+            const filterButton = document.getElementById('filter-panel-toggle');
             
-            filterToggle.addEventListener('click', function() {
-                const isHidden = filterPanel.style.display === 'none' || !filterPanel.style.display;
-                filterPanel.style.display = isHidden ? 'block' : 'none';
-                
-                // Toggle class for SVG icon change instead of changing text
-                if (isHidden) {
-                    filterToggle.classList.add('panel-open');
-                } else {
-                    filterToggle.classList.remove('panel-open');
-                }
+            filterButton.addEventListener('click', function() {
+                filterPanel.classList.toggle('show');
+                filterButton.classList.toggle('active');
             });
             
             // Handle filters and search
             const searchBox = document.getElementById('search-box');
             const items = document.querySelectorAll('.skin-item');
             const showingCount = document.getElementById('showing-count');
-            const checkboxes = document.querySelectorAll('[data-filter]');
+            const checkboxes = document.querySelectorAll('.filter-checkbox');
             
             function applyFilters() {
                 const searchTerm = searchBox.value.toLowerCase();
@@ -154,8 +157,10 @@
             // Helper to get active values for a filter category
             function getActiveValues(filterType) {
                 const values = [];
-                document.querySelectorAll(`[data-filter="${filterType}"]:checked`).forEach(cb => {
-                    values.push(cb.value);
+                document.querySelectorAll(`.filter-checkbox[data-type="${filterType}"]`).forEach(cb => {
+                    if (cb.checked) {
+                        values.push(cb.value);
+                    }
                 });
                 return values;
             }
