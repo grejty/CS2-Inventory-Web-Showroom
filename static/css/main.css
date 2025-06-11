@@ -57,35 +57,51 @@ main {
 
 /* Top Navigation Bar */
 .top-nav {
-    background-color: var(--bg-secondary);
-    padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 1px 3px var(--shadow-color);
-    height: 52px;
+    padding: 14px 24px;
+    background: var(--bg-color); /* Using bg-color instead of bg-primary for a solid background */
+    border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
     z-index: 1000;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.6s ease-out;
 }
 
-.site-branding h1 {
-    font-size: 20px;
+.site-branding {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.site-logo {
+    height: auto; /* Increased from 36px to 48px */
+    width: auto;
+    display: block;
+    transition: transform 0.2s ease;
+}
+
+.site-title {
+    font-size: 18px;
     font-weight: 600;
+    color: var(--text-color);
     margin: 0;
-    color: var(--accent-color);
-    letter-spacing: -0.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-/* Remove underline from home link */
 .site-branding a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     text-decoration: none;
+    color: var(--text-color);
 }
 
-.site-branding a:hover h1 {
-    color: var(--accent-hover);
+.site-branding a:hover .site-logo {
+    transform: scale(1.05);
 }
 
 .nav-controls {
@@ -930,4 +946,15 @@ main {
 
 .justify-end {
     justify-content: flex-end !important;
+}
+
+.site-logo {
+    height: 36px;
+    width: auto;
+    display: block;
+    transition: transform 0.2s ease;
+}
+
+.site-branding a:hover .site-logo {
+    transform: scale(1.05);
 }
