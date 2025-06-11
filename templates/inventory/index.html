@@ -109,9 +109,13 @@
             const filterPanel = document.getElementById('filter-panel');
             const filterButton = document.getElementById('filter-panel-toggle');
             
+            // Initial filter panel state
+            filterPanel.style.display = 'none';
+            
             filterButton.addEventListener('click', function() {
-                filterPanel.classList.toggle('show');
-                filterButton.classList.toggle('active');
+                const isHidden = filterPanel.style.display === 'none' || !filterPanel.style.display;
+                filterPanel.style.display = isHidden ? 'block' : 'none';
+                filterButton.classList.toggle('panel-open', isHidden);
             });
             
             // Handle filters and search
@@ -120,12 +124,23 @@
             const showingCount = document.getElementById('showing-count');
             const checkboxes = document.querySelectorAll('.filter-checkbox');
             
+            // Add clickable selection functionality to items
+            items.forEach(item => {
+                item.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    
+                    // Toggle selected class for visual feedback
+                    this.classList.toggle('selected');
+                });
+            });
+            
             function applyFilters() {
                 const searchTerm = searchBox.value.toLowerCase();
                 const activeFilters = {
                     tradable: getActiveValues('tradable'),
-                    weapon: getActiveValues('weapon'),
-                    type: getActiveValues('type')
+                    weapon: getActiveValues('weapon_type'),  // Fixed: was 'weapon'
+                    type: getActiveValues('item_type')       // Fixed: was 'type'
                 };
                 
                 let visibleCount = 0;
@@ -157,10 +172,8 @@
             // Helper to get active values for a filter category
             function getActiveValues(filterType) {
                 const values = [];
-                document.querySelectorAll(`.filter-checkbox[data-type="${filterType}"]`).forEach(cb => {
-                    if (cb.checked) {
-                        values.push(cb.value);
-                    }
+                document.querySelectorAll(`.filter-checkbox[data-type="${filterType}"]:checked`).forEach(cb => {
+                    values.push(cb.value);
                 });
                 return values;
             }
@@ -170,6 +183,9 @@
             checkboxes.forEach(checkbox => {
                 checkbox.addEventListener('change', applyFilters);
             });
+            
+            // Initialize filters on page load
+            applyFilters();
         });
     </script>
     {% endif %}
