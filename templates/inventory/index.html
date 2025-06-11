@@ -19,15 +19,7 @@
             </div>
         </div>
 
-        <!-- Stats container -->
-        <div class="stats-controls-container justify-end">
-            <div class="stats-row">
-                <div class="inventory-stats">
-                    Total:&nbsp;<strong>{{ total }}</strong>&nbsp;(showing&nbsp;<strong id="showing-count">{{ total }}</strong>)
-                </div>
-            </div>
-        </div>
-
+        <!-- MOVE FILTER PANEL HERE - DIRECTLY AFTER SEARCH BAR -->
         <div id="filter-panel">
             <div id="filters">
                 <!-- Weapon Types -->
@@ -70,6 +62,15 @@
                             </div>
                         {% endfor %}
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats container AFTER filter panel -->
+        <div class="stats-controls-container justify-end">
+            <div class="stats-row">
+                <div class="inventory-stats">
+                    Total:&nbsp;<strong>{{ total }}</strong>&nbsp;(showing&nbsp;<strong id="showing-count">{{ total }}</strong>)
                 </div>
             </div>
         </div>
