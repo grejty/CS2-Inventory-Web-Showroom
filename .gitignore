@@ -5,3 +5,4 @@ inventory_data.json
 cs2_showroom/__pycache__/
 inventory/__pycache__/
 inventory/migrations/__pycache__/
+*.pyc
