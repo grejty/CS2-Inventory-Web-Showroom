@@ -56,15 +56,37 @@ def admin_view(request):
         }
         return render(request, 'inventory/admin.html', context)
     
-    # Load current inventory data
-    skins, total_before_filters = load_inventory_from_file()
-    total = len(skins)
-    
     # Handle form submission to save selection or refresh inventory
     if request.method == "POST":
         action = request.POST.get('action')
         
-        if action == 'save_selection':
+        if action == 'refresh_inventory':
+            # Import here to avoid circular imports
+            from .steam_api import update_inventory
+            try:
+                # Refresh inventory from Steam API
+                skins, total, total_before_filters = update_inventory()
+            except Exception as e:
+                # If refresh fails, load from file
+                skins, total_before_filters = load_inventory_from_file()
+                total = len(skins)
+                context = {
+                    'error': str(e),
+                    'access_token_url': settings.STEAM_ACCESS_TOKEN_URL,
+                    'filters': get_filter_counts(skins),
+                    'skins': skins,
+                    'total': total,
+                    'total_before_filters': total_before_filters
+                }
+                return render(request, 'inventory/admin.html', context)
+            
+            # Redirect after successful refresh
+            return redirect('inventory:admin')
+        
+        elif action == 'save_selection':
+            # Load current inventory data for saving selection
+            skins, total_before_filters = load_inventory_from_file()
+            
             # Get selected indices from form
             selected_indices = request.POST.getlist('selected_skins')
             
@@ -84,10 +106,14 @@ def admin_view(request):
                     skin['selected'] = (i in selected_indices)
     
             # Save updated inventory back to file
-            save_inventory_to_file(skins, total, total_before_filters)
+            save_inventory_to_file(skins, len(skins), total_before_filters)
             
-            # Add this line to redirect after saving
+            # Redirect after saving
             return redirect('inventory:admin')
+    
+    # Load current inventory data for GET request (no automatic refresh)
+    skins, total_before_filters = load_inventory_from_file()
+    total = len(skins)
     
     # Display the admin interface (GET request)
     context = {
