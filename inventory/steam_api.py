@@ -3,7 +3,7 @@ import os
 import time
 import requests
 from django.conf import settings
-from .helpers import identify_item_types, tradable_text, exterior_text
+from .helpers import identify_item_types, tradable_text, exterior_text, extract_stickers, rarity_details
 
 def steam_get(params, tries=3, backoff=4):
     """Call Steam API with retries and exponential backoff."""
@@ -62,6 +62,9 @@ def fetch_inventory_from_api():
         if item_type in CATEGORIES_TO_SKIP:
             continue
         
+        stickers = extract_stickers(desc)
+        rarity_name, rarity_color = rarity_details(desc)
+
         for _ in range(count):  # Don't stack items
             skins.append({
                 "name": name,
@@ -70,7 +73,10 @@ def fetch_inventory_from_api():
                 "tradable": tradable_status,
                 "selected": False,  # Default to not selected
                 "weapon_type": weapon_type or "Other",
-                "item_type": item_type or "Other"
+                "item_type": item_type or "Other",
+                "stickers": stickers.copy() if stickers else [],
+                "rarity": rarity_name,
+                "rarity_color": rarity_color
             })
     return skins, len(skins), total_before_filters
 

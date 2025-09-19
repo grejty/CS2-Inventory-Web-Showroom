@@ -1,4 +1,5 @@
 import re
+from html import unescape
 
 # Common weapon and item type detection
 WEAPON_TYPES = [
@@ -22,6 +23,63 @@ ITEM_TYPES = [
 
 # Regex for tradable date
 _TRADABLE_RE = re.compile(r"Tradable/Marketable After\s+(.*)\s+GMT", re.I)
+
+# Regex for sticker images embedded in HTML blobs
+_STICKER_IMG_RE = re.compile(r'<img[^>]+src="([^\"]+)"[^>]*title="([^\"]+)"', re.I)
+
+
+def extract_stickers(desc):
+    """Parse sticker thumbnails from Steam description HTML."""
+    if not isinstance(desc, dict):
+        return []
+
+    sticker_html = None
+    for d in desc.get("descriptions", []):
+        if d.get("name") == "sticker_info":
+            sticker_html = d.get("value", "")
+            break
+
+    if not sticker_html:
+        return []
+
+    stickers = []
+    for match in _STICKER_IMG_RE.finditer(sticker_html):
+        src, title = match.groups()
+        if src.startswith("//"):
+            src = "https:" + src
+        stickers.append({
+            "icon_url": src.strip(),
+            "name": unescape(title).strip() if title else ""
+        })
+
+    return stickers
+
+
+def rarity_details(desc):
+    """Return rarity display name and color from a description object."""
+    if not isinstance(desc, dict):
+        return None, None
+
+    rarity_name = None
+    rarity_color = None
+
+    for tag in desc.get("tags", []):
+        if tag.get("category") == "Rarity":
+            rarity_name = tag.get("localized_tag_name") or rarity_name
+            rarity_color = tag.get("color") or rarity_color
+            break
+
+    if not rarity_color:
+        rarity_color = desc.get("name_color")
+
+    if isinstance(rarity_color, str):
+        rarity_color = rarity_color.strip()
+        if rarity_color and not rarity_color.startswith('#'):
+            rarity_color = f'#' + rarity_color
+    else:
+        rarity_color = None
+
+    return rarity_name, rarity_color
 
 def tradable_text(desc):
     """Extract tradable status from item description, force time to 9:00:00."""
