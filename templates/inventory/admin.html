@@ -89,12 +89,11 @@
 
             <div id="inventory">
                 {% for skin in skins %}
-                    <div class="skin-item" 
+                    <div class="skin-item{% if skin.selected %} selected{% endif %}" 
                          data-tradable="{{ skin.tradable }}"
                          data-weapon="{{ skin.weapon_type }}"
                          data-type="{{ skin.item_type }}"
-                         data-index="{{ forloop.counter0 }}"
-                         {% if skin.selected %}class="selected"{% endif %}>
+                         data-index="{{ forloop.counter0 }}">
                         <div class="skin-image">
                             <img src="https://community.cloudflare.steamstatic.com/economy/image/{{ skin.icon_url }}" alt="{{ skin.name }}">
                             <input type="checkbox" name="selected_skins" value="{{ forloop.counter0 }}" {% if skin.selected %}checked{% endif %} class="skin-checkbox" style="display: none;">
