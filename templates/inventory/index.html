@@ -80,9 +80,20 @@
                 <div class="skin-item" 
                      data-tradable="{{ skin.tradable }}"
                      data-weapon="{{ skin.weapon_type }}"
-                     data-type="{{ skin.item_type }}">
+                     data-type="{{ skin.item_type }}"
+                     {% if skin.rarity %}data-rarity="{{ skin.rarity }}"{% endif %}
+                     {% if skin.rarity_color %}style="--rarity-color: {{ skin.rarity_color }};"{% endif %}>
                     <div class="skin-image">
                         <img src="https://community.cloudflare.steamstatic.com/economy/image/{{ skin.icon_url }}" alt="{{ skin.name }}">
+                        {% if skin.stickers %}
+                            <div class="sticker-stack">
+                                {% for sticker in skin.stickers %}
+                                    <div class="sticker-thumb" title="{{ sticker.name }}">
+                                        <img src="{{ sticker.icon_url }}" alt="{{ sticker.name }}">
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="skin-details">
                         <h3>{{ skin.name }}</h3>
