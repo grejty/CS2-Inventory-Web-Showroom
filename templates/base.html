@@ -36,6 +36,20 @@
         
         {% block content %}{% endblock %}
     </main>
+
+    <div id="modal-shell" class="modal-shell" hidden>
+        <div class="modal-overlay" data-modal-close="true"></div>
+        <div class="modal-window" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <button type="button" class="modal-close" data-modal-close="true" aria-label="Close dialog"></button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modal-title"></h3>
+                </div>
+                <div class="modal-body" id="modal-body"></div>
+                <div class="modal-footer" id="modal-footer"></div>
+            </div>
+        </div>
+    </div>
     
     <script>
         // Simplified theme toggle functionality
@@ -69,6 +83,157 @@
                     nameElement.innerHTML = nameParts[0].trim() + '<br>' + nameParts[1].trim();
                 }
             });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const shell = document.getElementById('modal-shell');
+            if (!shell) {
+                return;
+            }
+
+            const overlay = shell.querySelector('.modal-overlay');
+            const windowEl = shell.querySelector('.modal-window');
+            const titleEl = shell.querySelector('#modal-title');
+            const bodyEl = shell.querySelector('#modal-body');
+            const footerEl = shell.querySelector('#modal-footer');
+
+            function closeModal() {
+                shell.setAttribute('hidden', '');
+                shell.classList.remove('visible');
+                bodyEl.innerHTML = '';
+                footerEl.innerHTML = '';
+                windowEl.removeAttribute('data-modal-type');
+            }
+
+            function buildActionButton(action) {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `modal-btn ${action.variant ? `modal-btn-${action.variant}` : ''}`.trim();
+                btn.textContent = action.label;
+                btn.addEventListener('click', async () => {
+                    if (typeof action.onClick === 'function') {
+                        const result = await action.onClick();
+                        if (result === false) {
+                            return;
+                        }
+                    }
+                    closeModal();
+                });
+                return btn;
+            }
+
+            function openModal({ title, body, actions = [], modalType = null }) {
+                titleEl.textContent = title || '';
+                bodyEl.innerHTML = '';
+                footerEl.innerHTML = '';
+
+                if (body instanceof Node) {
+                    bodyEl.appendChild(body);
+                } else if (typeof body === 'string') {
+                    bodyEl.innerHTML = body;
+                }
+
+                const frag = document.createDocumentFragment();
+                actions.forEach(action => {
+                    frag.appendChild(buildActionButton(action));
+                });
+                footerEl.appendChild(frag);
+
+                if (modalType) {
+                    windowEl.setAttribute('data-modal-type', modalType);
+                }
+
+                shell.removeAttribute('hidden');
+                requestAnimationFrame(() => {
+                    shell.classList.add('visible');
+                });
+            }
+
+            shell.addEventListener('click', event => {
+                if (event.target.closest('[data-modal-close]')) {
+                    closeModal();
+                }
+            });
+
+            document.addEventListener('keyup', event => {
+                if (event.key === 'Escape' && !shell.hasAttribute('hidden')) {
+                    closeModal();
+                }
+            });
+
+            window.AppModal = {
+                open: openModal,
+                close: closeModal
+            };
+
+            window.InventoryUI = {
+                bindSkinActions(scope) {
+                    const root = scope || document;
+                    const modal = window.AppModal;
+                    if (!modal) {
+                        return;
+                    }
+
+                    const inspectButtons = root.querySelectorAll('.inspect-btn');
+                    inspectButtons.forEach(btn => {
+                        if (btn.dataset.bound === 'true') {
+                            return;
+                        }
+                        btn.dataset.bound = 'true';
+                        btn.addEventListener('click', () => {
+                            const link = btn.dataset.inspectLink;
+                            if (!link) {
+                                return;
+                            }
+                            const skinCard = btn.closest('.skin-item');
+                            let skinName = 'Skin';
+                            if (skinCard) {
+                                const rawName = skinCard.dataset?.name || skinCard.querySelector('h3')?.textContent || '';
+                                skinName = rawName.replace(/\s*\|\s*/g, ' ').replace(/\s+/g, ' ').trim() || 'Skin';
+                            }
+                            const message = document.createElement('div');
+                            message.className = 'modal-message';
+                            message.innerHTML = `<p>Open <strong>${skinName}</strong> in CS2 to inspect the finish. Steam will prompt you to confirm the launch.</p>`;
+                            const status = document.createElement('p');
+                            status.className = 'modal-status';
+                            message.appendChild(status);
+
+                            modal.open({
+                                title: 'Inspect in Game',
+                                body: message,
+                                modalType: 'inspect',
+                                actions: [
+                                    {
+                                        label: 'Open in Steam',
+                                        variant: 'primary',
+                                        onClick: () => {
+                                            window.location.href = link;
+                                        }
+                                    },
+                                    {
+                                        label: 'Copy Link',
+                                        variant: 'ghost',
+                                        onClick: async () => {
+                                            try {
+                                                await navigator.clipboard.writeText(link);
+                                                status.textContent = 'Copied to clipboard. Paste into Steam or chat to share.';
+                                                return false; // keep modal open
+                                            } catch (err) {
+                                                status.textContent = 'Copy failed. Try consenting to clipboard access or copy manually.';
+                                                return false;
+                                            }
+                                        }
+                                    },
+                                    {
+                                        label: 'Cancel',
+                                        variant: 'secondary'
+                                    }
+                                ]
+                            });
+                        });
+                    });
+                }
+            };
         });
     </script>
     

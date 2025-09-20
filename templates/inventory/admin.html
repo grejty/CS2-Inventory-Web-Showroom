@@ -89,11 +89,12 @@
 
             <div id="inventory">
                 {% for skin in skins %}
-                    <div class="skin-item{% if skin.selected %} selected{% endif %}" 
+                    <div class="skin-item admin-selectable{% if skin.selected %} selected{% endif %}" 
                          data-tradable="{{ skin.tradable }}"
                          data-weapon="{{ skin.weapon_type }}"
                          data-type="{{ skin.item_type }}"
                          data-index="{{ forloop.counter0 }}"
+                         data-name="{{ skin.name|escape }}"
                          {% if skin.rarity %}data-rarity="{{ skin.rarity }}"{% endif %}
                          {% if skin.rarity_color %}style="--rarity-color: {{ skin.rarity_color }};"{% endif %}>
                         <div class="skin-image">
@@ -115,6 +116,11 @@
                                 <div class="meta"><span class="label">Exterior:</span> {{ skin.exterior }}</div>
                             {% endif %}
                             <div class="meta"><span class="label">Tradable:</span> {{ skin.tradable }}</div>
+                        </div>
+                        <div class="skin-actions">
+                            {% if skin.inspect_link %}
+                                <button type="button" class="action-btn inspect-btn" data-inspect-link="{{ skin.inspect_link }}">Inspect in Game</button>
+                            {% endif %}
                         </div>
                     </div>
                 {% endfor %}
@@ -151,15 +157,17 @@
             // Make items clickable for selection
             items.forEach(item => {
                 const checkbox = item.querySelector('.skin-checkbox');
-                
+
                 item.addEventListener('click', function(event) {
+                    if (event.target.closest('.action-btn, .sticker-stack')) {
+                        return;
+                    }
+
                     event.preventDefault();
                     event.stopPropagation();
-                    
-                    // Toggle selected class
+
                     this.classList.toggle('selected');
-                    
-                    // Update checkbox state
+
                     if (checkbox) {
                         checkbox.checked = this.classList.contains('selected');
                     }
@@ -262,6 +270,10 @@
 
             // Initialize filters on page load
             applyFilters();
+
+            if (window.InventoryUI) {
+                window.InventoryUI.bindSkinActions(document.getElementById('inventory'));
+            }
         });
     </script>
     {% endif %}

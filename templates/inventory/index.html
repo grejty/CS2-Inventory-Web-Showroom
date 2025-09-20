@@ -81,6 +81,7 @@
                      data-tradable="{{ skin.tradable }}"
                      data-weapon="{{ skin.weapon_type }}"
                      data-type="{{ skin.item_type }}"
+                     data-name="{{ skin.name|escape }}"
                      {% if skin.rarity %}data-rarity="{{ skin.rarity }}"{% endif %}
                      {% if skin.rarity_color %}style="--rarity-color: {{ skin.rarity_color }};"{% endif %}>
                     <div class="skin-image">
@@ -108,6 +109,11 @@
                             <span class="value">{{ skin.tradable }}</span>
                         </div>
                     </div>
+                    <div class="skin-actions">
+                        {% if skin.inspect_link %}
+                            <button type="button" class="action-btn inspect-btn" data-inspect-link="{{ skin.inspect_link }}">Inspect in Game</button>
+                        {% endif %}
+                    </div>
                 </div>
             {% endfor %}
         </div>
@@ -123,7 +129,7 @@
             
             // Initial filter panel state
             filterPanel.style.display = 'none';
-            
+
             filterButton.addEventListener('click', function() {
                 const isHidden = filterPanel.style.display === 'none' || !filterPanel.style.display;
                 filterPanel.style.display = isHidden ? 'block' : 'none';
@@ -139,6 +145,10 @@
             // Add clickable selection functionality to items
             items.forEach(item => {
                 item.addEventListener('click', function(event) {
+                    if (event.target.closest('.action-btn, .sticker-stack')) {
+                        return;
+                    }
+
                     event.preventDefault();
                     event.stopPropagation();
                     
@@ -198,6 +208,10 @@
             
             // Initialize filters on page load
             applyFilters();
+
+            if (window.InventoryUI) {
+                window.InventoryUI.bindSkinActions(document.getElementById('inventory'));
+            }
         });
     </script>
     {% endif %}
