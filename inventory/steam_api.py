@@ -65,6 +65,12 @@ def fetch_inventory_from_api():
         stickers = extract_stickers(desc)
         rarity_name, rarity_color = rarity_details(desc)
 
+        inspect_link = None
+        if isinstance(desc.get("actions"), list) and desc["actions"]:
+            inspect_link = desc["actions"][0].get("link")
+        if not inspect_link and isinstance(desc.get("market_actions"), list) and desc["market_actions"]:
+            inspect_link = desc["market_actions"][0].get("link")
+
         for _ in range(count):  # Don't stack items
             skins.append({
                 "name": name,
@@ -76,7 +82,8 @@ def fetch_inventory_from_api():
                 "item_type": item_type or "Other",
                 "stickers": stickers.copy() if stickers else [],
                 "rarity": rarity_name,
-                "rarity_color": rarity_color
+                "rarity_color": rarity_color,
+                "inspect_link": inspect_link
             })
     return skins, len(skins), total_before_filters
 
