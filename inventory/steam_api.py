@@ -1,43 +1,69 @@
 import json
 import os
-import time
-import requests
+from json.decoder import JSONDecoder
+
 from django.conf import settings
 from .helpers import identify_item_types, tradable_text, exterior_text, extract_stickers, rarity_details
 
-def steam_get(params, tries=3, backoff=4):
-    """Call Steam API with retries and exponential backoff."""
-    headers = {
-        "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                      "AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/114.0.5735.199 Safari/537.36")
-    }
-    for attempt in range(tries):
-        r = requests.get(settings.STEAM_API_URL, params=params, headers=headers, timeout=10)
-        if r.status_code == 200:
-            body = r.json().get("response", {})
-            if body.get("assets"):
-                return body
-        if attempt < tries - 1:
-            time.sleep(backoff)
-    raise RuntimeError(f"Steam API returned {r.status_code} or empty response")
 
-def fetch_inventory_from_api():
-    """Fetch inventory from Steam API and process the data."""
-    params = {
-        "access_token": settings.STEAM_ACCESS_TOKEN,
-        "steamid": settings.STEAM_ID,
-        "appid": settings.STEAM_APP_ID,
-        "contextid": settings.STEAM_CONTEXT_ID,
-        "get_descriptions": "true",
-        "language": "english",
-        "count": "1000"
+def _normalize_descriptions(descriptions):
+    if isinstance(descriptions, dict):
+        if "descriptions" in descriptions:
+            descriptions = descriptions.get("descriptions", [])
+        else:
+            descriptions = list(descriptions.values())
+    return descriptions or []
+
+
+def _merge_inventory_payloads(payloads):
+    merged = {
+        "assets": [],
+        "descriptions": [],
+        "asset_properties": []
     }
 
-    data = steam_get(params)
-    assets, descriptions = data["assets"], data["descriptions"]
-    desc_map = {(d["classid"], d.get("instanceid", "0")): d for d in descriptions}
-    
+    seen_assets = set()
+    for payload in payloads:
+        assets = payload.get("assets", []) or []
+        for asset in assets:
+            asset_id = asset.get("assetid")
+            if asset_id in seen_assets:
+                continue
+            seen_assets.add(asset_id)
+            merged["assets"].append(asset)
+
+        merged["descriptions"].extend(_normalize_descriptions(payload.get("descriptions", [])))
+
+        for props in payload.get("asset_properties", []) or []:
+            merged["asset_properties"].append(props)
+
+    return merged
+
+
+def process_inventory_data(data):
+    """Transform raw Steam inventory payload into our skin list."""
+    assets = data.get("assets", [])
+    descriptions = _normalize_descriptions(data.get("descriptions", []))
+
+    desc_map = {}
+    for desc in descriptions:
+        classid = desc.get("classid")
+        if not classid:
+            continue
+        instanceid = desc.get("instanceid", "0")
+        desc_map[(classid, instanceid)] = desc
+
+    asset_properties_map = {}
+    for prop_entry in data.get("asset_properties", []) or []:
+        asset_id = prop_entry.get("assetid")
+        for prop in prop_entry.get("asset_properties", []) or []:
+            if asset_id not in asset_properties_map:
+                asset_properties_map[asset_id] = {}
+            if prop.get("name") == "Wear Rating" and prop.get("float_value") is not None:
+                asset_properties_map[asset_id]["wear_rating"] = float(prop["float_value"])
+            elif prop.get("name") == "Pattern Template" and prop.get("int_value") is not None:
+                asset_properties_map[asset_id]["pattern_template"] = int(prop["int_value"])
+
     # Count total items before filtering
     total_before_filters = sum(int(asset.get("amount", 1)) for asset in assets)
 
@@ -72,6 +98,8 @@ def fetch_inventory_from_api():
             inspect_link = desc["market_actions"][0].get("link")
 
         for _ in range(count):  # Don't stack items
+            asset_id = asset.get("assetid")
+            prop_data = asset_properties_map.get(asset_id, {})
             skins.append({
                 "name": name,
                 "icon_url": desc.get("icon_url", ""),
@@ -83,9 +111,53 @@ def fetch_inventory_from_api():
                 "stickers": stickers.copy() if stickers else [],
                 "rarity": rarity_name,
                 "rarity_color": rarity_color,
-                "inspect_link": inspect_link
+                "inspect_link": inspect_link,
+                "wear_rating": prop_data.get("wear_rating"),
+                "pattern_template": prop_data.get("pattern_template")
             })
     return skins, len(skins), total_before_filters
+
+
+def parse_inventory_json(raw_json):
+    """Parse a manual JSON payload copied from Steam community inventory."""
+    if isinstance(raw_json, (bytes, bytearray)):
+        raw_json = raw_json.decode("utf-8")
+
+    payloads = []
+
+    if isinstance(raw_json, str):
+        raw_json = raw_json.strip()
+        if not raw_json:
+            raise ValueError("Inventory JSON is empty")
+
+        decoder = JSONDecoder()
+        idx = 0
+        length = len(raw_json)
+        while idx < length:
+            while idx < length and raw_json[idx] in "\r\n\t ":
+                idx += 1
+            if idx >= length:
+                break
+            obj, end = decoder.raw_decode(raw_json, idx)
+            payloads.append(obj)
+            idx = end
+        if not payloads:
+            raise ValueError("Invalid JSON payload: could not parse data")
+    elif isinstance(raw_json, dict):
+        payloads.append(raw_json)
+    elif isinstance(raw_json, list):
+        payloads.extend(raw_json)
+    else:
+        raise ValueError("Unsupported inventory payload type")
+
+    normalized_payloads = []
+    for payload in payloads:
+        if not isinstance(payload, dict) or "assets" not in payload:
+            raise ValueError("Each inventory payload must include 'assets' and 'descriptions'")
+        normalized_payloads.append(payload)
+
+    merged = _merge_inventory_payloads(normalized_payloads)
+    return process_inventory_data(merged)
 
 def save_inventory_to_file(skins, filtered_total, total_before_filters=None):
     """Save inventory data to JSON file."""
@@ -129,34 +201,28 @@ def load_inventory_from_file():
         save_inventory_to_file(default_data["skins"], default_data["total"], default_data["total_before_filters"])
         return default_data["skins"], default_data["total_before_filters"]
 
-def update_inventory():
-    """Update inventory data from Steam API while preserving selection state."""
+def update_inventory_from_manual(raw_json):
+    """Update inventory using a manually pasted JSON payload."""
     try:
-        # First load current inventory to get selection states
         current_skins, _ = load_inventory_from_file()
-        
-        # Create a lookup map for selected state based on item name
+
         selection_map = {}
         for skin in current_skins:
             key = skin['name']
             if skin.get('exterior'):
                 key += f"_{skin['exterior']}"
             selection_map[key] = skin.get('selected', False)
-        
-        # Get new inventory data
-        skins, filtered_total, total_before_filters = fetch_inventory_from_api()
-        
-        # Update selection state based on previous selections
+
+        skins, filtered_total, total_before_filters = parse_inventory_json(raw_json)
+
         for skin in skins:
             key = skin['name']
             if skin.get('exterior'):
                 key += f"_{skin['exterior']}"
             skin['selected'] = selection_map.get(key, False)
-        
-        # Save updated inventory
+
         save_inventory_to_file(skins, filtered_total, total_before_filters)
-        # Return all three values
         return skins, filtered_total, total_before_filters
-    except Exception as e:
-        print(f"Error updating inventory: {e}")
+    except Exception as exc:
+        print(f"Error updating inventory from manual payload: {exc}")
         raise
