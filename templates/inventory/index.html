@@ -145,7 +145,7 @@
             // Add clickable selection functionality to items
             items.forEach(item => {
                 item.addEventListener('click', function(event) {
-                    if (event.target.closest('.action-btn, .sticker-stack')) {
+                    if (event.target.closest('.action-btn')) {
                         return;
                     }
 
