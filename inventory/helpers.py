@@ -23,6 +23,7 @@ ITEM_TYPES = [
 
 # Regex for tradable date
 _TRADABLE_RE = re.compile(r"Tradable/Marketable After\s+(.*)\s+GMT", re.I)
+_TRADE_PROTECTED_RE = re.compile(r"trade-protected.*until\s+(.*)\s+GMT", re.I)
 
 # Regex for sticker images embedded in HTML blobs
 _STICKER_IMG_RE = re.compile(r'<img[^>]+src="([^\"]+)"[^>]*title="([^\"]+)"', re.I)
@@ -93,6 +94,11 @@ def tradable_text(desc):
             # Replace the time part with 9:00:00 using regex
             updated = re.sub(r"\(\d{1,2}:\d{2}:\d{2}\)", "(9:00:00)", date_time_str)
             return updated
+        m2 = _TRADE_PROTECTED_RE.search(od.get("value", ""))
+        if m2:
+            date_time_str = m2.group(1).strip()
+            updated = re.sub(r"\(\d{1,2}:\d{2}:\d{2}\)", "(9:00:00)", date_time_str)
+            return f"Trade Protected until {updated}"
 
     return "No"
 
