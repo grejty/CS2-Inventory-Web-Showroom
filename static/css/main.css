@@ -402,6 +402,84 @@ main {
     background: var(--bg-secondary);
 }
 
+.manual-import {
+    margin: 16px auto 24px;
+    max-width: 1200px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.manual-import-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.manual-import-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.manual-instructions {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.manual-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-top: 8px;
+}
+
+.manual-import textarea {
+    width: 100%;
+    min-height: 160px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    color: var(--text-color);
+    padding: 12px;
+    font-family: 'Menlo', 'Consolas', 'Courier New', monospace;
+    font-size: 13px;
+    resize: vertical;
+}
+
+.manual-import textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(var(--accent-color-rgb), 0.15);
+}
+
+.manual-links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.manual-hint {
+    margin: 0;
+    font-size: 12px;
+    color: var(--accent-color);
+}
+
+.open-steam {
+    padding: 6px 16px;
+    font-size: 13px;
+    text-decoration: none;
+}
+
 .stats-controls-container {
     display: flex;
     align-items: center;
@@ -1279,5 +1357,3 @@ main {
 .justify-end {
     justify-content: flex-end !important;
 }
-
-
