@@ -842,9 +842,9 @@ main {
 }
 
 .sticker-thumb:hover {
-    transform: translateY(-4px) scale(1.35);
-    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.5);
-    filter: brightness(1.08);
+    transform: translateY(-2px) scale(1.18);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.45);
+    filter: brightness(1.04);
 }
 
 .sticker-thumb:hover::after {
@@ -852,7 +852,7 @@ main {
 }
 
 .sticker-thumb:hover img {
-    transform: scale(1.12);
+    transform: scale(1.08);
 }
 
 .skin-item:hover .skin-image img {
@@ -1384,5 +1384,6 @@ main {
 .justify-end {
     justify-content: flex-end !important;
 }
+
 
 
