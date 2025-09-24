@@ -73,8 +73,8 @@
                 <div class="manual-import-header">
                     <h3>Manual Steam Inventory Import</h3>
                     <div class="manual-links">
-                        <a href="{{ steam_inventory_urls.protected }}" target="_blank" rel="noopener" class="button open-steam">Open Trade-Protected (context 16)</a>
-                        <a href="{{ steam_inventory_urls.main }}" target="_blank" rel="noopener" class="button open-steam">Open Main Inventory (context 2)</a>
+                        <a href="{{ steam_inventory_urls.protected }}" target="_blank" rel="noopener noreferrer" class="button open-steam">Open Trade-Protected (context 16)</a>
+                        <a href="{{ steam_inventory_urls.main }}" target="_blank" rel="noopener noreferrer" class="button open-steam">Open Main Inventory (context 2)</a>
                     </div>
                 </div>
                 <div class="manual-fields">
@@ -119,6 +119,17 @@
                          {% if skin.rarity %}data-rarity="{{ skin.rarity }}"{% endif %}
                          {% if skin.rarity_color %}style="--rarity-color: {{ skin.rarity_color }};"{% endif %}>
                         <div class="skin-image">
+                            {% if 'Trade Protected' in skin.tradable %}
+                                <a href="https://help.steampowered.com/en/faqs/view/365F-4BEE-2AE2-7BDD" class="trade-protected-badge" target="_blank" rel="noopener noreferrer" title="Trade protected items cannot be modified, consumed, or transferred.">
+                                    <span class="badge-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                            <path d="M7 4h10m-10 0v2a4 4 0 0 0 1.4 3L12 12l3.6-3a4 4 0 0 0 1.4-3V4m0 16H7m10 0v-2a4 4 0 0 0-1.4-3L12 12l-3.6 3a4 4 0 0 0-1.4 3v2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M9.5 9.5h5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                                            <path d="M9.5 14.5h5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                                        </svg>
+                                    </span>
+                                </a>
+                            {% endif %}
                             <img src="https://community.cloudflare.steamstatic.com/economy/image/{{ skin.icon_url }}" alt="{{ skin.name }}">
                             {% if skin.stickers %}
                                 <div class="sticker-stack">
@@ -243,7 +254,7 @@
                 const checkbox = item.querySelector('.skin-checkbox');
 
                 item.addEventListener('click', function(event) {
-                    if (event.target.closest('.action-btn')) {
+                    if (event.target.closest('.action-btn') || event.target.closest('.trade-protected-badge')) {
                         return;
                     }
 

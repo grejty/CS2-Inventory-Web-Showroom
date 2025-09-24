@@ -737,6 +737,47 @@ main {
     z-index: 0;
 }
 
+.trade-protected-badge {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #facc15, #f59e0b);
+    color: #1f2937;
+    border-radius: 50%;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.35);
+    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+    text-decoration: none;
+    z-index: 3;
+}
+
+.trade-protected-badge:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35);
+}
+
+.trade-protected-badge .badge-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.trade-protected-badge .badge-icon svg {
+    width: 14px;
+    height: 14px;
+    display: block;
+}
+
+[data-theme="light"] .trade-protected-badge {
+    background: linear-gradient(135deg, #fde047, #facc15);
+    color: #1e293b;
+    box-shadow: 0 6px 12px rgba(148, 163, 184, 0.35);
+}
+
 .skin-image::before {
     content: "";
     position: absolute;
