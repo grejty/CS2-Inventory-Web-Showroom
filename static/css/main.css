@@ -1,4 +1,4 @@
-/* Theme Variables */
+﻿/* Theme Variables */
 :root {
     /* Dark theme variables (default) */
     --bg-color: #0d1117;
@@ -354,7 +354,7 @@ main {
 }
 
 .filter-option input[type="checkbox"]:checked::after {
-    content: "✓";
+    content: "âś“";
     position: absolute;
     color: white;
     font-size: 12px;
@@ -403,15 +403,19 @@ main {
 }
 
 .manual-import {
-    margin: 16px auto 24px;
-    max-width: 1200px;
+    margin: 12px auto 20px;
+    max-width: 900px;
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    padding: 20px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
+}
+
+.manual-import[hidden] {
+    display: none !important;
 }
 
 .manual-import-header {
@@ -429,28 +433,22 @@ main {
     color: var(--text-color);
 }
 
-.manual-instructions {
-    margin: 0;
-    color: var(--text-secondary);
-    font-size: 13px;
-    line-height: 1.5;
-}
 
 .manual-label {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     color: var(--text-secondary);
-    margin-top: 8px;
+    margin-top: 4px;
 }
 
 .manual-import textarea {
     width: 100%;
-    min-height: 160px;
+    min-height: 72px;
     border-radius: 6px;
     border: 1px solid var(--border-color);
     background: var(--bg-card);
     color: var(--text-color);
-    padding: 12px;
+    padding: 10px;
     font-family: 'Menlo', 'Consolas', 'Courier New', monospace;
     font-size: 13px;
     resize: vertical;
@@ -471,7 +469,8 @@ main {
 .manual-hint {
     margin: 0;
     font-size: 12px;
-    color: var(--accent-color);
+    color: var(--warning-color, var(--accent-color));
+
 }
 
 .open-steam {
@@ -1357,3 +1356,4 @@ main {
 .justify-end {
     justify-content: flex-end !important;
 }
+

@@ -17,7 +17,7 @@
                 <div class="search-input-wrapper">
                     <input type="text" id="search-box" placeholder="Search items..." />
                     <button id="filter-panel-toggle" class="filter-button" type="button" aria-label="Toggle filters">
-                        🔍
+                        &#128269;
                     </button>
                 </div>
             </div>
@@ -69,7 +69,7 @@
                 </div>
             </div>
 
-            <div class="manual-import" data-initial-visible="{{ show_manual_import|yesno:'true,false' }}"{% if not show_manual_import %} hidden{% endif %}>
+            <div class="manual-import" data-show="{{ show_manual_import|yesno:'true,false' }}" hidden>
                 <div class="manual-import-header">
                     <h3>Manual Steam Inventory Import</h3>
                     <div class="manual-links">
@@ -77,16 +77,11 @@
                         <a href="{{ steam_inventory_urls.main }}" target="_blank" rel="noopener" class="button open-steam">Open Main Inventory (context 2)</a>
                     </div>
                 </div>
-                <p class="manual-instructions">
-                    1. Open both inventory endpoints above — start with the trade-protected context (16), then the main context (2).<br>
-                    2. In each tab, use Developer Tools → Network to copy the JSON payload.<br>
-                    3. Paste them into the matching fields below, then press <strong>Refresh Inventory</strong> to merge everything.
-                </p>
                 <label for="inventory-json-protected" class="manual-label">Trade-protected inventory JSON (context 16)</label>
-                <textarea id="inventory-json-protected" name="inventory_json_protected" placeholder="Paste the JSON response from context 16 here">{{ pasted_json_protected }}</textarea>
+                <textarea id="inventory-json-protected" name="inventory_json_protected" rows="4" placeholder="Paste the JSON response from context 16 here">{{ pasted_json_protected }}</textarea>
                 <label for="inventory-json-main" class="manual-label">Primary inventory JSON (context 2)</label>
-                <textarea id="inventory-json-main" name="inventory_json_main" placeholder="Paste the JSON response from context 2 here">{{ pasted_json_main }}</textarea>
-                <p id="manual-refresh-hint" class="manual-hint"{% if not show_manual_import %} hidden{% endif %}>Copy the JSON from both inventory contexts (16 and 2), paste them above, then press refresh.</p>
+                <textarea id="inventory-json-main" name="inventory_json_main" rows="4" placeholder="Paste the JSON response from context 2 here">{{ pasted_json_main }}</textarea>
+                <p id="manual-refresh-hint" class="manual-hint" hidden></p>
             </div>
 
             <!-- Stats and controls container AFTER filter panel -->
@@ -170,9 +165,21 @@
             const refreshHint = document.getElementById('manual-refresh-hint');
 
             // Initial manual import state
-            if (manualImportSection && manualImportSection.dataset.initialVisible !== 'true') {
-                manualImportSection.setAttribute('hidden', '');
+            let manualImportRevealed = false;
+            if (manualImportSection) {
+                const shouldStartVisible = manualImportSection.dataset.show === 'true';
+                manualImportRevealed = shouldStartVisible;
+
+                if (shouldStartVisible) {
+                    manualImportSection.removeAttribute('hidden');
+                    manualImportSection.style.display = '';
+                } else {
+                    manualImportSection.setAttribute('hidden', '');
+                    manualImportSection.style.display = 'none';
+                }
+
                 if (refreshHint) {
+                    refreshHint.textContent = '';
                     refreshHint.setAttribute('hidden', '');
                 }
             }
@@ -187,12 +194,27 @@
                 filterToggle.classList.toggle('panel-open', isHidden);
             });
 
-            if (refreshBtn) {
+            if (refreshBtn && manualImportSection) {
                 refreshBtn.addEventListener('click', function(event) {
-                    if (manualImportSection && manualImportSection.hasAttribute('hidden')) {
+                    const hasProtected = inventoryJsonProtected && inventoryJsonProtected.value.trim();
+                    const hasMain = inventoryJsonMain && inventoryJsonMain.value.trim();
+
+                    if (!manualImportRevealed) {
                         manualImportSection.removeAttribute('hidden');
+                        manualImportSection.style.display = '';
+                        manualImportRevealed = true;
                         if (refreshHint) {
-                            refreshHint.textContent = 'Copy the JSON from both inventory contexts (16 and 2), paste them above, then press refresh again.';
+                            refreshHint.textContent = '';
+                            refreshHint.setAttribute('hidden', '');
+                        }
+                        event.preventDefault();
+                        event.stopPropagation();
+                        return;
+                    }
+
+                    if (!hasProtected || !hasMain) {
+                        if (refreshHint) {
+                            refreshHint.textContent = 'Both JSON fields are required before refreshing.';
                             refreshHint.removeAttribute('hidden');
                         }
                         event.preventDefault();
@@ -200,21 +222,16 @@
                         return;
                     }
 
-                    const hasProtected = inventoryJsonProtected && inventoryJsonProtected.value.trim();
-                    const hasMain = inventoryJsonMain && inventoryJsonMain.value.trim();
-
-                    if (!hasProtected || !hasMain) {
-                        if (refreshHint) {
-                            refreshHint.textContent = 'Paste both context 16 and context 2 JSON responses before refreshing.';
-                            refreshHint.removeAttribute('hidden');
-                        }
-                        event.preventDefault();
-                        event.stopPropagation();
+                    manualImportSection.setAttribute('hidden', '');
+                    manualImportSection.style.display = 'none';
+                    manualImportRevealed = false;
+                    if (refreshHint) {
+                        refreshHint.textContent = '';
+                        refreshHint.setAttribute('hidden', '');
                     }
                 });
             }
 
-            
             // Make items clickable for selection
             items.forEach(item => {
                 const checkbox = item.querySelector('.skin-checkbox');
@@ -339,3 +356,4 @@
     </script>
     {% endif %}
 {% endblock %}
+
