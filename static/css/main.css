@@ -354,7 +354,7 @@ main {
 }
 
 .filter-option input[type="checkbox"]:checked::after {
-    content: "âś“";
+    content: "Ă˘Ĺ›â€ś";
     position: absolute;
     color: white;
     font-size: 12px;
@@ -403,19 +403,46 @@ main {
 }
 
 .manual-import {
-    margin: 12px auto 20px;
-    max-width: 900px;
+    margin: 12px auto 14px;
+    max-width: 860px;
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    padding: 16px;
+    padding: 14px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
 .manual-import[hidden] {
     display: none !important;
+}
+
+.manual-import * {
+    box-sizing: border-box;
+}
+
+.manual-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.manual-field {
+    flex: 1 1 calc(50% - 9px);
+    max-width: calc(50% - 9px);
+    min-width: 240px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+@media (max-width: 720px) {
+    .manual-field {
+        flex: 1 1 100%;
+        max-width: 100%;
+        min-width: 100%;
+    }
 }
 
 .manual-import-header {
@@ -433,17 +460,16 @@ main {
     color: var(--text-color);
 }
 
-
 .manual-label {
     font-size: 12px;
     font-weight: 600;
     color: var(--text-secondary);
-    margin-top: 4px;
+    margin-top: 0;
 }
 
 .manual-import textarea {
     width: 100%;
-    min-height: 72px;
+    min-height: 64px;
     border-radius: 6px;
     border: 1px solid var(--border-color);
     background: var(--bg-card);
@@ -451,7 +477,9 @@ main {
     padding: 10px;
     font-family: 'Menlo', 'Consolas', 'Courier New', monospace;
     font-size: 13px;
-    resize: vertical;
+    resize: none;
+    overflow: auto;
+    box-sizing: border-box;
 }
 
 .manual-import textarea:focus {
@@ -1356,4 +1384,5 @@ main {
 .justify-end {
     justify-content: flex-end !important;
 }
+
 
