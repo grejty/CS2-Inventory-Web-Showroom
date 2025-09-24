@@ -77,10 +77,16 @@
                         <a href="{{ steam_inventory_urls.main }}" target="_blank" rel="noopener" class="button open-steam">Open Main Inventory (context 2)</a>
                     </div>
                 </div>
-                <label for="inventory-json-protected" class="manual-label">Trade-protected inventory JSON (context 16)</label>
-                <textarea id="inventory-json-protected" name="inventory_json_protected" rows="4" placeholder="Paste the JSON response from context 16 here">{{ pasted_json_protected }}</textarea>
-                <label for="inventory-json-main" class="manual-label">Primary inventory JSON (context 2)</label>
-                <textarea id="inventory-json-main" name="inventory_json_main" rows="4" placeholder="Paste the JSON response from context 2 here">{{ pasted_json_main }}</textarea>
+                <div class="manual-fields">
+                    <div class="manual-field">
+                        <label for="inventory-json-protected" class="manual-label">Trade-protected inventory JSON (context 16)</label>
+                        <textarea id="inventory-json-protected" name="inventory_json_protected" rows="2" placeholder="Paste the JSON response from context 16 here">{{ pasted_json_protected }}</textarea>
+                    </div>
+                    <div class="manual-field">
+                        <label for="inventory-json-main" class="manual-label">Primary inventory JSON (context 2)</label>
+                        <textarea id="inventory-json-main" name="inventory_json_main" rows="2" placeholder="Paste the JSON response from context 2 here">{{ pasted_json_main }}</textarea>
+                    </div>
+                </div>
                 <p id="manual-refresh-hint" class="manual-hint" hidden></p>
             </div>
 
