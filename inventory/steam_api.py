@@ -1,10 +1,42 @@
 import json
 import os
+import re
 from json.decoder import JSONDecoder
 
 from django.conf import settings
 from .helpers import identify_item_types, tradable_text, exterior_text, extract_stickers, rarity_details
 
+
+
+def _resolve_inspect_link(template, asset_id):
+    """Replace Steam placeholders in inspect links with concrete values."""
+    if not template:
+        return None
+
+    link = template
+    replacements = {}
+
+    steam_id = getattr(settings, 'STEAM_ID', None)
+    if steam_id:
+        steam_id = str(steam_id)
+        replacements.update({
+            '%owner_steamid%': steam_id,
+            '%original_owner_steamid%': steam_id,
+            '%owner_steamid64%': steam_id,
+        })
+
+    if asset_id:
+        replacements['%assetid%'] = str(asset_id)
+
+    for placeholder, value in replacements.items():
+        if placeholder in link and value:
+            link = link.replace(placeholder, value)
+
+    unresolved_tokens = set(re.findall(r'%([A-Za-z_]+)%', link))
+    if unresolved_tokens:
+        return None
+
+    return link
 
 def _normalize_descriptions(descriptions):
     if isinstance(descriptions, dict):
@@ -97,8 +129,10 @@ def process_inventory_data(data):
         if not inspect_link and isinstance(desc.get("market_actions"), list) and desc["market_actions"]:
             inspect_link = desc["market_actions"][0].get("link")
 
+        asset_id = asset.get("assetid")
+        resolved_inspect_link = _resolve_inspect_link(inspect_link, asset_id)
+
         for _ in range(count):  # Don't stack items
-            asset_id = asset.get("assetid")
             prop_data = asset_properties_map.get(asset_id, {})
             skins.append({
                 "name": name,
@@ -111,7 +145,8 @@ def process_inventory_data(data):
                 "stickers": stickers.copy() if stickers else [],
                 "rarity": rarity_name,
                 "rarity_color": rarity_color,
-                "inspect_link": inspect_link,
+                "inspect_link": resolved_inspect_link,
+                "asset_id": asset_id,
                 "wear_rating": prop_data.get("wear_rating"),
                 "pattern_template": prop_data.get("pattern_template")
             })

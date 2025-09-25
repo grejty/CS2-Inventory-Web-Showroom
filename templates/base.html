@@ -180,56 +180,13 @@
                             return;
                         }
                         btn.dataset.bound = 'true';
-                        btn.addEventListener('click', () => {
+                        btn.addEventListener('click', event => {
+                            event.preventDefault();
                             const link = btn.dataset.inspectLink;
                             if (!link) {
                                 return;
                             }
-                            const skinCard = btn.closest('.skin-item');
-                            let skinName = 'Skin';
-                            if (skinCard) {
-                                const rawName = skinCard.dataset?.name || skinCard.querySelector('h3')?.textContent || '';
-                                skinName = rawName.replace(/\s*\|\s*/g, ' ').replace(/\s+/g, ' ').trim() || 'Skin';
-                            }
-                            const message = document.createElement('div');
-                            message.className = 'modal-message';
-                            message.innerHTML = `<p>Open <strong>${skinName}</strong> in CS2 to inspect the finish. Steam will prompt you to confirm the launch.</p>`;
-                            const status = document.createElement('p');
-                            status.className = 'modal-status';
-                            message.appendChild(status);
-
-                            modal.open({
-                                title: 'Inspect in Game',
-                                body: message,
-                                modalType: 'inspect',
-                                actions: [
-                                    {
-                                        label: 'Open in Steam',
-                                        variant: 'primary',
-                                        onClick: () => {
-                                            window.location.href = link;
-                                        }
-                                    },
-                                    {
-                                        label: 'Copy Link',
-                                        variant: 'ghost',
-                                        onClick: async () => {
-                                            try {
-                                                await navigator.clipboard.writeText(link);
-                                                status.textContent = 'Copied to clipboard. Paste into Steam or chat to share.';
-                                                return false; // keep modal open
-                                            } catch (err) {
-                                                status.textContent = 'Copy failed. Try consenting to clipboard access or copy manually.';
-                                                return false;
-                                            }
-                                        }
-                                    },
-                                    {
-                                        label: 'Cancel',
-                                        variant: 'secondary'
-                                    }
-                                ]
-                            });
+                            window.location.href = link;
                         });
                     });
                 }
