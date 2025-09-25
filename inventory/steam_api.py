@@ -147,8 +147,8 @@ def process_inventory_data(data):
                 "rarity_color": rarity_color,
                 "inspect_link": resolved_inspect_link,
                 "asset_id": asset_id,
-                "wear_rating": prop_data.get("wear_rating"),
-                "pattern_template": prop_data.get("pattern_template")
+                "pattern_template": prop_data.get("pattern_template"),
+                "float": prop_data.get("wear_rating")
             })
     return skins, len(skins), total_before_filters
 
@@ -223,7 +223,17 @@ def load_inventory_from_file():
         if os.path.exists(settings.LOCAL_DATA_FILE) and os.path.getsize(settings.LOCAL_DATA_FILE) > 0:
             with open(settings.LOCAL_DATA_FILE, encoding="utf-8") as fp:
                 data = json.load(fp)
-            return data.get("skins", []), data.get("total_before_filters", data.get("total", 0))
+
+            skins = data.get("skins", [])
+            for skin in skins:
+                wear = skin.get("wear_rating")
+                if wear is None and skin.get("float") is not None:
+                    wear = skin.get("float")
+                    skin["wear_rating"] = wear
+                skin.setdefault("float", wear)
+                skin.setdefault("pattern_template", None)
+
+            return skins, data.get("total_before_filters", data.get("total", 0))
         else:
             # Create default data structure and save it
             default_data = {"skins": [], "total": 0, "total_before_filters": 0}
