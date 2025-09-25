@@ -150,6 +150,9 @@
                             {% if skin.exterior %}
                                 <div class="meta"><span class="label">Exterior:</span> {{ skin.exterior }}</div>
                             {% endif %}
+                            {% if skin.float is not None %}
+                                <div class="meta"><span class="label">Float:</span> <span class="value">{{ skin.float|floatformat:5 }}</span></div>
+                            {% endif %}
                             <div class="meta"><span class="label">Tradable:</span> {{ skin.tradable }}</div>
                         </div>
                         <div class="skin-actions">

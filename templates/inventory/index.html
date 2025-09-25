@@ -118,6 +118,12 @@
                                 <span class="value">{{ skin.exterior }}</span>
                             </div>
                         {% endif %}
+                        {% if skin.float is not None %}
+                            <div class="meta">
+                                <span class="label">Float:</span>
+                                <span class="value">{{ skin.float|floatformat:5 }}</span>
+                            </div>
+                        {% endif %}
                         <div class="meta" data-tradable="{{ skin.tradable }}">
                             <span class="label">Tradable:</span>
                             <span class="value">{{ skin.tradable }}</span>
