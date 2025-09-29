@@ -796,16 +796,16 @@ main {
     left: 0;
     right: 0;
     bottom: 0;
-    height: 82px;
+    height: 140px;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0), var(--rarity-color, rgba(0, 0, 0, 0.45)));
-    opacity: 0.55;
+    opacity: 0.3;
     pointer-events: none;
     transition: opacity 0.2s ease-out;
     z-index: 0;
 }
 
 .skin-item:hover .skin-image::after {
-    opacity: 0.75;
+    opacity: 0.45;
 }
 
 [data-theme="light"] .skin-image::before {
@@ -814,7 +814,7 @@ main {
 }
 
 [data-theme="light"] .skin-image::after {
-    opacity: 0.35;
+    opacity: 0.2;
     mix-blend-mode: multiply;
 }
 
