@@ -913,8 +913,8 @@ main {
 
 .skin-header {
     position: relative;
-    flex: 0 0 56px;
-    height: 56px;
+    flex: 0 0 auto;
+    min-height: 56px;
     background: var(--bg-secondary);
 }
 
@@ -939,8 +939,8 @@ main {
     color: var(--text-color);
     line-height: 1.15;
     display: -webkit-box;
-    line-clamp: 2;
-    -webkit-line-clamp: 2;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
