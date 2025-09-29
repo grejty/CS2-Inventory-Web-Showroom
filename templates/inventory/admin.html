@@ -120,7 +120,7 @@
                          {% if skin.rarity_color %}style="--rarity-color: {{ skin.rarity_color }};"{% endif %}>
                         <div class="skin-header{% if skin.stickers %} has-stickers{% endif %}">
                             <h3 class="skin-title">{{ skin.name }}</h3>
-                            {% if skin.exterior %}
+                            {% if skin.exterior and skin.exterior != "Not Painted" %}
                                 <p class="skin-exterior">{{ skin.exterior }}</p>
                             {% endif %}
                             {% if skin.stickers %}
