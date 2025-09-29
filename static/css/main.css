@@ -910,6 +910,14 @@ main {
     gap: 4px;
 }
 
+.skin-header {
+    position: relative;
+}
+
+.skin-header.has-stickers .skin-title {
+    padding-right: 64px;
+}
+
 .skin-title {
     margin: 0;
     padding: 14px 14px 12px;
