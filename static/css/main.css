@@ -727,6 +727,7 @@ main {
 }
 
 .skin-image {
+    flex: 0 0 170px;
     height: 170px;
     background: var(--bg-secondary);
     display: flex;
@@ -912,6 +913,7 @@ main {
 
 .skin-header {
     position: relative;
+    flex: 0 0 auto;
 }
 
 .skin-header.has-stickers .skin-title {
@@ -920,12 +922,21 @@ main {
 
 .skin-title {
     margin: 0;
-    padding: 14px 14px 12px;
+    padding: 12px 14px 12px;
     background: var(--bg-secondary);
     font-size: 14px;
     font-weight: 600;
     color: var(--text-color);
-    line-height: 1.4;
+    line-height: 1.35;
+    min-height: 56px;
+    max-height: 56px;
+    display: -webkit-box;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
 }
 
 .meta {
