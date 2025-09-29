@@ -84,6 +84,7 @@
                      data-name="{{ skin.name|escape }}"
                      {% if skin.rarity %}data-rarity="{{ skin.rarity }}"{% endif %}
                      {% if skin.rarity_color %}style="--rarity-color: {{ skin.rarity_color }};"{% endif %}>
+                    <h3 class="skin-title">{{ skin.name }}</h3>
                     <div class="skin-image">
                         {% if 'Trade Protected' in skin.tradable %}
                             <a href="https://help.steampowered.com/en/faqs/view/365F-4BEE-2AE2-7BDD" class="trade-protected-badge" target="_blank" rel="noopener noreferrer" title="Trade protected items cannot be modified, consumed, or transferred.">
@@ -111,7 +112,6 @@
                         {% endif %}
                     </div>
                     <div class="skin-details">
-                        <h3>{{ skin.name }}</h3>
                         {% if skin.exterior %}
                             <div class="meta">
                                 <span class="label">Exterior:</span>
@@ -149,6 +149,10 @@
             
             // Initial filter panel state
             filterPanel.style.display = 'none';
+
+            if (window.formatSkinTitles) {
+                window.formatSkinTitles();
+            }
 
             filterButton.addEventListener('click', function() {
                 const isHidden = filterPanel.style.display === 'none' || !filterPanel.style.display;

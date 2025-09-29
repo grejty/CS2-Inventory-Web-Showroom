@@ -910,8 +910,10 @@ main {
     gap: 4px;
 }
 
-.skin-details h3 {
-    margin: 0 0 8px;
+.skin-title {
+    margin: 0;
+    padding: 14px 14px 12px;
+    background: var(--bg-secondary);
     font-size: 14px;
     font-weight: 600;
     color: var(--text-color);
