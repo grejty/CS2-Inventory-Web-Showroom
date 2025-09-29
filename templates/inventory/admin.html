@@ -153,7 +153,26 @@
                         </div>
                         <div class="skin-details">
                             {% if skin.float is not None %}
-                                <div class="meta"><span class="label">Float:</span> <span class="value">{{ skin.float|floatformat:5 }}</span></div>
+                                <div class="float-bar-container" style="--float-value: {{ skin.float }};">
+                                    <div class="float-bar" role="presentation">
+                                        <span class="float-segment segment-fn" title="Factory New (0.00 – 0.07)" aria-hidden="true"></span>
+                                        <span class="float-segment segment-mw" title="Minimal Wear (0.07 – 0.15)" aria-hidden="true"></span>
+                                        <span class="float-segment segment-ft" title="Field-Tested (0.15 – 0.38)" aria-hidden="true"></span>
+                                        <span class="float-segment segment-ww" title="Well-Worn (0.38 – 0.45)" aria-hidden="true"></span>
+                                        <span class="float-segment segment-bs" title="Battle-Scarred (0.45 – 1.00)" aria-hidden="true"></span>
+                                    </div>
+                                    <span class="float-indicator" aria-hidden="true"></span>
+                                </div>
+                                <div class="float-stats" aria-label="Float and pattern information">
+                                    <span class="float-value" title="Float Value&#10;Controls how much wear the skin has and ranges from 0-1">{{ skin.float|floatformat:6 }}</span>
+                                    <span class="paint-seed" title="Paint Seed&#10;Controls the texture placement of the skin and ranges from 0-1000">
+                                        {% if skin.pattern_template %}
+                                            {{ skin.pattern_template }}
+                                        {% else %}
+                                            —
+                                        {% endif %}
+                                    </span>
+                                </div>
                             {% endif %}
                             <div class="meta"><span class="label">Tradable:</span> {{ skin.tradable }}</div>
                         </div>
