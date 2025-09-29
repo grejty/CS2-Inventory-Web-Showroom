@@ -86,6 +86,9 @@
                      {% if skin.rarity_color %}style="--rarity-color: {{ skin.rarity_color }};"{% endif %}>
                     <div class="skin-header{% if skin.stickers %} has-stickers{% endif %}">
                         <h3 class="skin-title">{{ skin.name }}</h3>
+                        {% if skin.exterior %}
+                            <p class="skin-exterior">{{ skin.exterior }}</p>
+                        {% endif %}
                         {% if skin.stickers %}
                             <div class="sticker-stack">
                                 {% for sticker in skin.stickers %}
@@ -114,12 +117,6 @@
                         <img src="https://community.cloudflare.steamstatic.com/economy/image/{{ skin.icon_url }}" alt="{{ skin.name }}">
                     </div>
                     <div class="skin-details">
-                        {% if skin.exterior %}
-                            <div class="meta">
-                                <span class="label">Exterior:</span>
-                                <span class="value">{{ skin.exterior }}</span>
-                            </div>
-                        {% endif %}
                         {% if skin.float is not None %}
                             <div class="meta">
                                 <span class="label">Float:</span>
