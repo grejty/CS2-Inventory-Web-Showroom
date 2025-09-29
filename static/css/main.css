@@ -908,7 +908,7 @@ main {
     padding: 14px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
 }
 
 .skin-header {
@@ -1005,7 +1005,7 @@ main {
 
 .float-indicator {
     position: absolute;
-    bottom: 15px;
+    bottom: 10px;
     left: calc(var(--float-value, 0) * 100%);
     transform: translateX(-50%);
     display: flex;
@@ -1015,24 +1015,15 @@ main {
     pointer-events: none;
 }
 
-.float-indicator::before {
-    content: "";
-    display: block;
-    width: 2px;
-    height: 3px;
-    border-radius: 999px;
-    background: var(--text-color);
-    opacity: 0.9;
-}
 
 .float-indicator::after {
     content: "";
     display: block;
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 5px solid var(--text-color);
+    width: 19px;
+    height: 19px;
+    background: var(--text-color);
+    mask: url("../images/float-indicator.svg") center / contain no-repeat;
+    -webkit-mask: url("../images/float-indicator.svg") center / contain no-repeat;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
 }
 
