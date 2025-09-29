@@ -74,16 +74,32 @@
             });
         });
         
-        document.addEventListener('DOMContentLoaded', function() {
-            // Format skin names - replace | with line breaks but keep same style
-            document.querySelectorAll('.skin-details h3').forEach(function(nameElement) {
-                const originalName = nameElement.textContent;
-                if (originalName.includes('|')) {
-                    const nameParts = originalName.split('|');
-                    nameElement.innerHTML = nameParts[0].trim() + '<br>' + nameParts[1].trim();
+        function formatSkinTitles() {
+            document.querySelectorAll('.skin-title').forEach(title => {
+                if (title.dataset.formatted === 'true') {
+                    return;
                 }
+
+                const segments = title.textContent.split('|').map(part => part.trim()).filter(Boolean);
+                if (segments.length > 1) {
+                    title.textContent = '';
+                    segments.forEach((part, index) => {
+                        const span = document.createElement('span');
+                        span.textContent = part;
+                        title.appendChild(span);
+                        if (index < segments.length - 1) {
+                            title.appendChild(document.createElement('br'));
+                        }
+                    });
+                }
+
+                title.dataset.formatted = 'true';
             });
-        });
+        }
+
+        window.formatSkinTitles = formatSkinTitles;
+
+        document.addEventListener('DOMContentLoaded', formatSkinTitles);
 
         document.addEventListener('DOMContentLoaded', function() {
             const shell = document.getElementById('modal-shell');
