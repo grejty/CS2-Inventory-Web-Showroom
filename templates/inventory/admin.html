@@ -177,9 +177,11 @@
                             <div class="meta"><span class="label">Tradable:</span> {{ skin.tradable }}</div>
                         </div>
                         <div class="skin-actions">
-                            {% if skin.inspect_link %}
-                                <button type="button" class="action-btn inspect-btn" data-inspect-link="{{ skin.inspect_link }}">Inspect in Game</button>
-                            {% endif %}
+                                {% if skin.inspect_link %}
+                                <a href="{{ skin.inspect_link }}" class="inspect-btn" data-inspect-link="{{ skin.inspect_link }}" aria-label="Inspect in Game" title="Inspect in Game">
+                                    <span class="inspect-icon" aria-hidden="true"></span>
+                                </a>
+                                {% endif %}
                         </div>
                     </div>
                 {% endfor %}
@@ -285,7 +287,7 @@
                 const checkbox = item.querySelector('.skin-checkbox');
 
                 item.addEventListener('click', function(event) {
-                    if (event.target.closest('.action-btn') || event.target.closest('.trade-protected-badge')) {
+                    if (event.target.closest('.inspect-btn') || event.target.closest('.trade-protected-badge')) {
                         return;
                     }
 
