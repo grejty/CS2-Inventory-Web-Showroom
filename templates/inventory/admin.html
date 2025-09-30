@@ -193,6 +193,21 @@
                                 </a>
                             {% endif %}
                         </div>
+                        <div class="skin-price skin-price--editable">
+                            <label class="skin-price__label" for="price_{{ forloop.counter0 }}">Price</label>
+                            <div class="skin-price-input">
+                                <span class="skin-price-input__currency" aria-hidden="true">€</span>
+                                <input type="number"
+                                       step="0.01"
+                                       min="0"
+                                       inputmode="decimal"
+                                       id="price_{{ forloop.counter0 }}"
+                                       name="price_{{ forloop.counter0 }}"
+                                       value="{% if skin.price_eur %}{{ skin.price_eur }}{% endif %}"
+                                       placeholder="0.00"
+                                       aria-label="Enter price in euros for {{ skin.name }}">
+                            </div>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
@@ -297,7 +312,7 @@
                 const checkbox = item.querySelector('.skin-checkbox');
 
                 item.addEventListener('click', function(event) {
-                    if (event.target.closest('.inspect-btn') || event.target.closest('.trade-protected-badge')) {
+                    if (event.target.closest('.inspect-btn') || event.target.closest('.trade-protected-badge') || event.target.closest('.skin-price')) {
                         return;
                     }
 
