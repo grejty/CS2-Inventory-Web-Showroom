@@ -151,7 +151,7 @@
                             <img src="https://community.cloudflare.steamstatic.com/economy/image/{{ skin.icon_url }}" alt="{{ skin.name }}">
                             <input type="checkbox" name="selected_skins" value="{{ forloop.counter0 }}" {% if skin.selected %}checked{% endif %} class="skin-checkbox" style="display: none;">
                         </div>
-                        <div class="skin-details">
+                        <div class="skin-details{% if skin.float is None %} skin-details--empty{% endif %}">
                             {% if skin.float is not None %}
                                 <div class="float-bar-container" style="--float-value: {{ skin.float }};">
                                     <div class="float-bar" role="presentation">

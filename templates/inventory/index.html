@@ -116,7 +116,7 @@
                         {% endif %}
                         <img src="https://community.cloudflare.steamstatic.com/economy/image/{{ skin.icon_url }}" alt="{{ skin.name }}">
                     </div>
-                    <div class="skin-details">
+                    <div class="skin-details{% if skin.float is None %} skin-details--empty{% endif %}">
                         {% if skin.float is not None %}
                             <div class="float-bar-container" style="--float-value: {{ skin.float }};">
                                 <div class="float-bar" role="presentation">
