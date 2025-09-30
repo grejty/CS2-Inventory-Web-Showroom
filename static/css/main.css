@@ -736,7 +736,7 @@ main {
     align-items: center;
     justify-content: center;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     z-index: 0;
@@ -873,7 +873,7 @@ main {
     transition: transform 0.18s ease;
 }
 
-.sticker-thumb::after {
+.sticker-thumb::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -890,7 +890,7 @@ main {
     filter: brightness(1.04);
 }
 
-.sticker-thumb:hover::after {
+.sticker-thumb:hover::before {
     opacity: 1;
 }
 
@@ -993,12 +993,23 @@ main {
     width: 100%;
     height: 12px;
     border-radius: 999px;
-    overflow: hidden;
+    overflow: visible;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+    position: relative;
 }
 
 .float-segment {
     height: 100%;
+}
+
+.float-segment:first-child {
+    border-top-left-radius: 999px;
+    border-bottom-left-radius: 999px;
+}
+
+.float-segment:last-child {
+    border-top-right-radius: 999px;
+    border-bottom-right-radius: 999px;
 }
 
 .segment-fn { background: #2ecc71; flex: 0 0 7%; }
@@ -1136,27 +1147,6 @@ main {
     transition: background-color 0.15s ease;
 }
 
-.inspect-btn::after {
-    content: "Inspect in Game";
-    position: absolute;
-    bottom: calc(100% + 8px);
-    left: 50%;
-    transform: translate(-50%, 6px);
-    opacity: 0;
-    background: var(--bg-secondary);
-    color: var(--text-color);
-    padding: 6px 10px;
-    border-radius: 6px;
-    border: 1px solid var(--border-color);
-    white-space: nowrap;
-    font-size: 11px;
-    font-weight: 500;
-    line-height: 1.2;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
-    pointer-events: none;
-    transition: opacity 0.15s ease, transform 0.15s ease;
-    z-index: 5;
-}
 
 .inspect-btn:hover,
 .inspect-btn:focus-visible {
@@ -1170,15 +1160,57 @@ main {
     border-radius: 50%;
 }
 
-.inspect-btn:hover::after,
-.inspect-btn:focus-visible::after {
+.inspect-btn:hover .inspect-icon,
+.inspect-btn:focus-visible .inspect-icon {
+    background-color: var(--accent-color);
+}
+
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    opacity: 0;
+    background: var(--bg-secondary);
+    color: var(--text-color);
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.35;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    z-index: 20;
+
+    width: auto;
+    min-width: max-content;
+    max-width: min(320px, calc(100vw - 32px));
+    white-space: normal;
+    word-break: break-word;    
+    text-align: left;
+}
+
+@supports (text-wrap: balance) {
+    [data-tooltip]::after {
+        text-wrap: balance;
+    }
+}
+
+[data-tooltip]:hover::after,
+[data-tooltip]:focus-visible::after {
     opacity: 1;
     transform: translate(-50%, 0);
 }
 
-.inspect-btn:hover .inspect-icon,
-.inspect-btn:focus-visible .inspect-icon {
-    background-color: var(--accent-color);
+.trade-protected-badge[data-tooltip] {
+    position: absolute;
 }
 
 /* Tradability-specific styling */

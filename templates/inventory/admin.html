@@ -126,7 +126,7 @@
                             {% if skin.stickers %}
                                 <div class="sticker-stack">
                                     {% for sticker in skin.stickers %}
-                                        <div class="sticker-thumb" title="{{ sticker.name }}">
+                                        <div class="sticker-thumb" data-tooltip="{{ sticker.name }}" aria-label="{{ sticker.name }}">
                                             <img src="{{ sticker.icon_url }}" alt="{{ sticker.name }}">
                                         </div>
                                     {% endfor %}
@@ -135,7 +135,7 @@
                         </div>
                         <div class="skin-image">
                             {% if 'Trade Protected' in skin.tradable %}
-                                <a href="https://help.steampowered.com/en/faqs/view/365F-4BEE-2AE2-7BDD" class="trade-protected-badge" target="_blank" rel="noopener noreferrer" title="Trade protected items cannot be modified, consumed, or transferred.">
+                                <a href="https://help.steampowered.com/en/faqs/view/365F-4BEE-2AE2-7BDD" class="trade-protected-badge" target="_blank" rel="noopener noreferrer" data-tooltip="Trade protected items cannot be modified, consumed, or transferred" aria-label="Trade protected items cannot be modified, consumed, or transferred">
                                     <span class="badge-icon" aria-hidden="true">
                                         <svg viewBox="0 0 24 28" focusable="false" aria-hidden="true">
                                             <path d="M12 1.5l8 2.9v6.6c0 5.2-3.5 10.1-8 12-4.5-1.9-8-6.8-8-12V4.4z" fill="#facc15"/>
@@ -155,17 +155,17 @@
                             {% if skin.float is not None %}
                                 <div class="float-bar-container" style="--float-value: {{ skin.float }};">
                                     <div class="float-bar" role="presentation">
-                                        <span class="float-segment segment-fn" title="Factory New (0.00 – 0.07)" aria-hidden="true"></span>
-                                        <span class="float-segment segment-mw" title="Minimal Wear (0.07 – 0.15)" aria-hidden="true"></span>
-                                        <span class="float-segment segment-ft" title="Field-Tested (0.15 – 0.38)" aria-hidden="true"></span>
-                                        <span class="float-segment segment-ww" title="Well-Worn (0.38 – 0.45)" aria-hidden="true"></span>
-                                        <span class="float-segment segment-bs" title="Battle-Scarred (0.45 – 1.00)" aria-hidden="true"></span>
+                                        <span class="float-segment segment-fn" data-tooltip="Factory New (0.00 – 0.07)" aria-hidden="true"></span>
+                                        <span class="float-segment segment-mw" data-tooltip="Minimal Wear (0.07 – 0.15)" aria-hidden="true"></span>
+                                        <span class="float-segment segment-ft" data-tooltip="Field-Tested (0.15 – 0.38)" aria-hidden="true"></span>
+                                        <span class="float-segment segment-ww" data-tooltip="Well-Worn (0.38 – 0.45)" aria-hidden="true"></span>
+                                        <span class="float-segment segment-bs" data-tooltip="Battle-Scarred (0.45 – 1.00)" aria-hidden="true"></span>
                                     </div>
                                     <span class="float-indicator" aria-hidden="true"></span>
                                 </div>
                                 <div class="float-stats" aria-label="Float and pattern information">
-                                    <span class="float-value" title="Float Value&#10;Controls how much wear the skin has and ranges from 0-1">{{ skin.float|floatformat:6 }}</span>
-                                    <span class="paint-seed" title="Paint Seed&#10;Controls the texture placement of the skin and ranges from 0-1000">
+                                    <span class="float-value" data-tooltip="Float value&#10;controls how much wear the skin has and ranges from 0-1">{{ skin.float|floatformat:6 }}</span>
+                                    <span class="paint-seed" data-tooltip="Paint seed&#10;controls the texture placement of the skin and ranges from 0-1000">
                                         {% if skin.pattern_template %}
                                             {{ skin.pattern_template }}
                                         {% else %}
@@ -178,7 +178,7 @@
                         </div>
                         <div class="skin-actions">
                                 {% if skin.inspect_link %}
-                                <a href="{{ skin.inspect_link }}" class="inspect-btn" data-inspect-link="{{ skin.inspect_link }}" aria-label="Inspect in Game">
+                                <a href="{{ skin.inspect_link }}" class="inspect-btn" data-inspect-link="{{ skin.inspect_link }}" aria-label="Inspect in Game" data-tooltip="Inspect in Game">
                                     <span class="inspect-icon" aria-hidden="true"></span>
                                 </a>
                                 {% endif %}
