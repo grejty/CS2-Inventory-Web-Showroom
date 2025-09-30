@@ -1,6 +1,8 @@
 from django.shortcuts import render
 
 # Create your views here.
+from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
+
 from django.shortcuts import render, redirect
 from django.conf import settings
 from .steam_api import (
@@ -164,6 +166,29 @@ def admin_view(request):
                 # Update selection status for all skins
                 for i, skin in enumerate(skins):
                     skin['selected'] = (i in selected_indices)
+
+            # Update price information for each skin
+            for i, skin in enumerate(skins):
+                price_key = f'price_{i}'
+                raw_value = request.POST.get(price_key, '')
+                previous_price = skin.get('price_eur')
+                if raw_value is None:
+                    continue
+                raw_value = raw_value.strip()
+                if not raw_value:
+                    skin['price_eur'] = None
+                    continue
+
+                normalized = raw_value.replace(',', '.').replace('€', '').strip()
+                try:
+                    price_decimal = Decimal(normalized)
+                    if price_decimal < 0:
+                        raise InvalidOperation
+                    price_decimal = price_decimal.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+                    skin['price_eur'] = format(price_decimal, '0.00')
+                except (InvalidOperation, ValueError):
+                    # Keep previous price if parsing fails
+                    skin['price_eur'] = previous_price
     
             # Save updated inventory back to file
             save_inventory_to_file(skins, len(skins), total_before_filters)

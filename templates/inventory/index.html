@@ -158,6 +158,12 @@
                             </a>
                         {% endif %}
                     </div>
+                    {% if skin.price_eur %}
+                        <div class="skin-price skin-price--display" aria-label="Price">
+                            <span class="skin-price__label">Price</span>
+                            <span class="skin-price__value"><span class="skin-price__currency">€</span>{{ skin.price_eur }}</span>
+                        </div>
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>

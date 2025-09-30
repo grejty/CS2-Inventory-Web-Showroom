@@ -156,7 +156,8 @@ def process_inventory_data(data):
                 "inspect_link": resolved_inspect_link,
                 "asset_id": asset_id,
                 "pattern_template": prop_data.get("pattern_template"),
-                "float": prop_data.get("wear_rating")
+                "float": prop_data.get("wear_rating"),
+                "price_eur": None,
             })
     return skins, len(skins), total_before_filters
 
@@ -241,6 +242,7 @@ def load_inventory_from_file():
                 skin.setdefault("float", wear)
                 skin.setdefault("pattern_template", None)
                 skin["tradable_info"] = build_tradable_info(skin.get("tradable"))
+                skin.setdefault("price_eur", None)
 
             return skins, data.get("total_before_filters", data.get("total", 0))
         else:
@@ -261,11 +263,13 @@ def update_inventory_from_manual(raw_json):
         current_skins, _ = load_inventory_from_file()
 
         selection_map = {}
+        price_map = {}
         for skin in current_skins:
             key = skin['name']
             if skin.get('exterior'):
                 key += f"_{skin['exterior']}"
             selection_map[key] = skin.get('selected', False)
+            price_map[key] = skin.get('price_eur')
 
         skins, filtered_total, total_before_filters = parse_inventory_json(raw_json)
 
@@ -274,6 +278,7 @@ def update_inventory_from_manual(raw_json):
             if skin.get('exterior'):
                 key += f"_{skin['exterior']}"
             skin['selected'] = selection_map.get(key, False)
+            skin['price_eur'] = price_map.get(key)
 
         save_inventory_to_file(skins, filtered_total, total_before_filters)
         return skins, filtered_total, total_before_filters

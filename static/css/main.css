@@ -1120,7 +1120,6 @@ main {
     justify-content: space-between;
     gap: 12px;
     padding-bottom: 10px;
-
     flex-wrap: nowrap;
     width: 100%;
 }
@@ -1182,6 +1181,109 @@ main {
     mask-position: center;
     mask-size: contain;
     transition: background-color 0.15s ease;
+}
+
+.skin-price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 0 14px 14px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(var(--accent-color-rgb), 0.28);
+    background: linear-gradient(135deg, rgba(var(--accent-color-rgb), 0.18), rgba(var(--accent-color-rgb), 0.05));
+    color: var(--text-color);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.skin-price__label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.45px;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.skin-price__value {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
+.skin-price__currency {
+    font-size: 14px;
+}
+
+.skin-price--display {
+    pointer-events: none;
+}
+
+.skin-price--editable {
+    background: var(--bg-secondary);
+    border-style: dashed;
+    border-color: rgba(var(--accent-color-rgb), 0.35);
+    gap: 12px;
+}
+
+.skin-price--editable .skin-price__label {
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.skin-price-input {
+    flex: 1 1 160px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.skin-price-input__currency {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--accent-color);
+    flex-shrink: 0;
+}
+
+.skin-price-input input {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+    border: 1px solid rgba(var(--accent-color-rgb), 0.25);
+    background: var(--bg-secondary);
+    border-radius: 6px;
+    color: var(--text-color);
+    font-size: 15px;
+    font-weight: 600;
+    padding: 6px 8px;
+    transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.skin-price-input input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    background: rgba(var(--accent-color-rgb), 0.12);
+}
+
+.skin-price-input input::placeholder {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.skin-price-input input::-webkit-outer-spin-button,
+.skin-price-input input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.skin-price-input input[type=number] {
+    appearance: textfield;
+    -moz-appearance: textfield;
 }
 
 
