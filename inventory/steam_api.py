@@ -4,7 +4,14 @@ import re
 from json.decoder import JSONDecoder
 
 from django.conf import settings
-from .helpers import identify_item_types, tradable_text, exterior_text, extract_stickers, rarity_details
+from .helpers import (
+    identify_item_types,
+    tradable_text,
+    exterior_text,
+    extract_stickers,
+    rarity_details,
+    build_tradable_info,
+)
 
 
 
@@ -139,6 +146,7 @@ def process_inventory_data(data):
                 "icon_url": desc.get("icon_url", ""),
                 "exterior": exterior_text(desc),
                 "tradable": tradable_status,
+                "tradable_info": build_tradable_info(tradable_status),
                 "selected": False,  # Default to not selected
                 "weapon_type": weapon_type or "Other",
                 "item_type": item_type or "Other",
@@ -232,6 +240,7 @@ def load_inventory_from_file():
                     skin["wear_rating"] = wear
                 skin.setdefault("float", wear)
                 skin.setdefault("pattern_template", None)
+                skin["tradable_info"] = build_tradable_info(skin.get("tradable"))
 
             return skins, data.get("total_before_filters", data.get("total", 0))
         else:
