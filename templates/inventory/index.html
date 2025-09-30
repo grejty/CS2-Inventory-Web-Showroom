@@ -161,7 +161,13 @@
                     {% if skin.price_eur %}
                         <div class="skin-price skin-price--display" aria-label="Price">
                             <span class="skin-price__label">Price</span>
-                            <span class="skin-price__value"><span class="skin-price__currency">€</span>{{ skin.price_eur }}</span>
+                            {% with price_str=skin.price_eur|stringformat:"s" %}
+                                {% if price_str|length > 3 and price_str|slice:"-3:" == '.00' %}
+                                    <span class="skin-price__value"><span class="skin-price__currency">€</span>{{ price_str|slice:":-3" }}</span>
+                                {% else %}
+                                    <span class="skin-price__value"><span class="skin-price__currency">€</span>{{ price_str }}</span>
+                                {% endif %}
+                            {% endwith %}
                         </div>
                     {% endif %}
                 </div>
