@@ -1077,12 +1077,12 @@ main {
 .skin-actions .action-btn {
     display: inline-flex;
     justify-content: center;
-    padding: 8px 16px;
-    background: transparent;
-    border: 1px solid var(--border-color);
+    padding: 0;
+    background: none;
+    border: none;
     color: var(--text-color);
-    border-radius: 4px;
-    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    border-radius: 0;
+    transition: color 0.2s ease;
     box-shadow: none;
     flex: 0 0 auto;
 }
@@ -1097,16 +1097,85 @@ main {
 }
 
 .inspect-btn {
-    background: transparent;
-    border-color: var(--border-color);
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    text-decoration: none;
+    cursor: pointer;
+    gap: 0;
+    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+
+.skin-actions .inspect-btn {
+    flex: 0 0 auto;
+}
+
+.inspect-btn .inspect-icon {
+    display: block;
+    width: 28px;
+    height: 28px;
+    background-color: var(--text-secondary);
+    -webkit-mask-image: url("../images/magnifying-glass-inspect-ingame.svg");
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
+    mask-image: url("../images/magnifying-glass-inspect-ingame.svg");
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    transition: background-color 0.15s ease;
+}
+
+.inspect-btn::after {
+    content: "Inspect in Game";
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translate(-50%, 6px);
+    opacity: 0;
+    background: var(--bg-secondary);
+    color: var(--text-color);
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    white-space: nowrap;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.2;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    z-index: 5;
 }
 
 .inspect-btn:hover,
 .inspect-btn:focus-visible {
-    background: var(--bg-secondary);
-    border-color: var(--accent-color);
-    color: var(--accent-color);
-    box-shadow: none;
+    transform: translateY(-2px);
+    background: none;
+}
+
+.inspect-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(var(--accent-color-rgb), 0.35);
+    border-radius: 50%;
+}
+
+.inspect-btn:hover::after,
+.inspect-btn:focus-visible::after {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.inspect-btn:hover .inspect-icon,
+.inspect-btn:focus-visible .inspect-icon {
+    background-color: var(--accent-color);
 }
 
 /* Tradability-specific styling */
