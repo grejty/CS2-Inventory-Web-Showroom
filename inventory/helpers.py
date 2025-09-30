@@ -1,4 +1,5 @@
 import re
+from datetime import datetime
 from html import unescape
 
 # Common weapon and item type detection
@@ -24,6 +25,10 @@ ITEM_TYPES = [
 # Regex for tradable date
 _TRADABLE_RE = re.compile(r"Tradable/Marketable After\s+(.*)\s+GMT", re.I)
 _TRADE_PROTECTED_RE = re.compile(r"trade-protected.*until\s+(.*)\s+GMT", re.I)
+_TRADE_PROTECTED_DISPLAY_RE = re.compile(
+    r"(?:until|after)\s+([A-Za-z]+\s+\d{1,2},\s+\d{4})\s*\((\d{1,2}):(\d{2})(?::(\d{2}))?\)",
+    re.I,
+)
 
 # Regex for sticker images embedded in HTML blobs
 _STICKER_IMG_RE = re.compile(r'<img[^>]+src="([^\"]+)"[^>]*title="([^\"]+)"', re.I)
@@ -101,6 +106,71 @@ def tradable_text(desc):
             return f"Trade Protected until {updated}"
 
     return "No"
+
+
+def _format_tradable_timestamp(tradable_status):
+    """Return (formatted_text, iso_timestamp) for a Trade Protected status string."""
+    if not isinstance(tradable_status, str):
+        return None, None
+
+    match = _TRADE_PROTECTED_DISPLAY_RE.search(tradable_status)
+    if not match:
+        return None, None
+
+    date_part, hour_str, minute_str, second_str = match.groups()
+
+    parsed_date = None
+    for fmt in ("%b %d, %Y", "%B %d, %Y"):
+        try:
+            parsed_date = datetime.strptime(date_part, fmt)
+            break
+        except ValueError:
+            continue
+
+    if not parsed_date:
+        return None, None
+
+    hour = int(hour_str)
+    minute = int(minute_str)
+    second = int(second_str or 0)
+    timestamp = parsed_date.replace(hour=hour, minute=minute, second=second)
+
+    formatted = f"{timestamp.day}.{timestamp.month}.{timestamp.year} ({timestamp.hour}:{timestamp.strftime('%M')})"
+    return formatted, timestamp.isoformat()
+
+
+def build_tradable_info(tradable_status):
+    """Construct structured tradable metadata for display purposes."""
+    info = {
+        "raw": tradable_status,
+        "is_tradable": True,
+        "lock_state": "unlocked",
+        "unlock_text": None,
+        "unlock_iso": None,
+        "state_class": "meta--unlocked",
+    }
+
+    if not isinstance(tradable_status, str):
+        return info
+
+    normalized = tradable_status.strip()
+    if not normalized:
+        return info
+
+    lower_status = normalized.lower()
+    if lower_status in {"yes", "tradable"}:
+        return info
+
+    info["is_tradable"] = False
+    info["lock_state"] = "locked"
+    info["state_class"] = "meta--locked"
+
+    formatted, iso_value = _format_tradable_timestamp(normalized)
+    if formatted:
+        info["unlock_text"] = f"Tradable on {formatted}"
+        info["unlock_iso"] = iso_value
+
+    return info
 
 def exterior_text(desc):
     """Extract exterior quality from item description."""

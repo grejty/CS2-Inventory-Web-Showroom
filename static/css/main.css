@@ -966,14 +966,55 @@ main {
 }
 
 .meta {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 4px 8px;
-    background: var(--bg-secondary);
-    border-radius: 3px;
-    border: 1px solid var(--border-color);
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: transparent;
     font-size: 12px;
+    line-height: 1.2;
+    color: var(--text-secondary);
+}
+
+.meta-icon {
+    width: 20px;
+    height: 20px;
+    flex: 0 0 auto;
+    background-color: var(--text-secondary);
+    -webkit-mask-image: url("../images/padlock-unlocked.svg");
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
+    mask-image: url("../images/padlock-unlocked.svg");
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    opacity: 0.95;
+}
+
+.meta-text {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.meta--locked .meta-icon {
+    background-color: var(--error-color);
+    -webkit-mask-image: url("../images/padlock-locked.svg");
+    mask-image: url("../images/padlock-locked.svg");
+}
+
+.meta--locked .meta-text {
+    color: var(--error-color);
+    font-weight: 600;
+}
+
+.meta--unlocked .meta-icon {
+    background-color: var(--success-color);
+    -webkit-mask-image: url("../images/padlock-unlocked.svg");
+    mask-image: url("../images/padlock-unlocked.svg");
 }
 
 .float-bar-container {
@@ -1062,23 +1103,14 @@ main {
     text-align: right;
 }
 
-.meta .label {
-    color: var(--accent-color); /* Changed from text-secondary to accent color */
-    font-size: 12px;
-    min-width: 60px;
-    font-weight: 600; /* Added bold font weight */
-    letter-spacing: 0.2px; /* Added slight letter spacing */
-}
 
-.meta .value {
-    color: var(--text-color);
-    font-size: 12px;
-    font-weight: 500; /* Made value slightly bolder too */
+.skin-actions .meta {
+    margin-right: auto;
 }
 
 .skin-actions {
     display: flex;
-    gap: 8px;
+    gap: 12px;
     padding-bottom: 10px;
     margin-top: auto;
     flex-wrap: wrap;
@@ -1209,17 +1241,6 @@ main {
 
 .trade-protected-badge[data-tooltip] {
     position: absolute;
-}
-
-/* Tradability-specific styling */
-.meta[data-tradable="Not Tradable"] {
-    background-color: rgba(var(--error-color), 0.1);
-    border-color: var(--error-color);
-}
-
-.meta[data-tradable="Tradable"] {
-    background-color: rgba(var(--success-color), 0.1);
-    border-color: var(--success-color);
 }
 
 /* Admin-specific styles */

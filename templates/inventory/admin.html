@@ -174,14 +174,24 @@
                                     </span>
                                 </div>
                             {% endif %}
-                            <div class="meta"><span class="label">Tradable:</span> {{ skin.tradable }}</div>
                         </div>
                         <div class="skin-actions">
-                                {% if skin.inspect_link %}
+                            {% with info=skin.tradable_info %}
+                                <div class="meta {% if info %}{{ info.state_class }}{% else %}meta--unlocked{% endif %}"
+                                     data-lock-state="{% if info and info.lock_state %}{{ info.lock_state }}{% else %}unlocked{% endif %}"
+                                     {% if info and info.unlock_iso %}data-unlock="{{ info.unlock_iso }}"{% endif %}
+                                     aria-label="{% if info and info.unlock_text %}{{ info.unlock_text }}{% else %}Tradable{% endif %}">
+                                    <span class="meta-icon" aria-hidden="true"></span>
+                                    {% if info and not info.is_tradable and info.unlock_text %}
+                                        <span class="meta-text">{{ info.unlock_text }}</span>
+                                    {% endif %}
+                                </div>
+                            {% endwith %}
+                            {% if skin.inspect_link %}
                                 <a href="{{ skin.inspect_link }}" class="inspect-btn" data-inspect-link="{{ skin.inspect_link }}" aria-label="Inspect in Game" data-tooltip="Inspect in Game">
                                     <span class="inspect-icon" aria-hidden="true"></span>
                                 </a>
-                                {% endif %}
+                            {% endif %}
                         </div>
                     </div>
                 {% endfor %}
