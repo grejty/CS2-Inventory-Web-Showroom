@@ -184,7 +184,7 @@ main {
     position: relative;
     width: 100%;
     max-width: 400px;
-    margin: 16px auto 24px;
+    margin: 16px auto 16px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -907,7 +907,7 @@ main {
 }
 
 .skin-details {
-    padding: 14px 14px 8px;
+    padding: 14px 14px 6px;
     display: flex;
     flex-direction: column;
     gap: 2px;
@@ -1095,7 +1095,6 @@ main {
     font-size: 12px;
     font-weight: 600;
     color: var(--text-secondary);
-    padding-bottom: 5px;
 }
 
 .float-value,
@@ -1119,7 +1118,7 @@ main {
     align-items: flex-end;
     justify-content: space-between;
     gap: 12px;
-    padding-bottom: 10px;
+    padding-bottom: 8px;
     flex-wrap: nowrap;
     width: 100%;
 }
@@ -1153,7 +1152,7 @@ main {
     justify-content: center;
     width: 25px;
     height: 25px;
-    padding-right: 10px;
+    padding-right: 12px;
     background: none;
     border: none;
     color: var(--text-secondary);
