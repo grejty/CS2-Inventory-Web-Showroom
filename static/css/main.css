@@ -1214,7 +1214,8 @@ main {
 }
 
 .skin-price__currency {
-    font-size: 14px;
+    font-size: 18px;
+    line-height: 1;
 }
 
 .skin-price--display {
@@ -1243,7 +1244,7 @@ main {
 }
 
 .skin-price-input__currency {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
     color: var(--accent-color);
     flex-shrink: 0;

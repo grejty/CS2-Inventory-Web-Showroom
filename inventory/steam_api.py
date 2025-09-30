@@ -1,6 +1,7 @@
 import json
 import os
 import re
+from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from json.decoder import JSONDecoder
 
 from django.conf import settings
@@ -13,6 +14,28 @@ from .helpers import (
     build_tradable_info,
 )
 
+def _normalize_price(value):
+    if value is None:
+        return None
+
+    if isinstance(value, str):
+        value = value.strip()
+        if not value:
+            return None
+
+    try:
+        price_decimal = Decimal(str(value))
+        price_decimal = price_decimal.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+        normalized_str = format(price_decimal, 'f')
+        if '.' not in normalized_str:
+            normalized_str = f"{normalized_str}.00"
+        else:
+            integer_part, fractional_part = normalized_str.split('.', 1)
+            fractional_part = (fractional_part + '00')[:2]
+            normalized_str = f"{integer_part}.{fractional_part}"
+        return normalized_str
+    except (InvalidOperation, ValueError, TypeError):
+        return None
 
 
 def _resolve_inspect_link(template, asset_id):
@@ -209,8 +232,16 @@ def save_inventory_to_file(skins, filtered_total, total_before_filters=None):
     if total_before_filters is None:
         total_before_filters = filtered_total
         
+    sanitized_skins = []
+    for skin in skins:
+        normalized_value = _normalize_price(skin.get("price_eur"))
+        skin['price_eur'] = normalized_value
+        normalized_skin = dict(skin)
+        normalized_skin["price_eur"] = normalized_value
+        sanitized_skins.append(normalized_skin)
+
     data = {
-        "skins": skins,
+        "skins": sanitized_skins,
         "total": filtered_total,
         "total_before_filters": total_before_filters
     }
@@ -218,7 +249,7 @@ def save_inventory_to_file(skins, filtered_total, total_before_filters=None):
     os.makedirs(os.path.dirname(settings.LOCAL_DATA_FILE), exist_ok=True)
     
     # Debug prints to verify data before saving
-    print(f"\nSaving {len(skins)} skins, {sum(1 for skin in skins if skin.get('selected', False))} selected")
+    print(f"\nSaving {len(sanitized_skins)} skins, {sum(1 for skin in sanitized_skins if skin.get('selected', False))} selected")
     
     with open(settings.LOCAL_DATA_FILE, "w", encoding="utf-8") as fp:
         json.dump(data, fp, indent=2)
@@ -234,6 +265,7 @@ def load_inventory_from_file():
                 data = json.load(fp)
 
             skins = data.get("skins", [])
+            needs_resave = False
             for skin in skins:
                 wear = skin.get("wear_rating")
                 if wear is None and skin.get("float") is not None:
@@ -242,7 +274,17 @@ def load_inventory_from_file():
                 skin.setdefault("float", wear)
                 skin.setdefault("pattern_template", None)
                 skin["tradable_info"] = build_tradable_info(skin.get("tradable"))
-                skin.setdefault("price_eur", None)
+                normalized_price = _normalize_price(skin.get("price_eur"))
+                if skin.get("price_eur") != normalized_price:
+                    needs_resave = True
+                skin["price_eur"] = normalized_price
+
+            if needs_resave:
+                save_inventory_to_file(
+                    skins,
+                    data.get("total", len(skins)),
+                    data.get("total_before_filters", data.get("total", len(skins)))
+                )
 
             return skins, data.get("total_before_filters", data.get("total", 0))
         else:
@@ -269,7 +311,7 @@ def update_inventory_from_manual(raw_json):
             if skin.get('exterior'):
                 key += f"_{skin['exterior']}"
             selection_map[key] = skin.get('selected', False)
-            price_map[key] = skin.get('price_eur')
+            price_map[key] = _normalize_price(skin.get('price_eur'))
 
         skins, filtered_total, total_before_filters = parse_inventory_json(raw_json)
 
@@ -278,7 +320,7 @@ def update_inventory_from_manual(raw_json):
             if skin.get('exterior'):
                 key += f"_{skin['exterior']}"
             skin['selected'] = selection_map.get(key, False)
-            skin['price_eur'] = price_map.get(key)
+            skin['price_eur'] = _normalize_price(price_map.get(key))
 
         save_inventory_to_file(skins, filtered_total, total_before_filters)
         return skins, filtered_total, total_before_filters
