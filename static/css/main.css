@@ -271,8 +271,8 @@ main {
     gap: 32px;
     align-items: start;
 }
-
 .filter-group {
+    margin: 0;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -907,10 +907,14 @@ main {
 }
 
 .skin-details {
-    padding: 14px;
+    padding: 14px 14px 8px;
     display: flex;
     flex-direction: column;
     gap: 2px;
+}
+
+.skin-details--empty {
+    padding: 8px 14px 4px;
 }
 
 .skin-header {
@@ -968,8 +972,8 @@ main {
 .meta {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 0;
+    gap: 4px;
+    padding-left: 10px;
     margin: 0;
     border: none;
     background: transparent;
@@ -979,8 +983,9 @@ main {
 }
 
 .meta-icon {
-    width: 20px;
-    height: 20px;
+    margin-bottom: 2px;
+    width: 26px;
+    height: 26px;
     flex: 0 0 auto;
     background-color: var(--text-secondary);
     -webkit-mask-image: url("../images/padlock-unlocked.svg");
@@ -991,7 +996,6 @@ main {
     mask-repeat: no-repeat;
     mask-position: center;
     mask-size: contain;
-    opacity: 0.95;
 }
 
 .meta-text {
@@ -1105,17 +1109,19 @@ main {
 
 
 .skin-actions .meta {
-    margin-right: auto;
+    margin-right: 0;
+    flex: 1 1 auto;
+    min-width: 0;
 }
 
 .skin-actions {
     display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
     gap: 12px;
     padding-bottom: 10px;
-    margin-top: auto;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    align-items: center;
+
+    flex-wrap: nowrap;
     width: 100%;
 }
 
@@ -1155,6 +1161,7 @@ main {
     text-decoration: none;
     cursor: pointer;
     transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+    margin-bottom: 2px;
 }
 
 .skin-actions .inspect-btn {
@@ -1548,7 +1555,11 @@ main {
 }
 
     .skin-details {
-        padding: 10px;
+        padding: 10px 10px 6px;
+    }
+
+    .skin-details--empty {
+        padding: 6px 10px 4px;
     }
 
     .button {
