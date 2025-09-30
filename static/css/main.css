@@ -737,8 +737,6 @@ main {
     justify-content: center;
     position: relative;
     overflow: visible;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
     z-index: 0;
 }
 
