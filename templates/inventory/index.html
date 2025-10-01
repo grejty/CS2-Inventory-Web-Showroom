@@ -92,9 +92,14 @@
                         {% if skin.stickers %}
                             <div class="sticker-stack">
                                 {% for sticker in skin.stickers %}
-                                    <div class="sticker-thumb" data-tooltip="{{ sticker.name }}" aria-label="{{ sticker.name }}">
+                                    <a class="sticker-thumb"
+                                       href="https://steamcommunity.com/market/listings/730/{{ "Sticker | "|add:sticker.name|default:"Sticker"|urlencode }}"
+                                       target="_blank"
+                                       rel="noopener noreferrer"
+                                       data-tooltip="{{ sticker.name }}"
+                                       aria-label="{{ sticker.name }}">
                                         <img src="{{ sticker.icon_url }}" alt="{{ sticker.name }}">
-                                    </div>
+                                    </a>
                                 {% endfor %}
                             </div>
                         {% endif %}
@@ -214,7 +219,7 @@
             // Add clickable selection functionality to items
             items.forEach(item => {
                 item.addEventListener('click', function(event) {
-                    if (event.target.closest('.inspect-btn') || event.target.closest('.trade-protected-badge')) {
+                    if (event.target.closest('.inspect-btn') || event.target.closest('.trade-protected-badge') || event.target.closest('.sticker-thumb')) {
                         return;
                     }
 

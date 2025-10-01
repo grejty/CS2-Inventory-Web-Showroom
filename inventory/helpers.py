@@ -53,9 +53,12 @@ def extract_stickers(desc):
         src, title = match.groups()
         if src.startswith("//"):
             src = "https:" + src
+        cleaned_title = unescape(title).strip() if title else ""
+        if cleaned_title.lower().startswith("sticker:"):
+            cleaned_title = cleaned_title.split(":", 1)[1].strip()
         stickers.append({
             "icon_url": src.strip(),
-            "name": unescape(title).strip() if title else ""
+            "name": cleaned_title
         })
 
     return stickers
