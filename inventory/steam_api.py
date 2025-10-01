@@ -178,6 +178,31 @@ def process_inventory_data(data):
 
         for _ in range(count):  # Don't stack items
             prop_data = asset_properties_map.get(asset_id, {})
+
+            sticker_list = stickers.copy() if stickers else []
+            patch_list = []
+            if (item_type or "").lower() == "agent":
+                filtered_stickers = []
+                for sticker in sticker_list:
+                    name = sticker.get("name") or ""
+                    icon_url = sticker.get("icon_url")
+                    is_patch = False
+                    if isinstance(name, str) and name.strip().lower().startswith("patch:"):
+                        is_patch = True
+                    elif isinstance(icon_url, str) and "/patches/" in icon_url:
+                        is_patch = True
+
+                    if is_patch:
+                        cleaned_name = name.split(":", 1)[1].strip() if ":" in name else name.strip()
+                        patch_entry = {
+                            "icon_url": icon_url,
+                            "name": cleaned_name or name.strip(),
+                        }
+                        patch_list.append(patch_entry)
+                    else:
+                        filtered_stickers.append(sticker)
+                sticker_list = filtered_stickers
+
             skins.append({
                 "name": name,
                 "icon_url": desc.get("icon_url", ""),
@@ -187,7 +212,8 @@ def process_inventory_data(data):
                 "selected": False,  # Default to not selected
                 "weapon_type": weapon_type or "Other",
                 "item_type": item_type or "Other",
-                "stickers": stickers.copy() if stickers else [],
+                "stickers": sticker_list,
+                "patches": patch_list,
                 "rarity": rarity_name,
                 "rarity_color": rarity_color,
                 "inspect_link": resolved_inspect_link,
@@ -253,6 +279,19 @@ def save_inventory_to_file(skins, filtered_total, total_before_filters=None):
         skin['price_eur'] = normalized_value
         normalized_skin = dict(skin)
         normalized_skin["price_eur"] = normalized_value
+
+        patches = []
+        for patch in normalized_skin.get("patches", []) or []:
+            name = (patch.get("name") or "").strip()
+            if name.lower().startswith("patch:"):
+                name = name.split(":", 1)[1].strip()
+            patches.append({
+                "icon_url": patch.get("icon_url"),
+                "name": name,
+            })
+        normalized_skin["patches"] = patches
+        skin["patches"] = patches
+
         sanitized_skins.append(normalized_skin)
 
     data = {
@@ -288,12 +327,57 @@ def load_inventory_from_file():
                     skin["wear_rating"] = wear
                 skin.setdefault("float", wear)
                 skin.setdefault("pattern_template", None)
+                skin.setdefault("patches", [])
                 skin.setdefault("collection", None)
                 skin["tradable_info"] = build_tradable_info(skin.get("tradable"))
                 normalized_price = _normalize_price(skin.get("price_eur"))
                 if skin.get("price_eur") != normalized_price:
                     needs_resave = True
                 skin["price_eur"] = normalized_price
+
+                if (skin.get("item_type") or "").lower() == "agent":
+                    stickers = skin.get("stickers") or []
+                    migrated_patches = []
+                    remaining_stickers = []
+                    for sticker in stickers:
+                        name = (sticker.get("name") or "").strip()
+                        icon_url = sticker.get("icon_url")
+                        is_patch = False
+                        if name.lower().startswith("patch:"):
+                            is_patch = True
+                        elif isinstance(icon_url, str) and "/patches/" in icon_url:
+                            is_patch = True
+
+                        if is_patch:
+                            cleaned_name = name.split(":", 1)[1].strip() if ":" in name else name
+                            migrated_patches.append({
+                                "icon_url": icon_url,
+                                "name": cleaned_name or name,
+                            })
+                        else:
+                            remaining_stickers.append(sticker)
+
+                    if migrated_patches:
+                        existing_patches = skin.get("patches") or []
+                        # Clean existing patch names and avoid duplicates by icon/name
+                        cleaned_existing = []
+                        seen = set()
+                        for patch in existing_patches + migrated_patches:
+                            pname = (patch.get("name") or "").strip()
+                            if pname.lower().startswith("patch:"):
+                                pname = pname.split(":", 1)[1].strip()
+                            icon = patch.get("icon_url")
+                            key = (pname.lower(), icon)
+                            if key in seen:
+                                continue
+                            seen.add(key)
+                            cleaned_existing.append({
+                                "icon_url": icon,
+                                "name": pname,
+                            })
+                        skin["patches"] = cleaned_existing
+                        skin["stickers"] = remaining_stickers
+                        needs_resave = True
 
             if needs_resave:
                 save_inventory_to_file(

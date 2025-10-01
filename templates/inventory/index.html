@@ -96,9 +96,23 @@
                                        href="https://steamcommunity.com/market/listings/730/{{ "Sticker | "|add:sticker.name|default:"Sticker"|urlencode }}"
                                        target="_blank"
                                        rel="noopener noreferrer"
-                                       data-tooltip="{{ sticker.name }}"
-                                       aria-label="{{ sticker.name }}">
-                                        <img src="{{ sticker.icon_url }}" alt="{{ sticker.name }}">
+                                       data-tooltip="{{ sticker.name|default:"Sticker" }}"
+                                       aria-label="{{ sticker.name|default:"Sticker" }}">
+                                        <img src="{{ sticker.icon_url }}" alt="{{ sticker.name|default:"Sticker" }}">
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        {% if skin.patches %}
+                            <div class="sticker-stack sticker-stack--patches">
+                                {% for patch in skin.patches %}
+                                    <a class="sticker-thumb sticker-thumb--patch"
+                                       href="https://steamcommunity.com/market/listings/730/{{ "Patch | "|add:patch.name|default:"Patch"|urlencode }}"
+                                       target="_blank"
+                                       rel="noopener noreferrer"
+                                       data-tooltip="{{ patch.name|default:"Patch" }}"
+                                       aria-label="{{ patch.name|default:"Patch" }}">
+                                        <img src="{{ patch.icon_url }}" alt="{{ patch.name|default:"Patch" }}">
                                     </a>
                                 {% endfor %}
                             </div>
