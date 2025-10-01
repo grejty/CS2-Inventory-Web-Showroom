@@ -137,6 +137,20 @@
                                     {% endfor %}
                                 </div>
                             {% endif %}
+                            {% if skin.patches %}
+                                <div class="sticker-stack sticker-stack--patches">
+                                    {% for patch in skin.patches %}
+                                        <a class="sticker-thumb sticker-thumb--patch"
+                                           href="https://steamcommunity.com/market/listings/730/{{ "Patch | "|add:patch.name|default:"Patch"|urlencode }}"
+                                           target="_blank"
+                                           rel="noopener noreferrer"
+                                           data-tooltip="{{ patch.name|default:"Patch" }}"
+                                           aria-label="{{ patch.name|default:"Patch" }}">
+                                            <img src="{{ patch.icon_url }}" alt="{{ patch.name|default:"Patch" }}">
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
                         <div class="skin-image">
                             {% if 'Trade Protected' in skin.tradable %}
