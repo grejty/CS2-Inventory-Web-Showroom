@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
+from decimal import Decimal, InvalidOperation
 
 from django.shortcuts import render, redirect
 from django.conf import settings
@@ -9,6 +9,7 @@ from .steam_api import (
     load_inventory_from_file,
     save_inventory_to_file,
     update_inventory_from_manual,
+    _normalize_price,
 )
 from .helpers import WEAPON_TYPES, ITEM_TYPES, get_filter_counts
 
@@ -184,8 +185,10 @@ def admin_view(request):
                     price_decimal = Decimal(normalized)
                     if price_decimal < 0:
                         raise InvalidOperation
-                    price_decimal = price_decimal.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
-                    skin['price_eur'] = format(price_decimal, '0.00')
+                    sanitized_price = _normalize_price(normalized)
+                    if sanitized_price is None:
+                        raise InvalidOperation
+                    skin['price_eur'] = sanitized_price
                 except (InvalidOperation, ValueError):
                     # Keep previous price if parsing fails
                     skin['price_eur'] = previous_price

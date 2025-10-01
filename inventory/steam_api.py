@@ -1,7 +1,7 @@
 import json
 import os
 import re
-from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
+from decimal import Decimal, InvalidOperation
 from json.decoder import JSONDecoder
 
 from django.conf import settings
@@ -25,14 +25,12 @@ def _normalize_price(value):
 
     try:
         price_decimal = Decimal(str(value))
-        price_decimal = price_decimal.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+        if price_decimal < 0:
+            return None
+
         normalized_str = format(price_decimal, 'f')
-        if '.' not in normalized_str:
-            normalized_str = f"{normalized_str}.00"
-        else:
-            integer_part, fractional_part = normalized_str.split('.', 1)
-            fractional_part = (fractional_part + '00')[:2]
-            normalized_str = f"{integer_part}.{fractional_part}"
+        if '.' in normalized_str:
+            normalized_str = normalized_str.rstrip('0').rstrip('.')
         return normalized_str
     except (InvalidOperation, ValueError, TypeError):
         return None
