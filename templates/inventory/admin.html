@@ -307,24 +307,49 @@
                 });
             }
 
-            // Make items clickable for selection
+            // Make items clickable for selection and auto-select when price is filled
             items.forEach(item => {
                 const checkbox = item.querySelector('.skin-checkbox');
+                const priceInput = item.querySelector('.skin-price-input input');
+
+                const setSelected = (shouldSelect) => {
+                    item.classList.toggle('selected', shouldSelect);
+                    if (checkbox) {
+                        checkbox.checked = shouldSelect;
+                    }
+                };
+
+                const toggleSelection = () => {
+                    setSelected(!item.classList.contains('selected'));
+                };
 
                 item.addEventListener('click', function(event) {
-                    if (event.target.closest('.inspect-btn') || event.target.closest('.trade-protected-badge') || event.target.closest('.skin-price')) {
+                    if (event.target.closest('.inspect-btn') || event.target.closest('.trade-protected-badge')) {
+                        return;
+                    }
+
+                    if (event.target.closest('.skin-price-input input')) {
                         return;
                     }
 
                     event.preventDefault();
                     event.stopPropagation();
 
-                    this.classList.toggle('selected');
-
-                    if (checkbox) {
-                        checkbox.checked = this.classList.contains('selected');
-                    }
+                    toggleSelection();
                 });
+
+                if (priceInput) {
+                    const ensureSelected = () => {
+                        if (priceInput.value.trim() !== '') {
+                            setSelected(true);
+                        } else {
+                            setSelected(false);
+                        }
+                    };
+
+                    priceInput.addEventListener('input', ensureSelected);
+                    priceInput.addEventListener('change', ensureSelected);
+                }
             });
             
             // Select All functionality - only visible items
