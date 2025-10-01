@@ -919,6 +919,8 @@ main {
 
 .skin-header {
     position: relative;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
     flex: 0 0 auto;
     min-height: 56px;
     background: var(--bg-secondary);
@@ -939,7 +941,6 @@ main {
     right: 0;
     margin: 0;
     padding: 8px 14px 16px 8px;
-    background: var(--bg-secondary);
     font-size: 14px;
     font-weight: 600;
     color: var(--text-color);
