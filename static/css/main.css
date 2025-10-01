@@ -907,14 +907,23 @@ main {
 }
 
 .skin-details {
-    padding: 14px 14px 6px;
+    padding: 14px 14px 8px;
     display: flex;
     flex-direction: column;
-    gap: 2px;
 }
 
-.skin-details--empty {
-    padding: 11px 14px 4px;
+.skin-collection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-secondary);
+    color: var(--text-color);
+    font-size: 13px;
+    font-weight: 600;
+    min-height: 34px;
 }
 
 .skin-header {
@@ -1685,8 +1694,9 @@ main {
         padding: 10px 10px 6px;
     }
 
-    .skin-details--empty {
-        padding: 6px 10px 4px;
+    .skin-collection {
+        padding: 10px;
+        min-height: 44px;
     }
 
     .button {
