@@ -151,6 +151,22 @@ def process_inventory_data(data):
         stickers = extract_stickers(desc)
         rarity_name, rarity_color = rarity_details(desc)
 
+        collection_name = None
+        for block in desc.get("descriptions", []) or []:
+            if block.get("name") == "itemset_name":
+                value = block.get("value")
+                if isinstance(value, str):
+                    collection_name = value.strip() or None
+                break
+
+        if not collection_name:
+            for tag in desc.get("tags", []) or []:
+                if tag.get("category") == "ItemSet":
+                    value = tag.get("localized_tag_name") or tag.get("name")
+                    if isinstance(value, str):
+                        collection_name = value.strip() or None
+                    break
+
         inspect_link = None
         if isinstance(desc.get("actions"), list) and desc["actions"]:
             inspect_link = desc["actions"][0].get("link")
@@ -178,6 +194,7 @@ def process_inventory_data(data):
                 "asset_id": asset_id,
                 "pattern_template": prop_data.get("pattern_template"),
                 "float": prop_data.get("wear_rating"),
+                "collection": collection_name,
                 "price_eur": None,
             })
     return skins, len(skins), total_before_filters
@@ -271,6 +288,7 @@ def load_inventory_from_file():
                     skin["wear_rating"] = wear
                 skin.setdefault("float", wear)
                 skin.setdefault("pattern_template", None)
+                skin.setdefault("collection", None)
                 skin["tradable_info"] = build_tradable_info(skin.get("tradable"))
                 normalized_price = _normalize_price(skin.get("price_eur"))
                 if skin.get("price_eur") != normalized_price:
