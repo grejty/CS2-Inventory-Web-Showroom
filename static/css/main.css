@@ -187,12 +187,49 @@ main {
     margin: 16px auto 16px;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 8px;
 }
 
 .search-input-wrapper {
     flex: 1;
     position: relative;
+}
+
+.sort-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    flex: 1 1 100%;
+}
+
+.sort-label {
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.sort-select {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: 13px;
+    font-family: inherit;
+    padding: 2px 20px 2px 4px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.sort-select:focus {
+    outline: none;
+    color: var(--accent-color);
 }
 
 #search-box {
