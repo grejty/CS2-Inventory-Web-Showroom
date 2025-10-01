@@ -175,37 +175,39 @@
                                 </div>
                             {% endif %}
                         </div>
-                        <div class="skin-actions">
-                            {% with info=skin.tradable_info %}
-                                <div class="meta {% if info %}{{ info.state_class }}{% else %}meta--unlocked{% endif %}"
-                                     data-lock-state="{% if info and info.lock_state %}{{ info.lock_state }}{% else %}unlocked{% endif %}"
-                                     {% if info and info.unlock_iso %}data-unlock="{{ info.unlock_iso }}"{% endif %}
-                                     aria-label="{% if info and info.unlock_text %}{{ info.unlock_text }}{% else %}Tradable{% endif %}">
-                                    <span class="meta-icon" aria-hidden="true"></span>
-                                    {% if info and not info.is_tradable and info.unlock_text %}
-                                        <span class="meta-text">{{ info.unlock_text }}</span>
-                                    {% endif %}
+                        <div class="skin-footer">
+                            <div class="skin-actions">
+                                {% with info=skin.tradable_info %}
+                                    <div class="meta {% if info %}{{ info.state_class }}{% else %}meta--unlocked{% endif %}"
+                                         data-lock-state="{% if info and info.lock_state %}{{ info.lock_state }}{% else %}unlocked{% endif %}"
+                                         {% if info and info.unlock_iso %}data-unlock="{{ info.unlock_iso }}"{% endif %}
+                                         aria-label="{% if info and info.unlock_text %}{{ info.unlock_text }}{% else %}Tradable{% endif %}">
+                                        <span class="meta-icon" aria-hidden="true"></span>
+                                        {% if info and not info.is_tradable and info.unlock_text %}
+                                            <span class="meta-text">{{ info.unlock_text }}</span>
+                                        {% endif %}
+                                    </div>
+                                {% endwith %}
+                                {% if skin.inspect_link %}
+                                    <a href="{{ skin.inspect_link }}" class="inspect-btn" data-inspect-link="{{ skin.inspect_link }}" aria-label="Inspect in Game" data-tooltip="Inspect in Game">
+                                        <span class="inspect-icon" aria-hidden="true"></span>
+                                    </a>
+                                {% endif %}
+                            </div>
+                            <div class="skin-price skin-price--editable">
+                                <label class="skin-price__label" for="price_{{ forloop.counter0 }}">Price</label>
+                                <div class="skin-price-input">
+                                    <span class="skin-price-input__currency" aria-hidden="true">€</span>
+                                    <input type="number"
+                                           step="0.01"
+                                           min="0"
+                                           inputmode="decimal"
+                                           id="price_{{ forloop.counter0 }}"
+                                           name="price_{{ forloop.counter0 }}"
+                                           value="{% if skin.price_eur %}{{ skin.price_eur|floatformat:"-2" }}{% endif %}"
+                                           placeholder="0.00"
+                                           aria-label="Enter price in euros for {{ skin.name }}">
                                 </div>
-                            {% endwith %}
-                            {% if skin.inspect_link %}
-                                <a href="{{ skin.inspect_link }}" class="inspect-btn" data-inspect-link="{{ skin.inspect_link }}" aria-label="Inspect in Game" data-tooltip="Inspect in Game">
-                                    <span class="inspect-icon" aria-hidden="true"></span>
-                                </a>
-                            {% endif %}
-                        </div>
-                        <div class="skin-price skin-price--editable">
-                            <label class="skin-price__label" for="price_{{ forloop.counter0 }}">Price</label>
-                            <div class="skin-price-input">
-                                <span class="skin-price-input__currency" aria-hidden="true">€</span>
-                    <input type="number"
-                        step="0.01"
-                        min="0"
-                        inputmode="decimal"
-                        id="price_{{ forloop.counter0 }}"
-                        name="price_{{ forloop.counter0 }}"
-                        value="{% if skin.price_eur %}{{ skin.price_eur|floatformat:"-2" }}{% endif %}"
-                        placeholder="0.00"
-                        aria-label="Enter price in euros for {{ skin.name }}">
                             </div>
                         </div>
                     </div>
