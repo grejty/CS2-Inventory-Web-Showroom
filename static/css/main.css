@@ -1380,6 +1380,47 @@ main {
     -moz-appearance: textfield;
 }
 
+.skin-note {
+    margin: 8px 14px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.skin-note__label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+.skin-note textarea {
+    background: var(--input-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 6px 6px;
+    font-family: inherit;
+    font-size: 13px;
+    resize: none;
+    max-height: 30px;
+    overflow-y: hidden;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.skin-note textarea:focus {
+    outline: none;
+    border-color: rgba(var(--accent-color-rgb), 0.55);
+    background: rgba(var(--accent-color-rgb), 0.08);
+    box-shadow: 0 0 0 3px rgba(var(--accent-color-rgb), 0.18);
+}
+
+.skin-note textarea::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.75;
+}
+
 
 .inspect-btn:hover,
 .inspect-btn:focus-visible {
