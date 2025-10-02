@@ -20,17 +20,6 @@
                         &#128269;
                     </button>
                 </div>
-                <div class="sort-controls" role="group" aria-label="Sort inventory">
-                    <label for="sort-select" class="sort-label">Sort</label>
-                    <select id="sort-select" class="sort-select" aria-label="Sort inventory">
-                        <option value="tradable-desc">Tradable date · Newest first</option>
-                        <option value="tradable-asc">Tradable date · Oldest first</option>
-                        <option value="float-asc">Float · Lowest first</option>
-                        <option value="float-desc">Float · Highest first</option>
-                        <option value="price-asc">Price · Lowest first</option>
-                        <option value="price-desc">Price · Highest first</option>
-                    </select>
-                </div>
             </div>
 
             <!-- MOVE FILTER PANEL HERE - DIRECTLY AFTER SEARCH BAR -->
@@ -105,6 +94,7 @@
             <div class="stats-controls-container">
                 <!-- Selection buttons on left -->
                 <div class="selection-controls">
+                    <button type="submit" class="refresh-btn tooltip" name="action" value="refresh_inventory" data-tooltip="Refresh Inventory from Steam API"></button>
                     <button type="button" id="select-all-btn" class="selection-btn">Select All</button>
                     <button type="button" id="clear-selection-btn" class="selection-btn">Clear</button>
                     <button type="submit" class="selection-btn save-btn" name="action" value="save_selection" id="save-btn">Save Selection</button>
@@ -115,7 +105,15 @@
                     <div class="inventory-stats">
                         Total:&nbsp;<strong>{{ total_before_filters }}</strong>&nbsp;(showing&nbsp;<strong id="showing-count">{{ total }}</strong>)
                     </div>
-                    <button type="submit" class="refresh-btn tooltip" name="action" value="refresh_inventory" data-tooltip="Refresh Inventory from Steam API"></button>
+                    <div class="sort-controls" role="group" aria-label="Sort by">
+                        <select id="sort-select" class="sort-select" aria-label="Sort by">
+                            <option value="tradable-desc">Newest</option>
+                            <option value="price-asc">Lowest Price</option>
+                            <option value="price-desc">Highest Price</option>
+                            <option value="float-asc">Lowest Float</option>
+                            <option value="float-desc">Highest Float</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -436,9 +434,7 @@
                     orderedItems = defaultOrder;
                 } else {
                     const mode = sortSelect.value;
-                    if (mode === 'tradable-asc') {
-                        orderedItems = [...defaultOrder].reverse();
-                    } else if (mode === 'float-asc' || mode === 'float-desc') {
+                    if (mode === 'float-asc' || mode === 'float-desc') {
                         orderedItems = [...defaultOrder].sort((a, b) => {
                             const floatA = parseFloat(a.dataset.float);
                             const floatB = parseFloat(b.dataset.float);
