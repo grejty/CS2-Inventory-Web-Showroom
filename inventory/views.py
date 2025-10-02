@@ -10,6 +10,7 @@ from .steam_api import (
     save_inventory_to_file,
     update_inventory_from_manual,
     _normalize_price,
+    _sanitize_note,
 )
 from .helpers import WEAPON_TYPES, ITEM_TYPES, get_filter_counts
 
@@ -170,6 +171,11 @@ def admin_view(request):
 
             # Update price information for each skin
             for i, skin in enumerate(skins):
+                note_key = f'note_{i}'
+                note_value = request.POST.get(note_key)
+                if note_value is not None:
+                    skin['note'] = _sanitize_note(note_value)
+
                 price_key = f'price_{i}'
                 raw_value = request.POST.get(price_key, '')
                 previous_price = skin.get('price_eur')

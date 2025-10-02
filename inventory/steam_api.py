@@ -36,6 +36,20 @@ def _normalize_price(value):
         return None
 
 
+def _sanitize_note(value):
+    if value is None:
+        return ""
+
+    if not isinstance(value, str):
+        value = str(value)
+
+    cleaned = value.strip()
+    if len(cleaned) > 500:
+        cleaned = cleaned[:500].rstrip()
+
+    return cleaned
+
+
 def _resolve_inspect_link(template, asset_id):
     """Replace Steam placeholders in inspect links with concrete values."""
     if not template:
@@ -222,6 +236,7 @@ def process_inventory_data(data):
                 "float": prop_data.get("wear_rating"),
                 "collection": collection_name,
                 "price_eur": None,
+                "note": "",
             })
     return skins, len(skins), total_before_filters
 
@@ -280,6 +295,10 @@ def save_inventory_to_file(skins, filtered_total, total_before_filters=None):
         normalized_skin = dict(skin)
         normalized_skin["price_eur"] = normalized_value
 
+        note_value = _sanitize_note(skin.get("note"))
+        normalized_skin["note"] = note_value
+        skin["note"] = note_value
+
         patches = []
         for patch in normalized_skin.get("patches", []) or []:
             name = (patch.get("name") or "").strip()
@@ -329,6 +348,10 @@ def load_inventory_from_file():
                 skin.setdefault("pattern_template", None)
                 skin.setdefault("patches", [])
                 skin.setdefault("collection", None)
+                sanitized_note = _sanitize_note(skin.get("note"))
+                if skin.get("note") != sanitized_note:
+                    needs_resave = True
+                skin["note"] = sanitized_note
                 skin["tradable_info"] = build_tradable_info(skin.get("tradable"))
                 normalized_price = _normalize_price(skin.get("price_eur"))
                 if skin.get("price_eur") != normalized_price:
@@ -406,12 +429,14 @@ def update_inventory_from_manual(raw_json):
 
         selection_map = {}
         price_map = {}
+        note_map = {}
         for skin in current_skins:
             key = skin['name']
             if skin.get('exterior'):
                 key += f"_{skin['exterior']}"
             selection_map[key] = skin.get('selected', False)
             price_map[key] = _normalize_price(skin.get('price_eur'))
+            note_map[key] = _sanitize_note(skin.get('note'))
 
         skins, filtered_total, total_before_filters = parse_inventory_json(raw_json)
 
@@ -421,6 +446,7 @@ def update_inventory_from_manual(raw_json):
                 key += f"_{skin['exterior']}"
             skin['selected'] = selection_map.get(key, False)
             skin['price_eur'] = _normalize_price(price_map.get(key))
+            skin['note'] = note_map.get(key, "")
 
         save_inventory_to_file(skins, filtered_total, total_before_filters)
         return skins, filtered_total, total_before_filters

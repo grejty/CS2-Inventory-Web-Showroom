@@ -242,6 +242,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="skin-note">
+                            <label class="skin-note__label" for="note_{{ forloop.counter0 }}">Admin note</label>
+                            <textarea id="note_{{ forloop.counter0 }}"
+                                      name="note_{{ forloop.counter0 }}"
+                                      rows="2"
+                                      maxlength="500"
+                                      placeholder="Add a private note for this skin (only visible here)">{{ skin.note|default_if_none:'' }}</textarea>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
@@ -271,6 +279,23 @@
             const inventoryJsonProtected = document.getElementById('inventory-json-protected');
             const inventoryJsonMain = document.getElementById('inventory-json-main');
             const refreshHint = document.getElementById('manual-refresh-hint');
+
+            const autoResizeTextarea = (textarea) => {
+                if (!textarea) {
+                    return;
+                }
+
+                if (!textarea.dataset.baseHeight) {
+                    const computed = window.getComputedStyle(textarea);
+                    const minHeight = parseFloat(computed.minHeight) || textarea.scrollHeight;
+                    textarea.dataset.baseHeight = String(minHeight);
+                }
+
+                const baseHeight = parseFloat(textarea.dataset.baseHeight) || 0;
+                textarea.style.height = 'auto';
+                const newHeight = Math.max(textarea.scrollHeight, baseHeight);
+                textarea.style.height = `${newHeight}px`;
+            };
 
             // Initial manual import state
             let manualImportRevealed = false;
@@ -348,6 +373,7 @@
             items.forEach(item => {
                 const checkbox = item.querySelector('.skin-checkbox');
                 const priceInput = item.querySelector('.skin-price-input input');
+                const noteInput = item.querySelector('.skin-note textarea');
 
                 const setSelected = (shouldSelect) => {
                     item.classList.toggle('selected', shouldSelect);
@@ -369,24 +395,43 @@
                         return;
                     }
 
+                    if (event.target.closest('.skin-note')) {
+                        return;
+                    }
+
                     event.preventDefault();
                     event.stopPropagation();
 
                     toggleSelection();
                 });
 
+                const updateSelectionFromInputs = () => {
+                    const hasPrice = priceInput && priceInput.value.trim() !== '';
+                    const hasNote = noteInput && noteInput.value.trim() !== '';
+                    if (hasPrice || hasNote) {
+                        setSelected(true);
+                    } else {
+                        setSelected(false);
+                    }
+                };
+
                 if (priceInput) {
-                    const ensureSelected = () => {
-                        if (priceInput.value.trim() !== '') {
-                            setSelected(true);
-                        } else {
-                            setSelected(false);
-                        }
+                    priceInput.addEventListener('input', updateSelectionFromInputs);
+                    priceInput.addEventListener('change', updateSelectionFromInputs);
+                }
+
+                if (noteInput) {
+                    const handleNoteChange = () => {
+                        autoResizeTextarea(noteInput);
+                        updateSelectionFromInputs();
                     };
 
-                    priceInput.addEventListener('input', ensureSelected);
-                    priceInput.addEventListener('change', ensureSelected);
+                    autoResizeTextarea(noteInput);
+                    noteInput.addEventListener('input', handleNoteChange);
+                    noteInput.addEventListener('change', handleNoteChange);
                 }
+
+                updateSelectionFromInputs();
             });
             
             // Select All functionality - only visible items
