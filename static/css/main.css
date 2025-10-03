@@ -812,7 +812,7 @@ main {
     border-radius: 0;
     transition: transform 0.15s ease-out;
     text-decoration: none;
-    z-index: 3;
+    z-index: 6;
     padding: 8px;
 }
 
@@ -1003,14 +1003,14 @@ main {
     left: 0;
     right: 0;
     margin: 0;
-    padding: 8px 60px 16px 8px;
+    padding: 8px 16px 16px 8px;
     font-size: 14px;
     font-weight: 600;
     color: var(--text-color);
     line-height: 1.15;
     display: -webkit-box;
-    line-clamp: 3;
-    -webkit-line-clamp: 3;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1020,7 +1020,7 @@ main {
 
 .skin-exterior {
     position: absolute;
-    left: 14px;
+    left: 8px;
     right: 60px;
     bottom: -2px;
     margin: 0;
