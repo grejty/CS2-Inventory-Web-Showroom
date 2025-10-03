@@ -119,136 +119,16 @@
             </div>
 
             <div id="inventory">
-                {% for skin in skins %}
-                <div class="skin-item admin-selectable{% if skin.selected %} selected{% endif %}" 
-                    data-tradable="{{ skin.tradable_info.raw }}"
-                    data-weapon="{{ skin.weapon_type }}"
-                    data-type="{{ skin.item_type }}"
-                    data-index="{{ forloop.counter0 }}"
-                    data-name="{{ skin.name|escape }}"
-                    data-float="{% if skin.float is not None %}{{ skin.float|floatformat:6 }}{% endif %}"
-                    data-price="{% if skin.price_eur %}{{ skin.price_eur }}{% endif %}"
-                         {% if skin.rarity %}data-rarity="{{ skin.rarity }}"{% endif %}
-                         {% if skin.rarity_color %}style="--rarity-color: {{ skin.rarity_color }};"{% endif %}>
-                        <div class="skin-header">
-                            <h3 class="skin-title">{{ skin.name|pipe_breaks }}</h3>
-                            {% if 'Trade Protected' in skin.tradable_info.raw %}
-                                <a href="https://help.steampowered.com/en/faqs/view/365F-4BEE-2AE2-7BDD" class="trade-protected-badge" target="_blank" rel="noopener noreferrer" data-tooltip="Trade protected items cannot be modified, consumed, or transferred" aria-label="Trade protected items cannot be modified, consumed, or transferred">
-                                    <span class="badge-icon" aria-hidden="true">
-                                        <svg viewBox="0 0 24 28" focusable="false" aria-hidden="true">
-                                            <path d="M12 1.5l8 2.9v6.6c0 5.2-3.5 10.1-8 12-4.5-1.9-8-6.8-8-12V4.4z" fill="#facc15"/>
-                                            <path d="M12 3.2l6 2.2v5.5c0 4.2-2.8 8.2-6 9.5-3.2-1.3-6-5.3-6-9.5V5.4z" fill="#fde047"/>
-                                            <path d="M12 1.5l8 2.9v6.6c0 5.2-3.5 10.1-8 12-4.5-1.9-8-6.8-8-12V4.4z" fill="none" stroke="#f59e0b" stroke-width="1.1" stroke-linejoin="round"/>
-                                            <g transform="translate(0 2) rotate(90 12 12) scale(0.6) translate(4 8.5)">
-                                                <path d="M10 16H5V21M14 8H19V3M4.583 9.003C5.144 7.616 6.082 6.413 7.293 5.532C8.503 4.651 9.937 4.128 11.43 4.021C12.923 3.913 14.415 4.227 15.738 4.927C17.062 5.626 18.161 6.683 18.914 7.976M19.418 14.997C18.857 16.385 17.918 17.587 16.708 18.468C15.498 19.349 14.065 19.872 12.572 19.979C11.079 20.086 9.586 19.772 8.263 19.073C6.939 18.374 5.839 17.317 5.086 16.024" fill="none" stroke="#92400e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </g>
-                                        </svg>
-                                    </span>
-                                </a>
-                            {% endif %}
-                            {% if skin.exterior and skin.exterior != "Not Painted" %}
-                                <p class="skin-exterior">{{ skin.exterior }}</p>
-                            {% endif %}
-                        </div>
-                        <div class="skin-image">
-                            {% if skin.stickers or skin.patches %}
-                                <div class="sticker-stack">
-                                    {% for sticker in skin.stickers %}
-                                        <a class="sticker-thumb"
-                                           href="https://steamcommunity.com/market/listings/730/{{ "Sticker | "|add:sticker.name|default:"Sticker"|urlencode }}"
-                                           target="_blank"
-                                           rel="noopener noreferrer"
-                                           data-tooltip="{{ sticker.name|default:"Sticker" }}"
-                                           aria-label="{{ sticker.name|default:"Sticker" }}">
-                                            <img src="{{ sticker.icon_url }}" alt="{{ sticker.name|default:"Sticker" }}">
-                                        </a>
-                                    {% endfor %}
-                                    {% for patch in skin.patches %}
-                                        <a class="sticker-thumb sticker-thumb--patch"
-                                           href="https://steamcommunity.com/market/listings/730/{{ "Patch | "|add:patch.name|default:"Patch"|urlencode }}"
-                                           target="_blank"
-                                           rel="noopener noreferrer"
-                                           data-tooltip="{{ patch.name|default:"Patch" }}"
-                                           aria-label="{{ patch.name|default:"Patch" }}">
-                                            <img src="{{ patch.icon_url }}" alt="{{ patch.name|default:"Patch" }}">
-                                        </a>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                            <img src="https://community.cloudflare.steamstatic.com/economy/image/{{ skin.icon_url }}" alt="{{ skin.name }}">
-                            <input type="checkbox" name="selected_skins" value="{{ forloop.counter0 }}" {% if skin.selected %}checked{% endif %} class="skin-checkbox" style="display: none;">
-                        </div>
-                        <div class="skin-details">
-                            {% if skin.float is not None %}
-                                <div class="float-bar-container" style="--float-value: {{ skin.float }};">
-                                    <div class="float-bar" role="presentation">
-                                        <span class="float-segment segment-fn" data-tooltip="Factory New (0.00 – 0.07)" aria-hidden="true"></span>
-                                        <span class="float-segment segment-mw" data-tooltip="Minimal Wear (0.07 – 0.15)" aria-hidden="true"></span>
-                                        <span class="float-segment segment-ft" data-tooltip="Field-Tested (0.15 – 0.38)" aria-hidden="true"></span>
-                                        <span class="float-segment segment-ww" data-tooltip="Well-Worn (0.38 – 0.45)" aria-hidden="true"></span>
-                                        <span class="float-segment segment-bs" data-tooltip="Battle-Scarred (0.45 – 1.00)" aria-hidden="true"></span>
-                                    </div>
-                                    <span class="float-indicator" aria-hidden="true"></span>
-                                </div>
-                                <div class="float-stats" aria-label="Float and pattern information">
-                                    <span class="float-value" data-tooltip="Float value&#10;controls how much wear the skin has and ranges from 0-1">{{ skin.float|floatformat:6 }}</span>
-                                    <span class="paint-seed" data-tooltip="Paint seed&#10;controls the texture placement of the skin and ranges from 0-1000">
-                                        {% if skin.pattern_template %}
-                                            {{ skin.pattern_template }}
-                                        {% else %}
-                                            —
-                                        {% endif %}
-                                    </span>
-                                </div>
-                            {% elif skin.item_type == "Agent" and skin.collection %}
-                                <div class="skin-collection" aria-label="Collection">{{ skin.collection }}</div>
-                            {% endif %}
-                        </div>
-                        <div class="skin-footer">
-                            <div class="skin-actions">
-                                {% with info=skin.tradable_info %}
-                                    <div class="meta {% if info %}{{ info.state_class }}{% else %}meta--unlocked{% endif %}"
-                                         data-lock-state="{% if info and info.lock_state %}{{ info.lock_state }}{% else %}unlocked{% endif %}"
-                                         {% if info and info.unlock_iso %}data-unlock="{{ info.unlock_iso }}"{% endif %}
-                                         aria-label="{% if info and info.unlock_text %}{{ info.unlock_text }}{% else %}Tradable{% endif %}">
-                                        <span class="meta-icon" aria-hidden="true"></span>
-                                        {% if info and not info.is_tradable and info.unlock_text %}
-                                            <span class="meta-text">{{ info.unlock_text }}</span>
-                                        {% endif %}
-                                    </div>
-                                {% endwith %}
-                                {% if skin.inspect_link %}
-                                    <a href="{{ skin.inspect_link }}" class="inspect-btn" data-inspect-link="{{ skin.inspect_link }}" aria-label="Inspect in Game" data-tooltip="Inspect in Game">
-                                        <span class="inspect-icon" aria-hidden="true"></span>
-                                    </a>
-                                {% endif %}
-                            </div>
-                            <div class="skin-price skin-price--editable">
-                                <label class="skin-price__label" for="price_{{ forloop.counter0 }}">Price</label>
-                                <div class="skin-price-input">
-                                    <span class="skin-price-input__currency" aria-hidden="true">€</span>
-                                    <input type="number"
-                                           step="0.01"
-                                           min="0"
-                                           inputmode="decimal"
-                                           id="price_{{ forloop.counter0 }}"
-                                           name="price_{{ forloop.counter0 }}"
-                                           value="{% if skin.price_eur %}{{ skin.price_eur|floatformat:"-2" }}{% endif %}"
-                                           placeholder="0.00"
-                                           aria-label="Enter price in euros for {{ skin.name }}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="skin-note">
-                            <label class="skin-note__label" for="note_{{ forloop.counter0 }}">Admin note</label>
-                            <textarea id="note_{{ forloop.counter0 }}"
-                                      name="note_{{ forloop.counter0 }}"
-                                      rows="2"
-                                      maxlength="500"
-                                      placeholder="Add a private note">{{ skin.note|default_if_none:'' }}</textarea>
-                        </div>
-                    </div>
+                {% for skin in skins_regular %}
+                    {% include 'inventory/_admin_skin_item.html' %}
                 {% endfor %}
+
+                {% if skins_reserved %}
+                    <div class="inventory-section-heading">Reserved skins</div>
+                    {% for skin in skins_reserved %}
+                        {% include 'inventory/_admin_skin_item.html' %}
+                    {% endfor %}
+                {% endif %}
             </div>
         </form>
     {% endif %}
@@ -264,7 +144,6 @@
             const searchBox = document.getElementById('search-box');
             const inventoryContainer = document.getElementById('inventory');
             const items = Array.from(inventoryContainer.querySelectorAll('.skin-item'));
-            const defaultOrder = items.slice();
             const sortSelect = document.getElementById('sort-select');
             const showingCount = document.getElementById('showing-count');
             const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
@@ -276,6 +155,53 @@
             const inventoryJsonProtected = document.getElementById('inventory-json-protected');
             const inventoryJsonMain = document.getElementById('inventory-json-main');
             const refreshHint = document.getElementById('manual-refresh-hint');
+            const reservedHeading = inventoryContainer.querySelector('.inventory-section-heading');
+            const reservedItems = items.filter(item => item.dataset.reserved === 'true');
+            const regularItems = items.filter(item => item.dataset.reserved !== 'true');
+            const defaultRegularOrder = regularItems.slice();
+            const defaultReservedOrder = reservedItems.slice();
+
+            const makeNumericSorter = (datasetKey, ascending) => (a, b) => {
+                const valueA = parseFloat(a.dataset[datasetKey]);
+                const valueB = parseFloat(b.dataset[datasetKey]);
+                const aValid = Number.isFinite(valueA);
+                const bValid = Number.isFinite(valueB);
+
+                if (!aValid && !bValid) return 0;
+                if (!aValid) return 1;
+                if (!bValid) return -1;
+                return ascending ? valueA - valueB : valueB - valueA;
+            };
+
+            const sortComparators = {
+                'float-asc': makeNumericSorter('float', true),
+                'float-desc': makeNumericSorter('float', false),
+                'price-asc': makeNumericSorter('price', true),
+                'price-desc': makeNumericSorter('price', false)
+            };
+
+            const getOrderedItems = () => {
+                if (!sortSelect) {
+                    return defaultRegularOrder.concat(defaultReservedOrder);
+                }
+
+                const mode = sortSelect.value;
+                const sortFn = sortComparators[mode];
+
+                const orderedRegular = sortFn ? defaultRegularOrder.slice().sort(sortFn) : defaultRegularOrder.slice();
+                const orderedReserved = sortFn ? defaultReservedOrder.slice().sort(sortFn) : defaultReservedOrder.slice();
+
+                return orderedRegular.concat(orderedReserved);
+            };
+
+            const updateReservedHeadingVisibility = (visibleReservedCount = reservedItems.length) => {
+                if (!reservedHeading) {
+                    return;
+                }
+                reservedHeading.style.display = visibleReservedCount > 0 ? '' : 'none';
+            };
+
+            updateReservedHeadingVisibility();
 
             const autoResizeTextarea = (textarea) => {
                 if (!textarea) {
@@ -468,43 +394,9 @@
                 };
                 
                 let visibleCount = 0;
-                
-                // Apply filters to each item
-                let orderedItems;
-                if (!sortSelect) {
-                    orderedItems = defaultOrder;
-                } else {
-                    const mode = sortSelect.value;
-                    if (mode === 'float-asc' || mode === 'float-desc') {
-                        orderedItems = [...defaultOrder].sort((a, b) => {
-                            const floatA = parseFloat(a.dataset.float);
-                            const floatB = parseFloat(b.dataset.float);
-                            const isAsc = mode === 'float-asc';
+                let visibleReserved = 0;
 
-                            const aValid = Number.isFinite(floatA);
-                            const bValid = Number.isFinite(floatB);
-                            if (!aValid && !bValid) return 0;
-                            if (!aValid) return 1;
-                            if (!bValid) return -1;
-                            return isAsc ? floatA - floatB : floatB - floatA;
-                        });
-                    } else if (mode === 'price-asc' || mode === 'price-desc') {
-                        orderedItems = [...defaultOrder].sort((a, b) => {
-                            const priceA = parseFloat(a.dataset.price);
-                            const priceB = parseFloat(b.dataset.price);
-                            const isAsc = mode === 'price-asc';
-
-                            const aValid = Number.isFinite(priceA);
-                            const bValid = Number.isFinite(priceB);
-                            if (!aValid && !bValid) return 0;
-                            if (!aValid) return 1;
-                            if (!bValid) return -1;
-                            return isAsc ? priceA - priceB : priceB - priceA;
-                        });
-                    } else {
-                        orderedItems = defaultOrder;
-                    }
-                }
+                const orderedItems = getOrderedItems();
 
                 orderedItems.forEach(item => {
                     const tradable = item.dataset.tradable;
@@ -523,9 +415,14 @@
                     
                     if (isVisible) {
                         visibleCount++;
+                        if (item.dataset.reserved === 'true') {
+                            visibleReserved++;
+                        }
                     }
                 });
                 
+                updateReservedHeadingVisibility(visibleReserved);
+
                 // Update count
                 showingCount.textContent = visibleCount;
             }
