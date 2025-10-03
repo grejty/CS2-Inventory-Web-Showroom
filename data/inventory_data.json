@@ -12,7 +12,7 @@
         "unlock_iso": "2025-10-10T09:00:00",
         "state_class": "meta--locked"
       },
-      "selected": true,
+      "selected": false,
       "weapon_type": "Other",
       "item_type": "Agent",
       "stickers": [],
@@ -25,7 +25,7 @@
       "float": null,
       "collection": "Operation Riptide Agents",
       "price_eur": "32",
-      "note": ""
+      "note": "Marek Krupa"
     },
     {
       "name": "\u2605 Flip Knife | Marble Fade",
@@ -39,7 +39,7 @@
         "unlock_iso": "2025-10-09T09:00:00",
         "state_class": "meta--locked"
       },
-      "selected": true,
+      "selected": false,
       "weapon_type": "Flip Knife",
       "item_type": "Knife",
       "stickers": [],
@@ -52,7 +52,7 @@
       "float": 0.031837157905101776,
       "collection": null,
       "price_eur": "400",
-      "note": "",
+      "note": "Marek Krupa",
       "wear_rating": 0.031837157905101776
     },
     {
@@ -67,7 +67,7 @@
         "unlock_iso": "2025-10-09T09:00:00",
         "state_class": "meta--locked"
       },
-      "selected": true,
+      "selected": false,
       "weapon_type": "Survival Knife",
       "item_type": "Knife",
       "stickers": [],
@@ -80,7 +80,7 @@
       "float": 0.023386172950267792,
       "collection": "The Shattered Web Collection",
       "price_eur": "300",
-      "note": "",
+      "note": "Marek Krupa",
       "wear_rating": 0.023386172950267792
     },
     {
@@ -95,7 +95,7 @@
         "unlock_iso": "2025-10-09T09:00:00",
         "state_class": "meta--locked"
       },
-      "selected": true,
+      "selected": false,
       "weapon_type": "Skeleton Knife",
       "item_type": "Knife",
       "stickers": [],
@@ -108,7 +108,7 @@
       "float": 0.3604060411453247,
       "collection": "The Shattered Web Collection",
       "price_eur": "170",
-      "note": "",
+      "note": "Marek Krupa",
       "wear_rating": 0.3604060411453247
     },
     {
@@ -123,7 +123,7 @@
         "unlock_iso": "2025-10-09T09:00:00",
         "state_class": "meta--locked"
       },
-      "selected": true,
+      "selected": false,
       "weapon_type": "AWP",
       "item_type": "Sniper Rifle",
       "stickers": [
@@ -157,7 +157,7 @@
       "float": 0.5331694483757019,
       "collection": "The Fever Collection",
       "price_eur": "27",
-      "note": "",
+      "note": "Marek Krupa",
       "wear_rating": 0.5331694483757019
     },
     {
@@ -172,7 +172,7 @@
         "unlock_iso": "2025-10-09T09:00:00",
         "state_class": "meta--locked"
       },
-      "selected": true,
+      "selected": false,
       "weapon_type": "AK-47",
       "item_type": "Rifle",
       "stickers": [
@@ -206,7 +206,7 @@
       "float": 0.2440759241580963,
       "collection": "The Danger Zone Collection",
       "price_eur": "26",
-      "note": "",
+      "note": "Marek Krupa",
       "wear_rating": 0.2440759241580963
     },
     {
@@ -221,7 +221,7 @@
         "unlock_iso": "2025-10-09T09:00:00",
         "state_class": "meta--locked"
       },
-      "selected": true,
+      "selected": false,
       "weapon_type": "M4A1-S",
       "item_type": "Rifle",
       "stickers": [
@@ -239,7 +239,7 @@
       "float": 0.2822956144809723,
       "collection": "The Prisma 2 Collection",
       "price_eur": "15",
-      "note": "",
+      "note": "Marek Krupa",
       "wear_rating": 0.2822956144809723
     },
     {
@@ -394,7 +394,7 @@
         "unlock_iso": "2025-10-06T09:00:00",
         "state_class": "meta--locked"
       },
-      "selected": true,
+      "selected": false,
       "weapon_type": "USP-S",
       "item_type": "Pistol",
       "stickers": [
@@ -420,7 +420,7 @@
       "float": 0.2746635377407074,
       "collection": "The Bravo Collection",
       "price_eur": "33",
-      "note": "",
+      "note": "Marek Krupa",
       "wear_rating": 0.2746635377407074
     },
     {
@@ -536,7 +536,7 @@
         "unlock_iso": null,
         "state_class": "meta--unlocked"
       },
-      "selected": true,
+      "selected": false,
       "weapon_type": "Bayonet",
       "item_type": "Knife",
       "stickers": [],
@@ -549,7 +549,7 @@
       "float": 0.19407683610916138,
       "collection": null,
       "price_eur": "230",
-      "note": "",
+      "note": "Marek Krupa",
       "wear_rating": 0.19407683610916138
     },
     {
@@ -564,7 +564,7 @@
         "unlock_iso": null,
         "state_class": "meta--unlocked"
       },
-      "selected": true,
+      "selected": false,
       "weapon_type": "Huntsman Knife",
       "item_type": "Knife",
       "stickers": [],
@@ -577,7 +577,7 @@
       "float": 0.07943959534168243,
       "collection": "The Huntsman Collection",
       "price_eur": "160",
-      "note": "",
+      "note": "Marek Krupa",
       "wear_rating": 0.07943959534168243
     },
     {
@@ -592,7 +592,7 @@
         "unlock_iso": null,
         "state_class": "meta--unlocked"
       },
-      "selected": true,
+      "selected": false,
       "weapon_type": "Other",
       "item_type": "Agent",
       "stickers": [],
@@ -605,7 +605,7 @@
       "float": null,
       "collection": "Operation Riptide Agents",
       "price_eur": "28",
-      "note": ""
+      "note": "Marek Krupa"
     },
     {
       "name": "StatTrak\u2122 Desert Eagle | Hypnotic",
@@ -674,7 +674,7 @@
         "unlock_iso": null,
         "state_class": "meta--unlocked"
       },
-      "selected": true,
+      "selected": false,
       "weapon_type": "AK-47",
       "item_type": "Rifle",
       "stickers": [],
@@ -687,7 +687,7 @@
       "float": 0.06410791724920273,
       "collection": "The Revolver Case Collection",
       "price_eur": "175",
-      "note": "",
+      "note": "Marek Krupa",
       "wear_rating": 0.06410791724920273
     },
     {
@@ -730,7 +730,7 @@
         "unlock_iso": null,
         "state_class": "meta--unlocked"
       },
-      "selected": true,
+      "selected": false,
       "weapon_type": "Bayonet",
       "item_type": "Knife",
       "stickers": [],
@@ -743,7 +743,7 @@
       "float": 0.45549276471138,
       "collection": null,
       "price_eur": "205",
-      "note": "",
+      "note": "Marek Krupa",
       "wear_rating": 0.45549276471138
     },
     {
@@ -786,7 +786,7 @@
         "unlock_iso": null,
         "state_class": "meta--unlocked"
       },
-      "selected": true,
+      "selected": false,
       "weapon_type": "Flip Knife",
       "item_type": "Knife",
       "stickers": [],
@@ -799,7 +799,7 @@
       "float": 0.3353557288646698,
       "collection": null,
       "price_eur": "240",
-      "note": "",
+      "note": "Marek Krupa",
       "wear_rating": 0.3353557288646698
     },
     {
