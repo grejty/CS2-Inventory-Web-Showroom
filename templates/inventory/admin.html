@@ -130,41 +130,8 @@
                     data-price="{% if skin.price_eur %}{{ skin.price_eur }}{% endif %}"
                          {% if skin.rarity %}data-rarity="{{ skin.rarity }}"{% endif %}
                          {% if skin.rarity_color %}style="--rarity-color: {{ skin.rarity_color }};"{% endif %}>
-                        <div class="skin-header{% if skin.stickers %} has-stickers{% endif %}">
+                        <div class="skin-header">
                             <h3 class="skin-title">{{ skin.name|pipe_breaks }}</h3>
-                            {% if skin.exterior and skin.exterior != "Not Painted" %}
-                                <p class="skin-exterior">{{ skin.exterior }}</p>
-                            {% endif %}
-                            {% if skin.stickers %}
-                                <div class="sticker-stack">
-                                    {% for sticker in skin.stickers %}
-                                        <a class="sticker-thumb"
-                                           href="https://steamcommunity.com/market/listings/730/{{ "Sticker | "|add:sticker.name|default:"Sticker"|urlencode }}"
-                                           target="_blank"
-                                           rel="noopener noreferrer"
-                                           data-tooltip="{{ sticker.name|default:"Sticker" }}"
-                                           aria-label="{{ sticker.name|default:"Sticker" }}">
-                                            <img src="{{ sticker.icon_url }}" alt="{{ sticker.name|default:"Sticker" }}">
-                                        </a>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                            {% if skin.patches %}
-                                <div class="sticker-stack sticker-stack--patches">
-                                    {% for patch in skin.patches %}
-                                        <a class="sticker-thumb sticker-thumb--patch"
-                                           href="https://steamcommunity.com/market/listings/730/{{ "Patch | "|add:patch.name|default:"Patch"|urlencode }}"
-                                           target="_blank"
-                                           rel="noopener noreferrer"
-                                           data-tooltip="{{ patch.name|default:"Patch" }}"
-                                           aria-label="{{ patch.name|default:"Patch" }}">
-                                            <img src="{{ patch.icon_url }}" alt="{{ patch.name|default:"Patch" }}">
-                                        </a>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-                        <div class="skin-image">
                             {% if 'Trade Protected' in skin.tradable %}
                                 <a href="https://help.steampowered.com/en/faqs/view/365F-4BEE-2AE2-7BDD" class="trade-protected-badge" target="_blank" rel="noopener noreferrer" data-tooltip="Trade protected items cannot be modified, consumed, or transferred" aria-label="Trade protected items cannot be modified, consumed, or transferred">
                                     <span class="badge-icon" aria-hidden="true">
@@ -178,6 +145,35 @@
                                         </svg>
                                     </span>
                                 </a>
+                            {% endif %}
+                            {% if skin.exterior and skin.exterior != "Not Painted" %}
+                                <p class="skin-exterior">{{ skin.exterior }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="skin-image">
+                            {% if skin.stickers or skin.patches %}
+                                <div class="sticker-stack">
+                                    {% for sticker in skin.stickers %}
+                                        <a class="sticker-thumb"
+                                           href="https://steamcommunity.com/market/listings/730/{{ "Sticker | "|add:sticker.name|default:"Sticker"|urlencode }}"
+                                           target="_blank"
+                                           rel="noopener noreferrer"
+                                           data-tooltip="{{ sticker.name|default:"Sticker" }}"
+                                           aria-label="{{ sticker.name|default:"Sticker" }}">
+                                            <img src="{{ sticker.icon_url }}" alt="{{ sticker.name|default:"Sticker" }}">
+                                        </a>
+                                    {% endfor %}
+                                    {% for patch in skin.patches %}
+                                        <a class="sticker-thumb sticker-thumb--patch"
+                                           href="https://steamcommunity.com/market/listings/730/{{ "Patch | "|add:patch.name|default:"Patch"|urlencode }}"
+                                           target="_blank"
+                                           rel="noopener noreferrer"
+                                           data-tooltip="{{ patch.name|default:"Patch" }}"
+                                           aria-label="{{ patch.name|default:"Patch" }}">
+                                            <img src="{{ patch.icon_url }}" alt="{{ patch.name|default:"Patch" }}">
+                                        </a>
+                                    {% endfor %}
+                                </div>
                             {% endif %}
                             <img src="https://community.cloudflare.steamstatic.com/economy/image/{{ skin.icon_url }}" alt="{{ skin.name }}">
                             <input type="checkbox" name="selected_skins" value="{{ forloop.counter0 }}" {% if skin.selected %}checked{% endif %} class="skin-checkbox" style="display: none;">
