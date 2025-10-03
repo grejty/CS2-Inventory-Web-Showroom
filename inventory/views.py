@@ -42,7 +42,7 @@ def index(request):
         }
     else:
         # Load the most recent inventory data
-        skins, _ = load_inventory_from_file()
+        skins, _ = load_inventory_from_file(auto_resave=False)
         
         # Filter to only selected skins
         selected_skins = [skin for skin in skins if skin.get("selected", False)]
@@ -92,7 +92,7 @@ def admin_view(request):
                 payload_segments.append(manual_json_main)
 
             if not payload_segments:
-                skins, total_before_filters = load_inventory_from_file()
+                skins, total_before_filters = load_inventory_from_file(auto_resave=False)
                 total = len(skins)
                 context = {
                     'error': None,
@@ -112,7 +112,7 @@ def admin_view(request):
                 combined_payload = "\n".join(payload_segments)
                 update_inventory_from_manual(combined_payload)
             except ValueError as exc:
-                skins, total_before_filters = load_inventory_from_file()
+                skins, total_before_filters = load_inventory_from_file(auto_resave=False)
                 total = len(skins)
                 context = {
                     'error': str(exc),
@@ -128,7 +128,7 @@ def admin_view(request):
                 }
                 return render(request, 'inventory/admin.html', context)
             except Exception as exc:
-                skins, total_before_filters = load_inventory_from_file()
+                skins, total_before_filters = load_inventory_from_file(auto_resave=False)
                 total = len(skins)
                 context = {
                     'error': f'Unexpected error processing inventory: {exc}',
@@ -206,7 +206,7 @@ def admin_view(request):
             return redirect('inventory:admin')
     
     # Load current inventory data for GET request (no automatic refresh)
-    skins, total_before_filters = load_inventory_from_file()
+    skins, total_before_filters = load_inventory_from_file(auto_resave=False)
     total = len(skins)
     
     # Display the admin interface (GET request)
