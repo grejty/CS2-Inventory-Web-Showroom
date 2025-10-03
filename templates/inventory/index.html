@@ -87,7 +87,7 @@
         <div id="inventory">
             {% for skin in skins %}
              <div class="skin-item" 
-                 data-tradable="{{ skin.tradable }}"
+                 data-tradable="{{ skin.tradable_info.raw }}"
                  data-weapon="{{ skin.weapon_type }}"
                  data-type="{{ skin.item_type }}"
                  data-name="{{ skin.name|escape }}"
@@ -130,7 +130,7 @@
                         {% endif %}
                     </div>
                     <div class="skin-image">
-                        {% if 'Trade Protected' in skin.tradable %}
+                        {% if 'Trade Protected' in skin.tradable_info.raw %}
                             <a href="https://help.steampowered.com/en/faqs/view/365F-4BEE-2AE2-7BDD" class="trade-protected-badge" target="_blank" rel="noopener noreferrer" data-tooltip="Trade protected items cannot be modified, consumed, or transferred" aria-label="Trade protected items cannot be modified, consumed, or transferred">
                                 <span class="badge-icon" aria-hidden="true">
                                     <svg viewBox="0 0 24 28" focusable="false" aria-hidden="true">

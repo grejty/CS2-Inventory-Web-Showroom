@@ -408,11 +408,11 @@
                 const updateSelectionFromInputs = () => {
                     const hasPrice = priceInput && priceInput.value.trim() !== '';
                     const hasNote = noteInput && noteInput.value.trim() !== '';
+                    // Only auto-select items with price/note, don't auto-deselect manually selected items
                     if (hasPrice || hasNote) {
                         setSelected(true);
-                    } else {
-                        setSelected(false);
                     }
+                    // Don't automatically deselect - preserve manual selections
                 };
 
                 if (priceInput) {
@@ -431,7 +431,7 @@
                     noteInput.addEventListener('change', handleNoteChange);
                 }
 
-                updateSelectionFromInputs();
+                // Don't call updateSelectionFromInputs() on page load to preserve server-side selections
             });
             
             // Select All functionality - only visible items
