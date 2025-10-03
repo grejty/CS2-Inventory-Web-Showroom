@@ -329,11 +329,15 @@
                 const updateSelectionFromInputs = () => {
                     const hasPrice = priceInput && priceInput.value.trim() !== '';
                     const hasNote = noteInput && noteInput.value.trim() !== '';
-                    // Only auto-select items with price/note, don't auto-deselect manually selected items
-                    if (hasPrice || hasNote) {
+
+                    if (hasNote) {
+                        setSelected(false);
+                        return;
+                    }
+
+                    if (hasPrice) {
                         setSelected(true);
                     }
-                    // Don't automatically deselect - preserve manual selections
                 };
 
                 if (priceInput) {
