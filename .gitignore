@@ -1,5 +1,4 @@
 .env
-inventory_data.json
 /config
 /pgdata
 cs2_showroom/__pycache__/
