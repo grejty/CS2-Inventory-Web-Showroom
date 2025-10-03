@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load inventory_tags %}
 
 {% block title %}Grejty - CS2 SHOP | Skins{% endblock %}
 
@@ -96,7 +97,7 @@
                      {% if skin.rarity %}data-rarity="{{ skin.rarity }}"{% endif %}
                      {% if skin.rarity_color %}style="--rarity-color: {{ skin.rarity_color }};"{% endif %}>
                     <div class="skin-header{% if skin.stickers %} has-stickers{% endif %}">
-                        <h3 class="skin-title">{{ skin.name }}</h3>
+                        <h3 class="skin-title">{{ skin.name|pipe_breaks }}</h3>
                         {% if skin.exterior and skin.exterior != "Not Painted" %}
                             <p class="skin-exterior">{{ skin.exterior }}</p>
                         {% endif %}
@@ -224,10 +225,6 @@
             
             // Initial filter panel state
             filterPanel.style.display = 'none';
-
-            if (window.formatSkinTitles) {
-                window.formatSkinTitles();
-            }
 
             filterButton.addEventListener('click', function() {
                 const isHidden = filterPanel.style.display === 'none' || !filterPanel.style.display;

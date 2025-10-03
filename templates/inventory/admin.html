@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load inventory_tags %}
 
 {% block title %}Grejty - CS2 SHOP | Admin{% endblock %}
 
@@ -130,7 +131,7 @@
                          {% if skin.rarity %}data-rarity="{{ skin.rarity }}"{% endif %}
                          {% if skin.rarity_color %}style="--rarity-color: {{ skin.rarity_color }};"{% endif %}>
                         <div class="skin-header{% if skin.stickers %} has-stickers{% endif %}">
-                            <h3 class="skin-title">{{ skin.name }}</h3>
+                            <h3 class="skin-title">{{ skin.name|pipe_breaks }}</h3>
                             {% if skin.exterior and skin.exterior != "Not Painted" %}
                                 <p class="skin-exterior">{{ skin.exterior }}</p>
                             {% endif %}
@@ -320,10 +321,6 @@
             // Initial filter panel state
             filterPanel.style.display = 'none';
 
-            if (window.formatSkinTitles) {
-                window.formatSkinTitles();
-            }
-
             // Toggle filter panel with consistent behavior
             filterToggle.addEventListener('click', function() {
                 const isHidden = filterPanel.style.display === 'none' || !filterPanel.style.display;
@@ -370,7 +367,9 @@
             }
 
             // Make items clickable for selection and auto-select when price is filled
-            items.forEach(item => {
+            // Defer this heavy processing to allow skin titles to render first
+            setTimeout(() => {
+                items.forEach(item => {
                 const checkbox = item.querySelector('.skin-checkbox');
                 const priceInput = item.querySelector('.skin-price-input input');
                 const noteInput = item.querySelector('.skin-note textarea');
@@ -433,6 +432,7 @@
 
                 // Don't call updateSelectionFromInputs() on page load to preserve server-side selections
             });
+            }, 0); // End of setTimeout - defer heavy processing to allow skin titles to render first
             
             // Select All functionality - only visible items
             selectAllBtn.addEventListener('click', function(event) {
@@ -569,8 +569,11 @@
                 });
             }
 
-            // Initialize filters on page load
-            applyFilters();
+            // Only apply filters on page load if there are active filters or search terms
+            // This prevents unnecessary DOM manipulation that can cause visual delays
+            if (searchBox.value.trim() !== '' || document.querySelectorAll('.filter-checkbox:checked').length > 0) {
+                applyFilters();
+            }
 
             if (window.InventoryUI) {
                 window.InventoryUI.bindSkinActions(document.getElementById('inventory'));
