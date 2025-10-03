@@ -304,7 +304,8 @@ def get_filter_counts(skins):
     
     # Count occurrences
     for skin in skins:
-        tradable = skin.get("tradable", "Yes")  # Default to "Yes" since we filter out "No"
+        tradable_info = skin.get("tradable_info", {})
+        tradable = tradable_info.get("raw", "Yes")  # Default to "Yes" since we filter out "No"
         weapon_type = skin.get("weapon_type", "Other")
         item_type = skin.get("item_type", "Other")
         

@@ -221,7 +221,6 @@ def process_inventory_data(data):
                 "name": name,
                 "icon_url": desc.get("icon_url", ""),
                 "exterior": exterior_text(desc),
-                "tradable": tradable_status,
                 "tradable_info": build_tradable_info(tradable_status),
                 "selected": False,  # Default to not selected
                 "weapon_type": weapon_type or "Other",
@@ -330,7 +329,7 @@ def save_inventory_to_file(skins, filtered_total, total_before_filters=None):
     # Verify the file was written correctly
     print(f"File saved to {settings.LOCAL_DATA_FILE}")
 
-def load_inventory_from_file():
+def load_inventory_from_file(auto_resave=True):
     """Load inventory data from JSON file."""
     try:
         if os.path.exists(settings.LOCAL_DATA_FILE) and os.path.getsize(settings.LOCAL_DATA_FILE) > 0:
@@ -352,7 +351,13 @@ def load_inventory_from_file():
                 if skin.get("note") != sanitized_note:
                     needs_resave = True
                 skin["note"] = sanitized_note
-                skin["tradable_info"] = build_tradable_info(skin.get("tradable"))
+                # Get existing tradable status from tradable_info.raw or fallback to old tradable field for compatibility
+                existing_tradable = skin.get("tradable_info", {}).get("raw") or skin.get("tradable", "Yes")
+                skin["tradable_info"] = build_tradable_info(existing_tradable)
+                # Remove redundant tradable field if it exists
+                if "tradable" in skin:
+                    del skin["tradable"]
+                    needs_resave = True
                 normalized_price = _normalize_price(skin.get("price_eur"))
                 if skin.get("price_eur") != normalized_price:
                     needs_resave = True
@@ -402,7 +407,7 @@ def load_inventory_from_file():
                         skin["stickers"] = remaining_stickers
                         needs_resave = True
 
-            if needs_resave:
+            if needs_resave and auto_resave:
                 save_inventory_to_file(
                     skins,
                     data.get("total", len(skins)),
@@ -427,26 +432,43 @@ def update_inventory_from_manual(raw_json):
     try:
         current_skins, _ = load_inventory_from_file()
 
+        # Use asset_id as the primary key for preserving selections, with fallback to name+exterior
         selection_map = {}
         price_map = {}
         note_map = {}
         for skin in current_skins:
-            key = skin['name']
-            if skin.get('exterior'):
-                key += f"_{skin['exterior']}"
-            selection_map[key] = skin.get('selected', False)
-            price_map[key] = _normalize_price(skin.get('price_eur'))
-            note_map[key] = _sanitize_note(skin.get('note'))
+            asset_id = skin.get('asset_id')
+            if asset_id:
+                # Primary key: asset_id (unique identifier)
+                selection_map[asset_id] = skin.get('selected', False)
+                price_map[asset_id] = _normalize_price(skin.get('price_eur'))
+                note_map[asset_id] = _sanitize_note(skin.get('note'))
+            else:
+                # Fallback key: name + exterior (for items without asset_id)
+                key = skin['name']
+                if skin.get('exterior'):
+                    key += f"_{skin['exterior']}"
+                selection_map[key] = skin.get('selected', False)
+                price_map[key] = _normalize_price(skin.get('price_eur'))
+                note_map[key] = _sanitize_note(skin.get('note'))
 
         skins, filtered_total, total_before_filters = parse_inventory_json(raw_json)
 
         for skin in skins:
-            key = skin['name']
-            if skin.get('exterior'):
-                key += f"_{skin['exterior']}"
-            skin['selected'] = selection_map.get(key, False)
-            skin['price_eur'] = _normalize_price(price_map.get(key))
-            skin['note'] = note_map.get(key, "")
+            asset_id = skin.get('asset_id')
+            if asset_id and asset_id in selection_map:
+                # Use asset_id for lookup if available
+                skin['selected'] = selection_map.get(asset_id, False)
+                skin['price_eur'] = _normalize_price(price_map.get(asset_id))
+                skin['note'] = note_map.get(asset_id, "")
+            else:
+                # Fallback to name + exterior
+                key = skin['name']
+                if skin.get('exterior'):
+                    key += f"_{skin['exterior']}"
+                skin['selected'] = selection_map.get(key, False)
+                skin['price_eur'] = _normalize_price(price_map.get(key))
+                skin['note'] = note_map.get(key, "")
 
         save_inventory_to_file(skins, filtered_total, total_before_filters)
         return skins, filtered_total, total_before_filters
