@@ -16,6 +16,39 @@ from .helpers import WEAPON_TYPES, ITEM_TYPES, get_filter_counts
 
 startup_error = None
 
+
+def _split_admin_skins(skins):
+    regular = []
+    reserved = []
+
+    for idx, skin in enumerate(skins):
+        skin['form_index'] = idx
+        note_value = skin.get('note')
+        if isinstance(note_value, str):
+            note_value = note_value.strip()
+        else:
+            note_value = ''
+
+        is_reserved = bool(note_value)
+        skin['is_reserved'] = is_reserved
+
+        if is_reserved:
+            reserved.append(skin)
+        else:
+            regular.append(skin)
+
+    return regular, reserved
+
+
+def _augment_admin_context(context):
+    skins = context.get('skins', []) or []
+    regular, reserved = _split_admin_skins(list(skins))
+    context['skins_regular'] = regular
+    context['skins_reserved'] = reserved
+    context['has_reserved_skins'] = bool(reserved)
+    context['skins'] = regular + reserved
+    return context
+
 # Helper to build Steam inventory URLs for manual import
 def _steam_inventory_urls():
     steam_id = settings.STEAM_ID
@@ -75,7 +108,7 @@ def admin_view(request):
             'pasted_json_protected': '',
             'show_manual_import': False
         }
-        return render(request, 'inventory/admin.html', context)
+        return render(request, 'inventory/admin.html', _augment_admin_context(context))
     
     # Handle form submission to save selection or refresh inventory
     if request.method == "POST":
@@ -106,7 +139,7 @@ def admin_view(request):
                     'pasted_json_protected': manual_json_protected,
                     'show_manual_import': True
                 }
-                return render(request, 'inventory/admin.html', context)
+                return render(request, 'inventory/admin.html', _augment_admin_context(context))
 
             try:
                 combined_payload = "\n".join(payload_segments)
@@ -126,7 +159,7 @@ def admin_view(request):
                     'pasted_json_protected': manual_json_protected,
                     'show_manual_import': True
                 }
-                return render(request, 'inventory/admin.html', context)
+                return render(request, 'inventory/admin.html', _augment_admin_context(context))
             except Exception as exc:
                 skins, total_before_filters = load_inventory_from_file(auto_resave=False)
                 total = len(skins)
@@ -142,7 +175,7 @@ def admin_view(request):
                     'pasted_json_protected': manual_json_protected,
                     'show_manual_import': True
                 }
-                return render(request, 'inventory/admin.html', context)
+                return render(request, 'inventory/admin.html', _augment_admin_context(context))
 
             # Redirect after successful refresh
             return redirect('inventory:admin')
@@ -222,4 +255,4 @@ def admin_view(request):
         'pasted_json_protected': '',
         'show_manual_import': False
     }
-    return render(request, 'inventory/admin.html', context)
+    return render(request, 'inventory/admin.html', _augment_admin_context(context))

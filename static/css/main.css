@@ -742,6 +742,18 @@ main {
     margin: 0 auto;
 }
 
+.inventory-section-heading {
+    grid-column: 1 / -1;
+    margin: 12px 0 0;
+    padding: 16px 4px 4px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    border-top: 1px solid rgba(var(--accent-color-rgb), 0.2);
+}
+
 .skin-item {
     background: var(--bg-card);
     border: 2px solid var(--border-color);
