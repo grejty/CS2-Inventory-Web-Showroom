@@ -136,7 +136,7 @@ main {
 .theme-toggle {
     background: none;
     border: none;
-    cursor: default;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
