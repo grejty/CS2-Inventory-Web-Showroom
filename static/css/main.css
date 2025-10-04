@@ -1113,7 +1113,7 @@ main {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     flex: 0 0 auto;
-    min-height: 56px;
+    min-height: 72px;
     background: var(--bg-secondary);
 }
 
@@ -1129,8 +1129,8 @@ main {
     color: var(--text-color);
     line-height: 1.15;
     display: -webkit-box;
-    line-clamp: 2;
-    -webkit-line-clamp: 2;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
