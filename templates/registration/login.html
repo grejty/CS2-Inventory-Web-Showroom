@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Sign in | CS2 Inventory{% endblock %}
+{% block header %}Sign in{% endblock %}
+
+{% block content %}
+<div class="auth-card">
+    <p class="auth-description">
+        Sign in with your administrator credentials to manage showroom inventory.
+    </p>
+    {% if form.errors %}
+        <div class="auth-error">
+            Please double-check your username and password.
+        </div>
+    {% endif %}
+    {% if form.non_field_errors %}
+        <div class="auth-error">
+            {{ form.non_field_errors|join:" " }}
+        </div>
+    {% endif %}
+    <form method="post" class="auth-form" novalidate>
+        {% csrf_token %}
+        <div class="auth-field">
+            <label for="{{ form.username.id_for_label }}">Username</label>
+            {{ form.username }}
+            {{ form.username.errors }}
+        </div>
+        <div class="auth-field">
+            <label for="{{ form.password.id_for_label }}">Password</label>
+            {{ form.password }}
+            {{ form.password.errors }}
+        </div>
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}">
+        {% endif %}
+        <button type="submit" class="primary-btn">Sign in</button>
+    </form>
+</div>
+{% endblock %}

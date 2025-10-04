@@ -8,7 +8,6 @@
 {% block content %}
     {% if error %}
         <div class="error-message"><strong>Error updating inventory:</strong><br>{{ error|cut:"Forbidden:"|striptags }}</div>
-        <div><a href="{{ access_token_url }}" target="_blank" class="button">Get Access Token</a></div>
     {% else %}
         <!-- Search bar in the middle -->
         <div class="search-filter-container">

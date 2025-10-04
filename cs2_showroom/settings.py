@@ -77,10 +77,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # App-specific settings
 LOCAL_DATA_FILE = os.path.join(BASE_DIR, 'data', 'inventory_data.json')
 
-# Steam API configuration
-STEAM_API_URL = "https://api.steampowered.com/IEconService/GetInventoryItemsWithDescriptions/v1/"
-STEAM_ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
-STEAM_ACCESS_TOKEN_URL = "https://store.steampowered.com/pointssummary/ajaxgetasyncconfig"
+# Steam configuration
 STEAM_ID = "76561198096622937"
 STEAM_APP_ID = "730"  # CS2
-STEAM_CONTEXT_ID = "2"
+
+# Authentication settings
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/manage/'
+LOGOUT_REDIRECT_URL = '/manage/'
+
+# Admin bootstrap credentials (optional)
+ADMIN_USERNAME = os.getenv('ADMIN_USERNAME')
+ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD')
+
+# Session settings
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
