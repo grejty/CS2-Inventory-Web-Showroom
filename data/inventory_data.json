@@ -52,8 +52,7 @@
       "float": 0.031837157905101776,
       "collection": null,
       "price_eur": "400",
-      "note": "Marek Krupa",
-      "wear_rating": 0.031837157905101776
+      "note": "Marek Krupa"
     },
     {
       "name": "\u2605 Survival Knife | Doppler",
@@ -80,8 +79,7 @@
       "float": 0.023386172950267792,
       "collection": "The Shattered Web Collection",
       "price_eur": "300",
-      "note": "Marek Krupa",
-      "wear_rating": 0.023386172950267792
+      "note": "Marek Krupa"
     },
     {
       "name": "\u2605 Skeleton Knife | Forest DDPAT",
@@ -108,8 +106,7 @@
       "float": 0.3604060411453247,
       "collection": "The Shattered Web Collection",
       "price_eur": "170",
-      "note": "Marek Krupa",
-      "wear_rating": 0.3604060411453247
+      "note": "Marek Krupa"
     },
     {
       "name": "AWP | Printstream",
@@ -157,8 +154,7 @@
       "float": 0.5331694483757019,
       "collection": "The Fever Collection",
       "price_eur": "27",
-      "note": "Marek Krupa",
-      "wear_rating": 0.5331694483757019
+      "note": "Marek Krupa"
     },
     {
       "name": "AK-47 | Asiimov",
@@ -206,8 +202,7 @@
       "float": 0.2440759241580963,
       "collection": "The Danger Zone Collection",
       "price_eur": "26",
-      "note": "Marek Krupa",
-      "wear_rating": 0.2440759241580963
+      "note": "Marek Krupa"
     },
     {
       "name": "M4A1-S | Player Two",
@@ -239,8 +234,7 @@
       "float": 0.2822956144809723,
       "collection": "The Prisma 2 Collection",
       "price_eur": "15",
-      "note": "Marek Krupa",
-      "wear_rating": 0.2822956144809723
+      "note": "Marek Krupa"
     },
     {
       "name": "\u2605 Bayonet | Freehand",
@@ -267,8 +261,7 @@
       "float": 0.0944933220744133,
       "collection": null,
       "price_eur": "265",
-      "note": "",
-      "wear_rating": 0.0944933220744133
+      "note": ""
     },
     {
       "name": "\u2605 StatTrak\u2122 Bayonet | Black Laminate",
@@ -295,8 +288,7 @@
       "float": 0.42519423365592957,
       "collection": null,
       "price_eur": null,
-      "note": "",
-      "wear_rating": 0.42519423365592957
+      "note": ""
     },
     {
       "name": "AWP | Printstream",
@@ -323,8 +315,7 @@
       "float": 0.3796481490135193,
       "collection": "The Fever Collection",
       "price_eur": null,
-      "note": "",
-      "wear_rating": 0.3796481490135193
+      "note": ""
     },
     {
       "name": "\u2605 Bayonet | Urban Masked",
@@ -351,8 +342,7 @@
       "float": 0.36774834990501404,
       "collection": null,
       "price_eur": "175",
-      "note": "",
-      "wear_rating": 0.36774834990501404
+      "note": ""
     },
     {
       "name": "\u2605 Hand Wraps | Slaughter",
@@ -379,8 +369,7 @@
       "float": 0.24599066376686096,
       "collection": null,
       "price_eur": "920",
-      "note": "",
-      "wear_rating": 0.24599066376686096
+      "note": ""
     },
     {
       "name": "StatTrak\u2122 USP-S | Overgrowth",
@@ -420,8 +409,7 @@
       "float": 0.2746635377407074,
       "collection": "The Bravo Collection",
       "price_eur": "33",
-      "note": "Marek Krupa",
-      "wear_rating": 0.2746635377407074
+      "note": "Marek Krupa"
     },
     {
       "name": "AK-47 | X-Ray",
@@ -465,8 +453,7 @@
       "float": 0.40126073360443115,
       "collection": "The Havoc Collection",
       "price_eur": "400",
-      "note": "",
-      "wear_rating": 0.40126073360443115
+      "note": ""
     },
     {
       "name": "\u2605 Butterfly Knife | Slaughter",
@@ -493,8 +480,7 @@
       "float": 0.05779615789651871,
       "collection": "The Breakout Collection",
       "price_eur": "2500",
-      "note": "",
-      "wear_rating": 0.05779615789651871
+      "note": ""
     },
     {
       "name": "\u2605 Bayonet | Boreal Forest",
@@ -521,91 +507,7 @@
       "float": 0.37265193462371826,
       "collection": null,
       "price_eur": "175",
-      "note": "",
-      "wear_rating": 0.37265193462371826
-    },
-    {
-      "name": "\u2605 Bayonet | Freehand",
-      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzn4_v8ydP0POjV6lsMvuWCliF0dF7teVgWiT9wUh04D_Snt-oJ33EZ1MgXJIjReECuhPux4CzMOPl4wXegohEzn_8jDQJsHh7twemzw",
-      "exterior": "Field-Tested",
-      "tradable_info": {
-        "raw": "Yes",
-        "is_tradable": true,
-        "lock_state": "unlocked",
-        "unlock_text": null,
-        "unlock_iso": null,
-        "state_class": "meta--unlocked"
-      },
-      "selected": false,
-      "weapon_type": "Bayonet",
-      "item_type": "Knife",
-      "stickers": [],
-      "patches": [],
-      "rarity": "Covert",
-      "rarity_color": "#eb4b4b",
-      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46530276562D5641018189041582536",
-      "asset_id": "46530276562",
-      "pattern_template": 832,
-      "float": 0.19407683610916138,
-      "collection": null,
-      "price_eur": "230",
-      "note": "Marek Krupa",
-      "wear_rating": 0.19407683610916138
-    },
-    {
-      "name": "\u2605 Huntsman Knife | Ultraviolet",
-      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-QG1iA1PxmvORWRzy9gQ4qsjO6lob-KT-JbFQlC5YhFrQN4xe4m4ezNL7g4QyLiItFyS772C5I7ilq6rpWUaYh-rqX0V82KISxGQ",
-      "exterior": "Minimal Wear",
-      "tradable_info": {
-        "raw": "Yes",
-        "is_tradable": true,
-        "lock_state": "unlocked",
-        "unlock_text": null,
-        "unlock_iso": null,
-        "state_class": "meta--unlocked"
-      },
-      "selected": false,
-      "weapon_type": "Huntsman Knife",
-      "item_type": "Knife",
-      "stickers": [],
-      "patches": [],
-      "rarity": "Covert",
-      "rarity_color": "#eb4b4b",
-      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46468446729D4641116163843790221",
-      "asset_id": "46468446729",
-      "pattern_template": 75,
-      "float": 0.07943959534168243,
-      "collection": "The Huntsman Collection",
-      "price_eur": "160",
-      "note": "Marek Krupa",
-      "wear_rating": 0.07943959534168243
-    },
-    {
-      "name": "Arno The Overgrown | Guerrilla Warfare",
-      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oZz18yVX6s28aa1pJeKsGGaCyO94pOInTSrkwRlx6z7Xwtn9In6eZwQnDsd5TOYDsxi9xNe2N7-0slHe2NlDmzK-0H38E8rQtQ",
-      "exterior": null,
-      "tradable_info": {
-        "raw": "Yes",
-        "is_tradable": true,
-        "lock_state": "unlocked",
-        "unlock_text": null,
-        "unlock_iso": null,
-        "state_class": "meta--unlocked"
-      },
-      "selected": false,
-      "weapon_type": "Other",
-      "item_type": "Agent",
-      "stickers": [],
-      "patches": [],
-      "rarity": "Superior",
-      "rarity_color": "#d32ce6",
-      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46375268141D328589583412629369",
-      "asset_id": "46375268141",
-      "pattern_template": null,
-      "float": null,
-      "collection": "Operation Riptide Agents",
-      "price_eur": "28",
-      "note": "Marek Krupa"
+      "note": ""
     },
     {
       "name": "StatTrak\u2122 Desert Eagle | Hypnotic",
@@ -632,8 +534,7 @@
       "float": 0.010346801020205021,
       "collection": "The Arms Deal Collection",
       "price_eur": "150",
-      "note": "",
-      "wear_rating": 0.010346801020205021
+      "note": ""
     },
     {
       "name": "Cmdr. Mae 'Dead Cold' Jamison | SWAT",
@@ -663,34 +564,6 @@
       "note": ""
     },
     {
-      "name": "StatTrak\u2122 AK-47 | Point Disarray",
-      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wiFO0POlPPNSMP-aAHOvxedlsfN7TjCMmRQguynLnIz_dXnEbFcoDsNzQLMN40S7mte0Zuzl5gbY34JEnnr52ChA7ytisPFCD_Rw7udDlA",
-      "exterior": "Factory New",
-      "tradable_info": {
-        "raw": "Yes",
-        "is_tradable": true,
-        "lock_state": "unlocked",
-        "unlock_text": null,
-        "unlock_iso": null,
-        "state_class": "meta--unlocked"
-      },
-      "selected": false,
-      "weapon_type": "AK-47",
-      "item_type": "Rifle",
-      "stickers": [],
-      "patches": [],
-      "rarity": "Classified",
-      "rarity_color": "#d32ce6",
-      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46343275587D4921524825487183865",
-      "asset_id": "46343275587",
-      "pattern_template": 725,
-      "float": 0.06410791724920273,
-      "collection": "The Revolver Case Collection",
-      "price_eur": "175",
-      "note": "Marek Krupa",
-      "wear_rating": 0.06410791724920273
-    },
-    {
       "name": "\u2605 Ursus Knife | Damascus Steel",
       "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1O_eG7e5tsMc-XD2qR0u1jo955XSCgmBwYvjiBk5r0by7EbAUiAsZxRLENshG-lYG1Zrng41aKi4pMn3383C5J6Xxs5LxUWfA7uvqASUlUwQs",
       "exterior": "Field-Tested",
@@ -715,36 +588,7 @@
       "float": 0.21115097403526306,
       "collection": "The Horizon Collection",
       "price_eur": "140",
-      "note": "",
-      "wear_rating": 0.21115097403526306
-    },
-    {
-      "name": "\u2605 Bayonet | Bright Water",
-      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzn4_v8ydP0Pq3V6tuJfGdMWyeyOhzj-lsTj-q2x5zsjjUn9ihI37Fb1B0XpciRrQM40Owk9zvZOLqsQfXgoxMyy2qiXlXrnE8sz-UUqo",
-      "exterior": "Battle-Scarred",
-      "tradable_info": {
-        "raw": "Yes",
-        "is_tradable": true,
-        "lock_state": "unlocked",
-        "unlock_text": null,
-        "unlock_iso": null,
-        "state_class": "meta--unlocked"
-      },
-      "selected": false,
-      "weapon_type": "Bayonet",
-      "item_type": "Knife",
-      "stickers": [],
-      "patches": [],
-      "rarity": "Covert",
-      "rarity_color": "#eb4b4b",
-      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46152520036D12163358717656785772",
-      "asset_id": "46152520036",
-      "pattern_template": 828,
-      "float": 0.45549276471138,
-      "collection": null,
-      "price_eur": "205",
-      "note": "Marek Krupa",
-      "wear_rating": 0.45549276471138
+      "note": ""
     },
     {
       "name": "\u2605 Bayonet | Blue Steel",
@@ -771,36 +615,7 @@
       "float": 0.27801233530044556,
       "collection": null,
       "price_eur": "300",
-      "note": "",
-      "wear_rating": 0.27801233530044556
-    },
-    {
-      "name": "\u2605 Flip Knife | Crimson Web",
-      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1d4_u-V6x0H-eWDHSvzOtyufRkAXHql00htW-HmI74dHOXbwYjDZRyEe8Otxi-kd3uML-x5lePj4tByCXgznQeMkpcPIM",
-      "exterior": "Field-Tested",
-      "tradable_info": {
-        "raw": "Yes",
-        "is_tradable": true,
-        "lock_state": "unlocked",
-        "unlock_text": null,
-        "unlock_iso": null,
-        "state_class": "meta--unlocked"
-      },
-      "selected": false,
-      "weapon_type": "Flip Knife",
-      "item_type": "Knife",
-      "stickers": [],
-      "patches": [],
-      "rarity": "Covert",
-      "rarity_color": "#eb4b4b",
-      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46051836871D3081130853174203401",
-      "asset_id": "46051836871",
-      "pattern_template": 441,
-      "float": 0.3353557288646698,
-      "collection": null,
-      "price_eur": "240",
-      "note": "Marek Krupa",
-      "wear_rating": 0.3353557288646698
+      "note": ""
     },
     {
       "name": "Vypa Sista of the Revolution | Guerrilla Warfare",
@@ -854,8 +669,7 @@
       "float": 0.28329554200172424,
       "collection": null,
       "price_eur": null,
-      "note": "",
-      "wear_rating": 0.28329554200172424
+      "note": ""
     },
     {
       "name": "Sticker | Blitzkrieg",
@@ -909,8 +723,7 @@
       "float": 0.07617753744125366,
       "collection": "The Wildfire Collection",
       "price_eur": null,
-      "note": "",
-      "wear_rating": 0.07617753744125366
+      "note": ""
     },
     {
       "name": "\u2605 Kukri Knife | Boreal Forest",
@@ -937,8 +750,7 @@
       "float": 0.365241140127182,
       "collection": "The Kilowatt Collection",
       "price_eur": "145",
-      "note": "",
-      "wear_rating": 0.365241140127182
+      "note": ""
     },
     {
       "name": "M4A1-S | Vaporwave",
@@ -965,8 +777,7 @@
       "float": 0.23842808604240417,
       "collection": "The Gallery Collection",
       "price_eur": "90",
-      "note": "",
-      "wear_rating": 0.23842808604240417
+      "note": ""
     },
     {
       "name": "Zeus x27 | Olympus",
@@ -993,8 +804,7 @@
       "float": 0.24167241156101227,
       "collection": "The Kilowatt Collection",
       "price_eur": null,
-      "note": "",
-      "wear_rating": 0.24167241156101227
+      "note": ""
     },
     {
       "name": "M4A1-S | Vaporwave",
@@ -1021,8 +831,7 @@
       "float": 0.2173101156949997,
       "collection": "The Gallery Collection",
       "price_eur": "105",
-      "note": "",
-      "wear_rating": 0.2173101156949997
+      "note": ""
     },
     {
       "name": "Sticker | Crown (Foil)",
@@ -1103,8 +912,7 @@
       "float": 0.2749812602996826,
       "collection": "The Kilowatt Collection",
       "price_eur": "400",
-      "note": "",
-      "wear_rating": 0.2749812602996826
+      "note": ""
     },
     {
       "name": "Galil AR | Phoenix Blacklight",
@@ -1131,8 +939,7 @@
       "float": 0.01339425053447485,
       "collection": "The Havoc Collection",
       "price_eur": null,
-      "note": "",
-      "wear_rating": 0.01339425053447485
+      "note": ""
     },
     {
       "name": "USP-S | Jawbreaker",
@@ -1159,8 +966,7 @@
       "float": 0.004538763780146837,
       "collection": "The Kilowatt Collection",
       "price_eur": null,
-      "note": "",
-      "wear_rating": 0.004538763780146837
+      "note": ""
     },
     {
       "name": "\u2605 Kukri Knife",
@@ -1187,8 +993,7 @@
       "float": 0.3233148455619812,
       "collection": "The Kilowatt Collection",
       "price_eur": "610",
-      "note": "",
-      "wear_rating": 0.3233148455619812
+      "note": ""
     },
     {
       "name": "\u2605 Kukri Knife | Fade",
@@ -1215,8 +1020,7 @@
       "float": 0.019590450450778008,
       "collection": "The Kilowatt Collection",
       "price_eur": "1130",
-      "note": "",
-      "wear_rating": 0.019590450450778008
+      "note": ""
     },
     {
       "name": "\u2605 Kukri Knife | Urban Masked",
@@ -1243,8 +1047,7 @@
       "float": 0.2082992047071457,
       "collection": "The Kilowatt Collection",
       "price_eur": "230",
-      "note": "",
-      "wear_rating": 0.2082992047071457
+      "note": ""
     },
     {
       "name": "\u2605 Huntsman Knife | Boreal Forest",
@@ -1271,8 +1074,7 @@
       "float": 0.146665558218956,
       "collection": "The Huntsman Collection",
       "price_eur": null,
-      "note": "",
-      "wear_rating": 0.146665558218956
+      "note": ""
     },
     {
       "name": "\u2605 Stiletto Knife | Doppler",
@@ -1299,8 +1101,7 @@
       "float": 0.011890478432178497,
       "collection": "The Horizon Collection",
       "price_eur": "3500",
-      "note": "",
-      "wear_rating": 0.011890478432178497
+      "note": ""
     },
     {
       "name": "\u2605 Falchion Knife | Gamma Doppler",
@@ -1327,8 +1128,7 @@
       "float": 0.030102699995040894,
       "collection": "The Falchion Collection",
       "price_eur": "1400",
-      "note": "",
-      "wear_rating": 0.030102699995040894
+      "note": ""
     },
     {
       "name": "\u2605 Bowie Knife | Doppler",
@@ -1355,8 +1155,7 @@
       "float": 0.011548200622200966,
       "collection": "The Wildfire Collection",
       "price_eur": "1400",
-      "note": "",
-      "wear_rating": 0.011548200622200966
+      "note": ""
     },
     {
       "name": "Civil Protection Pin",
@@ -1437,8 +1236,7 @@
       "float": 0.03495830297470093,
       "collection": "The Horizon Collection",
       "price_eur": null,
-      "note": "",
-      "wear_rating": 0.03495830297470093
+      "note": ""
     },
     {
       "name": "Sticker | HellRaisers | Katowice 2014",
@@ -1492,8 +1290,7 @@
       "float": 0.025194061920046806,
       "collection": "The Horizon Collection",
       "price_eur": "4500",
-      "note": "",
-      "wear_rating": 0.025194061920046806
+      "note": ""
     },
     {
       "name": "\u2605 Moto Gloves | POW!",
@@ -1520,8 +1317,7 @@
       "float": 0.1374252289533615,
       "collection": null,
       "price_eur": "940",
-      "note": "",
-      "wear_rating": 0.1374252289533615
+      "note": ""
     },
     {
       "name": "Sticker | NiKo (Holo) | Antwerp 2022",
@@ -1575,8 +1371,7 @@
       "float": 0.24554550647735596,
       "collection": "The Horizon Collection",
       "price_eur": "450",
-      "note": "",
-      "wear_rating": 0.24554550647735596
+      "note": ""
     },
     {
       "name": "Sticker | Twistzz (Holo) | Antwerp 2022",
@@ -1711,8 +1506,7 @@
       "float": 0.0881441980600357,
       "collection": "The Revolution Collection",
       "price_eur": null,
-      "note": "",
-      "wear_rating": 0.0881441980600357
+      "note": ""
     },
     {
       "name": "Sawed-Off | The Kraken",
@@ -1744,8 +1538,7 @@
       "float": 0.05073215439915657,
       "collection": "The Winter Offensive Collection",
       "price_eur": "600",
-      "note": "",
-      "wear_rating": 0.05073215439915657
+      "note": ""
     },
     {
       "name": "Patch: Vitality | Stockholm 2021",
@@ -1856,8 +1649,7 @@
       "float": 6.225999823072925e-05,
       "collection": "The Phoenix Collection",
       "price_eur": "500",
-      "note": "",
-      "wear_rating": 6.225999823072925e-05
+      "note": ""
     },
     {
       "name": "UMP-45 | Blaze",
@@ -1889,8 +1681,7 @@
       "float": 0.03336026892066002,
       "collection": "The Mirage Collection",
       "price_eur": "700",
-      "note": "",
-      "wear_rating": 0.03336026892066002
+      "note": ""
     },
     {
       "name": "AK-47 | Redline",
@@ -1934,8 +1725,7 @@
       "float": 0.10628145188093185,
       "collection": "The Phoenix Collection",
       "price_eur": "6000",
-      "note": "",
-      "wear_rating": 0.10628145188093185
+      "note": ""
     },
     {
       "name": "M4A1-S | Nitro",
@@ -1979,8 +1769,7 @@
       "float": 0.06428538262844086,
       "collection": "The Safehouse Collection",
       "price_eur": "1000",
-      "note": "",
-      "wear_rating": 0.06428538262844086
+      "note": ""
     },
     {
       "name": "Trapper | Guerrilla Warfare",
@@ -3794,8 +3583,7 @@
       "float": 0.11033754050731659,
       "collection": "The Gods and Monsters Collection",
       "price_eur": "13000",
-      "note": "",
-      "wear_rating": 0.11033754050731659
+      "note": ""
     },
     {
       "name": "Glock-18 | Candy Apple",
@@ -3827,8 +3615,7 @@
       "float": 0.002517363987863064,
       "collection": "The Italy Collection",
       "price_eur": "2500",
-      "note": "",
-      "wear_rating": 0.002517363987863064
+      "note": ""
     },
     {
       "name": "Five-SeveN | Kami",
@@ -3872,8 +3659,7 @@
       "float": 0.042077042162418365,
       "collection": "The Winter Offensive Collection",
       "price_eur": null,
-      "note": "",
-      "wear_rating": 0.042077042162418365
+      "note": ""
     },
     {
       "name": "City 17 Pin",
@@ -3944,8 +3730,7 @@
       "float": 0.1611717939376831,
       "collection": "The Phoenix Collection",
       "price_eur": null,
-      "note": "",
-      "wear_rating": 0.1611717939376831
+      "note": ""
     },
     {
       "name": "Sustenance! Pin",
@@ -4016,8 +3801,7 @@
       "float": 0.1631530225276947,
       "collection": "The Vertigo Collection",
       "price_eur": null,
-      "note": "",
-      "wear_rating": 0.1631530225276947
+      "note": ""
     },
     {
       "name": "Lambda Pin",
@@ -4497,7 +4281,7 @@
       "patches": [],
       "rarity": "Exotic",
       "rarity_color": "#d32ce6",
-      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A18283742525D16880559123483937820",
+      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A18283742525D301050232735221872",
       "asset_id": "18283742525",
       "pattern_template": null,
       "float": null,
@@ -4524,7 +4308,7 @@
       "patches": [],
       "rarity": "Remarkable",
       "rarity_color": "#8847ff",
-      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A18283742401D5336133751417965060",
+      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A18283742401D2497003128907990692",
       "asset_id": "18283742401",
       "pattern_template": null,
       "float": null,
@@ -5056,8 +4840,7 @@
       "float": 0.006588122807443142,
       "collection": "The Mirage Collection",
       "price_eur": null,
-      "note": "",
-      "wear_rating": 0.006588122807443142
+      "note": ""
     },
     {
       "name": "Train Pin",
@@ -5111,8 +4894,7 @@
       "float": 0.007172309793531895,
       "collection": "The Wildfire Collection",
       "price_eur": null,
-      "note": "",
-      "wear_rating": 0.007172309793531895
+      "note": ""
     },
     {
       "name": "StatTrak\u2122 Music Kit | AWOLNATION, I Am",
@@ -5210,8 +4992,7 @@
       "float": 0.015426360070705414,
       "collection": "The Shadow Collection",
       "price_eur": null,
-      "note": "",
-      "wear_rating": 0.015426360070705414
+      "note": ""
     },
     {
       "name": "Negev | Bratatat",
@@ -5238,8 +5019,7 @@
       "float": 0.11834846436977386,
       "collection": "The eSports 2014 Summer Collection",
       "price_eur": null,
-      "note": "",
-      "wear_rating": 0.11834846436977386
+      "note": ""
     },
     {
       "name": "XM1014 | Black Tie",
@@ -5283,8 +5063,7 @@
       "float": 0.09636088460683823,
       "collection": "The Chroma 3 Collection",
       "price_eur": null,
-      "note": "",
-      "wear_rating": 0.09636088460683823
+      "note": ""
     },
     {
       "name": "P250 | Sand Dune",
@@ -5328,10 +5107,9 @@
       "float": 0.060317907482385635,
       "collection": "The Dust 2 Collection",
       "price_eur": null,
-      "note": "",
-      "wear_rating": 0.060317907482385635
+      "note": ""
     }
   ],
-  "total": 185,
-  "total_before_filters": 243
+  "total": 179,
+  "total_before_filters": 237
 }
