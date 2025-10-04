@@ -19,10 +19,12 @@
             </a>
         </div>
         <div class="nav-controls">
-            {% if request.resolver_match.url_name == 'admin' %}
+            {% if request.user.is_authenticated and request.resolver_match.url_name != 'index' %}
                 <a href="{% url 'inventory:index' %}" class="nav-link">View Showroom</a>
-            {% else %}
-                <a href="{% url 'inventory:admin' %}" class="nav-link">Admin Panel</a>
+                <form method="post" action="{% url 'logout' %}" class="nav-logout-form">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-link nav-link-button">Log out</button>
+                </form>
             {% endif %}
             <!-- Simplified theme toggle -->
             <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">🌙</button>

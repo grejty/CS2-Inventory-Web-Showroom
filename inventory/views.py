@@ -1,9 +1,7 @@
-from django.shortcuts import render
-
-# Create your views here.
 from decimal import Decimal, InvalidOperation
 
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from .steam_api import (
     load_inventory_from_file,
@@ -68,7 +66,6 @@ def index(request):
     if startup_error:
         context = {
             'error': startup_error,
-            'access_token_url': settings.STEAM_ACCESS_TOKEN_URL,
             'filters': {'tradable': [], 'weapon_types': [], 'item_types': []},
             'skins': [],
             'total': 0
@@ -87,18 +84,17 @@ def index(request):
             'skins': selected_skins,
             'total': len(selected_skins),
             'error': None,
-            'access_token_url': None,
             'filters': filters
         }
     
     return render(request, 'inventory/index.html', context)
 
+@login_required
 def admin_view(request):
     """Admin view for managing inventory selection."""
     if startup_error:
         context = {
             'error': startup_error,
-            'access_token_url': settings.STEAM_ACCESS_TOKEN_URL,
             'filters': {'tradable': [], 'weapon_types': [], 'item_types': []},
             'skins': [],
             'total': 0,
@@ -129,7 +125,6 @@ def admin_view(request):
                 total = len(skins)
                 context = {
                     'error': None,
-                    'access_token_url': settings.STEAM_ACCESS_TOKEN_URL,
                     'filters': get_filter_counts(skins),
                     'skins': skins,
                     'total': total,
@@ -149,7 +144,6 @@ def admin_view(request):
                 total = len(skins)
                 context = {
                     'error': str(exc),
-                    'access_token_url': settings.STEAM_ACCESS_TOKEN_URL,
                     'filters': get_filter_counts(skins),
                     'skins': skins,
                     'total': total,
@@ -165,7 +159,6 @@ def admin_view(request):
                 total = len(skins)
                 context = {
                     'error': f'Unexpected error processing inventory: {exc}',
-                    'access_token_url': settings.STEAM_ACCESS_TOKEN_URL,
                     'filters': get_filter_counts(skins),
                     'skins': skins,
                     'total': total,
@@ -248,8 +241,7 @@ def admin_view(request):
         'total': total,
         'total_before_filters': total_before_filters,
         'error': None,
-        'access_token_url': None,
-        'filters': get_filter_counts(skins),
+    'filters': get_filter_counts(skins),
         'steam_inventory_urls': _steam_inventory_urls(),
         'pasted_json_main': '',
         'pasted_json_protected': '',

@@ -113,6 +113,113 @@ main {
     gap: 20px;
 }
 
+.nav-logout-form {
+    margin: 0;
+}
+
+.nav-logout-form,
+.nav-logout-form button {
+    display: inline-flex;
+    align-items: center;
+}
+
+.nav-link-button {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+
+.nav-link-button:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+.auth-card {
+    max-width: 420px;
+    margin: 60px auto;
+    padding: 32px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+}
+
+.auth-description {
+    margin: 0 0 24px;
+    color: var(--text-secondary);
+    font-size: 15px;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.auth-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.auth-field label {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.auth-field input {
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background: var(--input-bg);
+    color: var(--text-color);
+    font-size: 15px;
+}
+
+.auth-field input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(var(--accent-color-rgb), 0.2);
+}
+
+.auth-field .errorlist {
+    margin: 4px 0 0;
+    padding: 0;
+    list-style: none;
+    color: var(--error-color);
+    font-size: 13px;
+}
+
+.auth-error {
+    background: rgba(248, 81, 73, 0.1);
+    border: 1px solid rgba(248, 81, 73, 0.4);
+    color: var(--error-color);
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-weight: 500;
+}
+
+.primary-btn {
+    align-self: flex-start;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    background: var(--accent-color);
+    color: #fff;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.primary-btn:hover,
+.primary-btn:focus-visible {
+    background: var(--accent-hover);
+}
+
 .nav-link {
     color: var(--text-color);
     text-decoration: none;
