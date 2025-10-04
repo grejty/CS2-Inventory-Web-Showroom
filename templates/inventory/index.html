@@ -111,9 +111,11 @@
                                 </span>
                             </a>
                         {% endif %}
-                        {% if skin.exterior and skin.exterior != "Not Painted" %}
-                            <p class="skin-exterior">{{ skin.exterior }}</p>
-                        {% endif %}
+                        <p class="skin-exterior{% if not skin.exterior or skin.exterior == 'Not Painted' %} skin-exterior-placeholder{% endif %}">
+                            {% if skin.exterior and skin.exterior != "Not Painted" %}
+                                {{ skin.exterior }}
+                            {% endif %}
+                        </p>
                     </div>
                     <div class="skin-image">
                         {% if skin.stickers or skin.patches %}
