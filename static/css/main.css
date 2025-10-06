@@ -2094,7 +2094,6 @@ main {
     justify-content: center;
     gap: 4px;
     margin-top: clamp(4px, 0.4vw, 10px);
-    margin-bottom: clamp(6px, 1vw, 16px);
 }
 
 .landing-hero__tag {
