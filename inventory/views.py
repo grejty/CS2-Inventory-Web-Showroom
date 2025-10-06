@@ -15,6 +15,14 @@ from .helpers import WEAPON_TYPES, ITEM_TYPES, get_filter_counts
 startup_error = None
 
 
+def landing(request):
+    return render(request, 'inventory/landing.html')
+
+
+def sell(request):
+    return render(request, 'inventory/sell.html')
+
+
 def _split_admin_skins(skins):
     regular = []
     reserved = []
@@ -87,7 +95,7 @@ def index(request):
             'filters': filters
         }
     
-    return render(request, 'inventory/index.html', context)
+    return render(request, 'inventory/buy.html', context)
 
 @login_required
 def admin_view(request):

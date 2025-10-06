@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Grejty - CS2 Shop | Sell{% endblock %}
+{% block header %}Sell with Grejty{% endblock %}
+
+{% block content %}
+<div class="placeholder-card">
+    <h1 class="placeholder-title">Work in progress</h1>
+    <p class="placeholder-copy">We're building an effortless way to list your skins. Check back soon!</p>
+    <div class="placeholder-actions">
+    <a href="{% url 'inventory:index' %}" class="landing-btn landing-btn--primary">Check Skins for Sale</a>
+        <a href="{% url 'inventory:landing' %}" class="landing-btn landing-btn--ghost">Back to Home</a>
+    </div>
+</div>
+{% endblock %}
