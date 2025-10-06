@@ -21,19 +21,21 @@
 
 {% block content %}
 <section class="landing-hero" style="--landing-bg: url('{% static 'images/thumbnail.png' %}');">
-    <div class="landing-hero__panel">
-        <div class="landing-hero__content">
-            <h1 class="landing-hero__title">Grejty CS2 Shop</h1>
-            <div class="landing-hero__tags" aria-label="Key highlights">
-                <span class="landing-hero__tag">Buying &amp; Selling</span>
-                <span class="landing-hero__tag">Since 2016</span>
-                <span class="landing-hero__tag">20,000+ Trades</span>
-                <span class="landing-hero__tag">2,500+ Reviews</span>
+    <div class="landing-hero__panel-group">
+        <div class="landing-hero__panel">
+            <div class="landing-hero__content">
+                <h1 class="landing-hero__title">Grejty - CS2 Shop</h1>
+                <div class="landing-hero__tags" aria-label="Key highlights">
+                    <span class="landing-hero__tag">Buying &amp; Selling</span>
+                    <span class="landing-hero__tag">Since 2016</span>
+                    <span class="landing-hero__tag">20,000+ Trades</span>
+                    <span class="landing-hero__tag">2,500+ Reviews</span>
+                </div>
             </div>
-            <div class="landing-hero__actions" role="group" aria-label="Primary actions">
-                <a href="{% url 'inventory:sell' %}" class="landing-btn landing-btn--ghost" data-action="sell">Sell</a>
-                <a href="{% url 'inventory:index' %}" class="landing-btn landing-btn--primary" data-action="buy">Buy</a>
-            </div>
+        </div>
+        <div class="landing-hero__actions" role="group" aria-label="Primary actions">
+            <a href="{% url 'inventory:sell' %}" class="landing-btn landing-btn--ghost" data-action="sell">Sell</a>
+            <a href="{% url 'inventory:index' %}" class="landing-btn landing-btn--primary" data-action="buy">Buy</a>
         </div>
     </div>
 </section>
