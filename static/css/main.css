@@ -42,6 +42,10 @@
     --success-color: #0077b6;
     --error-color: #e63946;
 }
+html {
+    height: 100%;
+}
+
 /* Base styles */
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
@@ -54,6 +58,9 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .sr-only {
@@ -73,6 +80,7 @@ main {
     width: 90%;
     margin: 0 auto;
     padding: 12px;
+    flex: 1 0 auto;
 }
 
 .site-footer {
