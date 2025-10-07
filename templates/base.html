@@ -49,7 +49,8 @@
                             id="locale-switcher-button"
                             aria-haspopup="dialog"
                             aria-expanded="false"
-                            aria-controls="locale-switcher-panel">
+                            aria-controls="locale-switcher-panel"
+                            data-label="Change language or currency">
                         <span class="locale-switcher__currency-symbol" data-slot="currency-symbol">€</span>
                         <span class="locale-switcher__currency-code" data-slot="currency-code">EUR</span>
                         <span class="locale-switcher__divider" aria-hidden="true">|</span>
@@ -77,11 +78,11 @@
                         </form>
                     </div>
                 </div>
-                <button type="button" class="nav-icon-btn" aria-label="View cart" title="View cart">
+                <button type="button" class="nav-icon-btn" aria-label="View cart" title="View cart" data-label="View cart">
                     <span class="nav-icon-btn__icon" aria-hidden="true"></span>
                 </button>
                 <!-- Simplified theme toggle -->
-                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">🌙</button>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode" data-label="Toggle dark/light mode">🌙</button>
             </div>
         </div>
     {% endif %}
@@ -169,9 +170,11 @@
 
                 if (theme === LIGHT_THEME) {
                     toggle.setAttribute('aria-label', 'Switch to dark mode');
+                    toggle.setAttribute('data-label', 'Switch to dark mode');
                     toggle.textContent = '☀️';
                 } else {
                     toggle.setAttribute('aria-label', 'Switch to light mode');
+                    toggle.setAttribute('data-label', 'Switch to light mode');
                     toggle.textContent = '🌙';
                 }
             };
@@ -213,6 +216,7 @@
             }
 
             initLocaleSwitcher();
+            initTooltipClamping();
 
             function initLocaleSwitcher() {
                 const switcher = document.getElementById('locale-switcher-button');
@@ -355,6 +359,78 @@
                 });
 
                 applyStoredLocale();
+            }
+
+            function initTooltipClamping() {
+                const targets = document.querySelectorAll('.nav-icon-btn[data-label], .locale-switcher__button[data-label], .theme-toggle[data-label], .footer-social[data-label]');
+                if (!targets.length) {
+                    return;
+                }
+
+                const measure = document.createElement('div');
+                measure.setAttribute('data-tooltip-measure', 'true');
+                measure.style.position = 'fixed';
+                measure.style.top = '-9999px';
+                measure.style.left = '-9999px';
+                measure.style.visibility = 'hidden';
+                measure.style.pointerEvents = 'none';
+                measure.style.padding = '6px 10px';
+                measure.style.border = '1px solid transparent';
+                measure.style.boxSizing = 'border-box';
+                measure.style.fontSize = '12px';
+                measure.style.fontWeight = '600';
+                measure.style.lineHeight = '1.2';
+                measure.style.whiteSpace = 'nowrap';
+                measure.style.zIndex = '-1';
+                document.body.appendChild(measure);
+
+                const VIEWPORT_MARGIN = 12;
+
+                const updateShift = (element) => {
+                    const label = element.getAttribute('data-label');
+                    if (!label) {
+                        element.style.removeProperty('--tooltip-shift');
+                        return;
+                    }
+
+                    const computed = window.getComputedStyle(element);
+                    measure.style.fontFamily = computed.fontFamily || window.getComputedStyle(document.body).fontFamily || 'Inter, sans-serif';
+                    measure.textContent = label;
+
+                    const tooltipWidth = measure.getBoundingClientRect().width;
+                    const triggerRect = element.getBoundingClientRect();
+                    const viewportWidth = document.documentElement.clientWidth;
+
+                    const centeredLeft = triggerRect.left + triggerRect.width / 2 - tooltipWidth / 2;
+                    const centeredRight = triggerRect.left + triggerRect.width / 2 + tooltipWidth / 2;
+
+                    let shift = 0;
+
+                    if (centeredLeft < VIEWPORT_MARGIN) {
+                        shift = VIEWPORT_MARGIN - centeredLeft;
+                    } else if (centeredRight > viewportWidth - VIEWPORT_MARGIN) {
+                        shift = (viewportWidth - VIEWPORT_MARGIN) - centeredRight;
+                    }
+
+                    element.style.setProperty('--tooltip-shift', `${shift}px`);
+                };
+
+                const clearShift = (element) => {
+                    element.style.removeProperty('--tooltip-shift');
+                };
+
+                targets.forEach((target) => {
+                    target.addEventListener('mouseenter', () => updateShift(target));
+                    target.addEventListener('focus', () => updateShift(target));
+                    target.addEventListener('mouseleave', () => clearShift(target));
+                    target.addEventListener('blur', () => clearShift(target));
+                });
+
+                window.addEventListener('resize', () => {
+                    document.querySelectorAll('.nav-icon-btn[data-label]:hover, .locale-switcher__button[data-label]:hover, .theme-toggle[data-label]:hover, .footer-social[data-label]:hover, .nav-icon-btn[data-label]:focus, .locale-switcher__button[data-label]:focus, .theme-toggle[data-label]:focus, .footer-social[data-label]:focus').forEach((element) => {
+                        updateShift(element);
+                    });
+                });
             }
         });
 
