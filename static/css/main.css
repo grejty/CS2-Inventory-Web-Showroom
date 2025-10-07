@@ -345,8 +345,45 @@ main {
 .nav-controls {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
     justify-self: end;
+}
+
+.nav-icon-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    color: var(--text-color);
+    transition: color 0.2s ease;
+}
+
+.nav-icon-btn:hover,
+.nav-icon-btn:focus-visible {
+    color: var(--accent-color);
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.nav-icon-btn:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+.nav-icon-btn__icon {
+    width: 24px;
+    height: 24px;
+    display: block;
+    background-color: currentColor;
+    mask: url('../images/cart.svg') center/contain no-repeat;
+    -webkit-mask: url('../images/cart.svg') center/contain no-repeat;
+    transition: background-color 0.2s ease;
 }
 
 .locale-switcher {
