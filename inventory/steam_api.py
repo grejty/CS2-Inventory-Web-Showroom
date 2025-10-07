@@ -148,7 +148,7 @@ def process_inventory_data(data):
     for asset in assets:
         key, count = (asset["classid"], asset.get("instanceid", "0")), int(asset.get("amount", 1))
         desc = desc_map.get(key, {})
-        name = desc.get("name", "Unknown")
+        item_name = desc.get("name", "Unknown")
         
         # Check tradability before doing other processing
         tradable_status = tradable_text(desc)
@@ -156,7 +156,7 @@ def process_inventory_data(data):
             continue  # Skip non-tradable items
             
         # Pass the full description object for better type detection
-        weapon_type, item_type = identify_item_types(name, desc)
+        weapon_type, item_type = identify_item_types(item_name, desc)
         
         # Skip items with unwanted types
         if item_type in CATEGORIES_TO_SKIP:
@@ -198,19 +198,22 @@ def process_inventory_data(data):
             if (item_type or "").lower() == "agent":
                 filtered_stickers = []
                 for sticker in sticker_list:
-                    name = sticker.get("name") or ""
+                    sticker_name = sticker.get("name") or ""
                     icon_url = sticker.get("icon_url")
                     is_patch = False
-                    if isinstance(name, str) and name.strip().lower().startswith("patch:"):
+                    if isinstance(sticker_name, str) and sticker_name.strip().lower().startswith("patch:"):
                         is_patch = True
                     elif isinstance(icon_url, str) and "/patches/" in icon_url:
                         is_patch = True
 
                     if is_patch:
-                        cleaned_name = name.split(":", 1)[1].strip() if ":" in name else name.strip()
+                        cleaned_name = (
+                            sticker_name.split(":", 1)[1].strip()
+                            if ":" in sticker_name else sticker_name.strip()
+                        )
                         patch_entry = {
                             "icon_url": icon_url,
-                            "name": cleaned_name or name.strip(),
+                            "name": cleaned_name or sticker_name.strip(),
                         }
                         patch_list.append(patch_entry)
                     else:
@@ -218,7 +221,7 @@ def process_inventory_data(data):
                 sticker_list = filtered_stickers
 
             skins.append({
-                "name": name,
+                "name": item_name,
                 "icon_url": desc.get("icon_url", ""),
                 "exterior": exterior_text(desc),
                 "tradable_info": build_tradable_info(tradable_status),
