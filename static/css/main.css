@@ -255,6 +255,11 @@ main {
 
     .site-primary-nav {
         grid-column: 1 / -1;
+        position: static;
+        left: auto;
+        top: auto;
+        transform: none;
+        height: auto;
         justify-self: center;
     }
 
@@ -369,12 +374,21 @@ main {
 }
 
 .site-primary-nav {
-    justify-self: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    z-index: 1;
 }
 
 .site-primary-nav__list {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: clamp(16px, 4vw, 32px);
     padding: 0;
     margin: 0;
