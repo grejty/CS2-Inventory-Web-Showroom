@@ -355,6 +355,16 @@ main {
     align-items: center;
 }
 
+.locale-switcher:hover .locale-switcher__button,
+.locale-switcher:focus-within .locale-switcher__button {
+    color: var(--accent-color);
+}
+
+.locale-switcher:hover .locale-switcher__divider,
+.locale-switcher:focus-within .locale-switcher__divider {
+    opacity: 0.6;
+}
+
 .locale-switcher__button {
     display: inline-flex;
     align-items: center;
@@ -381,6 +391,11 @@ main {
     border-color: rgba(255, 255, 255, 0.08);
 }
 
+[data-theme="dark"] .locale-switcher:hover .locale-switcher__button,
+[data-theme="dark"] .locale-switcher:focus-within .locale-switcher__button {
+    color: var(--accent-color);
+}
+
 [data-theme="light"] .locale-switcher__button {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
     background: #ffffff;
@@ -389,6 +404,11 @@ main {
 [data-theme="light"] .locale-switcher__button:hover {
     background: rgba(0, 0, 0, 0.04);
     border-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .locale-switcher:hover .locale-switcher__button,
+[data-theme="light"] .locale-switcher:focus-within .locale-switcher__button {
+    color: var(--accent-color);
 }
 
 .locale-switcher__currency-symbol {
