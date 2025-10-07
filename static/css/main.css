@@ -322,7 +322,7 @@ main {
 }
 
 .site-title {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 600;
     color: var(--text-color);
     margin: 0;
@@ -347,6 +347,154 @@ main {
     align-items: center;
     gap: 20px;
     justify-self: end;
+}
+
+.locale-switcher {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.locale-switcher__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
+}
+
+.locale-switcher__button:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+.locale-switcher__button:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="light"] .locale-switcher__button {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+}
+
+[data-theme="light"] .locale-switcher__button:hover {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+.locale-switcher__currency-symbol {
+    font-weight: 700;
+}
+
+.locale-switcher__divider {
+    opacity: 0.35;
+    font-weight: 400;
+}
+
+.locale-switcher__panel {
+    position: absolute;
+    top: calc(100% + 14px);
+    right: 0;
+    width: 280px;
+    padding: 20px;
+    border-radius: 14px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 20px 42px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    z-index: 1200;
+}
+
+[data-theme="light"] .locale-switcher__panel {
+    box-shadow: 0 18px 32px rgba(0, 0, 0, 0.16);
+}
+
+.locale-switcher__title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.locale-switcher__form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.locale-switcher__label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+}
+
+.locale-switcher__select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--input-bg);
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 500;
+    appearance: none;
+}
+
+[data-theme="light"] .locale-switcher__select {
+    background: #f9f9f9;
+    color: #1f1f1f;
+}
+
+.locale-switcher__select:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+.locale-switcher__disclaimer {
+    font-size: 11px;
+    margin: 0;
+    color: var(--accent-color);
+    line-height: 1.5;
+}
+
+.locale-switcher__actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.locale-switcher__confirm {
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: var(--accent-color);
+    border: none;
+    color: #1f1f1f;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.locale-switcher__confirm:hover,
+.locale-switcher__confirm:focus-visible {
+    background: var(--accent-hover);
+    box-shadow: 0 10px 24px rgba(var(--accent-color-rgb), 0.35);
+}
+
+.locale-switcher__panel[hidden] {
+    display: none;
 }
 
 .nav-logout-form {
@@ -398,6 +546,7 @@ main {
     color: var(--text-color);
     text-decoration: none;
     font-weight: 500;
+    font-size: 15px;
     letter-spacing: 0.01em;
     transition: color 0.2s ease, transform 0.2s ease;
 }
@@ -496,6 +645,7 @@ main {
     color: var(--text-color);
     text-decoration: none;
     font-weight: 500;
+    font-size: 15px;
     padding: 8px 16px;
     border-radius: 4px;
     transition: all 0.2s;

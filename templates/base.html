@@ -43,6 +43,40 @@
                         <button type="submit" class="nav-link nav-link-button">Log out</button>
                     </form>
                 {% endif %}
+                <div class="locale-switcher">
+                    <button type="button"
+                            class="locale-switcher__button"
+                            id="locale-switcher-button"
+                            aria-haspopup="dialog"
+                            aria-expanded="false"
+                            aria-controls="locale-switcher-panel">
+                        <span class="locale-switcher__currency-symbol" data-slot="currency-symbol">€</span>
+                        <span class="locale-switcher__currency-code" data-slot="currency-code">EUR</span>
+                        <span class="locale-switcher__divider" aria-hidden="true">|</span>
+                        <span class="locale-switcher__language-code" data-slot="language-code">EN</span>
+                    </button>
+                    <div class="locale-switcher__panel" id="locale-switcher-panel" role="dialog" aria-labelledby="locale-switcher-title" hidden tabindex="-1">
+                        <form class="locale-switcher__form" novalidate>
+                            <h3 class="locale-switcher__title" id="locale-switcher-title">Language &amp; Currency</h3>
+                            <label class="locale-switcher__label" for="locale-language">Language</label>
+                            <select class="locale-switcher__select" id="locale-language" name="display-language">
+                                <option value="en" data-short="EN">English</option>
+                                <option value="sk" data-short="SK">Slovak</option>
+                                <option value="cs" data-short="CZ">Czech</option>
+                            </select>
+                            <label class="locale-switcher__label" for="locale-currency">Display Currency</label>
+                            <select class="locale-switcher__select" id="locale-currency" name="display-currency">
+                                <option value="EUR" data-symbol="€">€ EUR</option>
+                                <option value="USD" data-symbol="$">$ USD</option>
+                                <option value="CZK" data-symbol="Kč">Kč CZK</option>
+                            </select>
+                            <p class="locale-switcher__disclaimer">Display currency is for display only, transactions remain in EUR.</p>
+                            <div class="locale-switcher__actions">
+                                <button type="button" class="locale-switcher__confirm">Confirm</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <!-- Simplified theme toggle -->
                 <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">🌙</button>
             </div>
@@ -93,15 +127,13 @@
     
     <script>
         const THEME_STORAGE_KEY = 'preferred-theme';
+        const LOCALE_STORAGE_KEY = 'display-settings';
         const LIGHT_THEME = 'light';
         const DARK_THEME = 'dark';
 
         document.addEventListener('DOMContentLoaded', () => {
             const root = document.documentElement;
             const toggle = document.getElementById('theme-toggle');
-            if (!toggle) {
-                return;
-            }
 
             const systemPreference = typeof window.matchMedia === 'function'
                 ? window.matchMedia('(prefers-color-scheme: light)')
@@ -123,7 +155,11 @@
                 }
             };
 
-            const updateButton = (theme) => {
+            const updateThemeButton = (theme) => {
+                if (!toggle) {
+                    return;
+                }
+
                 if (theme === LIGHT_THEME) {
                     toggle.setAttribute('aria-label', 'Switch to dark mode');
                     toggle.textContent = '☀️';
@@ -136,7 +172,7 @@
             const applyTheme = (theme) => {
                 const targetTheme = theme === LIGHT_THEME ? LIGHT_THEME : DARK_THEME;
                 root.setAttribute('data-theme', targetTheme);
-                updateButton(targetTheme);
+                updateThemeButton(targetTheme);
             };
 
             const savedTheme = getStoredTheme();
@@ -147,12 +183,14 @@
                 applyTheme(prefersLight ? LIGHT_THEME : DARK_THEME);
             }
 
-            toggle.addEventListener('click', () => {
-                const currentTheme = root.getAttribute('data-theme') === LIGHT_THEME ? LIGHT_THEME : DARK_THEME;
-                const nextTheme = currentTheme === DARK_THEME ? LIGHT_THEME : DARK_THEME;
-                applyTheme(nextTheme);
-                storeTheme(nextTheme);
-            });
+            if (toggle) {
+                toggle.addEventListener('click', () => {
+                    const currentTheme = root.getAttribute('data-theme') === LIGHT_THEME ? LIGHT_THEME : DARK_THEME;
+                    const nextTheme = currentTheme === DARK_THEME ? LIGHT_THEME : DARK_THEME;
+                    applyTheme(nextTheme);
+                    storeTheme(nextTheme);
+                });
+            }
 
             const handleSystemPreferenceChange = (event) => {
                 const hasSavedPreference = getStoredTheme();
@@ -165,6 +203,139 @@
                 systemPreference.addEventListener('change', handleSystemPreferenceChange);
             } else if (systemPreference && typeof systemPreference.addListener === 'function') {
                 systemPreference.addListener(handleSystemPreferenceChange);
+            }
+
+            initLocaleSwitcher();
+
+            function initLocaleSwitcher() {
+                const switcher = document.getElementById('locale-switcher-button');
+                const panel = document.getElementById('locale-switcher-panel');
+                if (!switcher || !panel) {
+                    return;
+                }
+
+                const form = panel.querySelector('.locale-switcher__form');
+                const languageSelect = form?.querySelector('#locale-language');
+                const currencySelect = form?.querySelector('#locale-currency');
+                const confirmButton = form?.querySelector('.locale-switcher__confirm');
+                const currencySymbolSlot = switcher.querySelector('[data-slot="currency-symbol"]');
+                const currencyCodeSlot = switcher.querySelector('[data-slot="currency-code"]');
+                const languageCodeSlot = switcher.querySelector('[data-slot="language-code"]');
+
+                if (!form || !languageSelect || !currencySelect || !confirmButton || !currencySymbolSlot || !currencyCodeSlot || !languageCodeSlot) {
+                    return;
+                }
+
+                let panelOpen = false;
+
+                const getStoredLocale = () => {
+                    try {
+                        const stored = localStorage.getItem(LOCALE_STORAGE_KEY);
+                        return stored ? JSON.parse(stored) : {};
+                    } catch (error) {
+                        return {};
+                    }
+                };
+
+                const storeLocale = (settings) => {
+                    try {
+                        localStorage.setItem(LOCALE_STORAGE_KEY, JSON.stringify(settings));
+                    } catch (error) {
+                        /* storage unavailable, ignore */
+                    }
+                };
+
+                const updateButtonLabel = () => {
+                    const currencyOption = currencySelect.options[currencySelect.selectedIndex];
+                    const languageOption = languageSelect.options[languageSelect.selectedIndex];
+                    const currencySymbol = currencyOption?.dataset.symbol || currencyOption?.textContent?.trim().split(' ')[0] || '€';
+                    const currencyCode = currencyOption?.value || 'EUR';
+                    const languageShort = languageOption?.dataset.short || languageOption?.value?.slice(0, 2)?.toUpperCase() || 'EN';
+
+                    currencySymbolSlot.textContent = currencySymbol;
+                    currencyCodeSlot.textContent = currencyCode.toUpperCase();
+                    languageCodeSlot.textContent = languageShort.toUpperCase();
+                };
+
+                const applyStoredLocale = () => {
+                    const { language, currency } = getStoredLocale();
+
+                    if (language && languageSelect.querySelector(`option[value="${language}"]`)) {
+                        languageSelect.value = language;
+                    }
+
+                    if (currency && currencySelect.querySelector(`option[value="${currency}"]`)) {
+                        currencySelect.value = currency;
+                    }
+
+                    updateButtonLabel();
+                };
+
+                const openPanel = () => {
+                    if (panelOpen) {
+                        return;
+                    }
+
+                    panel.hidden = false;
+                    panelOpen = true;
+                    switcher.setAttribute('aria-expanded', 'true');
+                    (languageSelect || panel).focus();
+
+                    document.addEventListener('mousedown', handleOutsideClick);
+                    document.addEventListener('touchstart', handleOutsideClick);
+                    document.addEventListener('keydown', handleKeydown);
+                };
+
+                const closePanel = () => {
+                    if (!panelOpen) {
+                        return;
+                    }
+
+                    panel.hidden = true;
+                    panelOpen = false;
+                    switcher.setAttribute('aria-expanded', 'false');
+
+                    document.removeEventListener('mousedown', handleOutsideClick);
+                    document.removeEventListener('touchstart', handleOutsideClick);
+                    document.removeEventListener('keydown', handleKeydown);
+                };
+
+                const handleOutsideClick = (event) => {
+                    if (!panel.contains(event.target) && !switcher.contains(event.target)) {
+                        closePanel();
+                    }
+                };
+
+                const handleKeydown = (event) => {
+                    if (event.key === 'Escape') {
+                        closePanel();
+                        switcher.focus();
+                    }
+                };
+
+                switcher.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    if (panelOpen) {
+                        closePanel();
+                    } else {
+                        openPanel();
+                    }
+                });
+
+                confirmButton.addEventListener('click', () => {
+                    updateButtonLabel();
+                    storeLocale({
+                        language: languageSelect.value,
+                        currency: currencySelect.value
+                    });
+                    closePanel();
+                });
+
+                form.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                });
+
+                applyStoredLocale();
             }
         });
 
