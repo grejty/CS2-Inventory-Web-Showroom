@@ -2250,6 +2250,10 @@ main {
     background: var(--bg-color);
 }
 
+.landing-page .landing-hero {
+    padding-bottom: calc(clamp(48px, 10vh, 120px) + 80px);
+}
+
 .landing-hero::before {
     content: "";
     position: absolute;
@@ -2371,6 +2375,68 @@ main {
     justify-content: center;
 }
 
+.landing-page main {
+    position: relative;
+    min-height: 100vh;
+}
+
+body.landing-page {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.landing-page .top-nav,
+.landing-page .landing-nav-spacer {
+    flex: 0 0 auto;
+}
+
+.landing-page main {
+    flex: 1 0 auto;
+}
+
+.landing-page .landing-nav-spacer {
+    display: none;
+    height: 0;
+}
+
+.landing-page .site-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: auto;
+    box-sizing: border-box;
+    background: rgba(13, 17, 23, 0.25);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 -18px 64px rgba(5, 8, 12, 0.6);
+    z-index: 12;
+}
+
+.landing-page .footer-column {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.landing-page .footer-link {
+    color: rgba(255, 255, 255, 0.86);
+}
+
+.landing-page .footer-column--meta {
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.landing-page .footer-social {
+    color: rgba(255, 255, 255, 0.86);
+}
+
+.landing-page .footer-social:hover,
+.landing-page .footer-social:focus-visible {
+    color: var(--accent-color);
+}
+
 .landing-btn {
     display: inline-flex;
     align-items: center;
@@ -2464,6 +2530,10 @@ main {
         padding: clamp(40px, 10vh, 120px) clamp(24px, 7vw, 140px);
     }
 
+    .landing-page .landing-hero {
+        padding-bottom: calc(clamp(40px, 10vh, 120px) + 80px);
+    }
+
     .landing-hero__panel-group {
         width: min(100%, 620px);
     }
@@ -2475,6 +2545,10 @@ main {
         min-height: calc(100vh - 65px);
         padding: clamp(48px, 12vw, 72px) clamp(20px, 6vw, 48px);
         text-align: center;
+    }
+
+    .landing-page .landing-hero {
+        padding-bottom: calc(clamp(48px, 12vw, 72px) + 80px);
     }
 
     .landing-hero__panel-group {
