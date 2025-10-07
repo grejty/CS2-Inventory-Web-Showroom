@@ -96,7 +96,7 @@ main {
 
 .footer-shell {
     width: 100%;
-    padding: 0 10px;
+    padding: 0 var(--layout-gutter);
     box-sizing: border-box;
     display: flex;
     align-items: center;
