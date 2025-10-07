@@ -49,6 +49,32 @@
         {% block content %}{% endblock %}
     </main>
 
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-shell">
+            <div class="footer-column footer-column--nav" aria-label="Footer navigation">
+                <a href="/about" class="footer-link">About</a>
+                <a href="/reviews" class="footer-link">Reviews</a>
+                <a href="/faq" class="footer-link">FAQ</a>
+                <a href="/contact" class="footer-link">Contact</a>
+            </div>
+            <div class="footer-column footer-column--meta">
+                <p>© {% now "Y" %} Grejty</p>
+                <p>Not associated with Valve Corporation</p>
+            </div>
+            <div class="footer-column footer-column--social" aria-label="Social media">
+                <a href="#" class="footer-social footer-social--facebook" data-label="Facebook">
+                    <span class="sr-only">Facebook</span>
+                </a>
+                <a href="#" class="footer-social footer-social--steam" data-label="Steam">
+                    <span class="sr-only">Steam</span>
+                </a>
+                <a href="#" class="footer-social footer-social--twitter" data-label="Twitter / X">
+                    <span class="sr-only">Twitter / X</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
     <div id="modal-shell" class="modal-shell" hidden>
         <div class="modal-overlay" data-modal-close="true"></div>
         <div class="modal-window" role="dialog" aria-modal="true" aria-labelledby="modal-title">
