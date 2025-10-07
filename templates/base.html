@@ -50,17 +50,24 @@
     </main>
 
     <footer class="site-footer" role="contentinfo">
-        <div class="footer-shell">
-            <div class="footer-column footer-column--nav" aria-label="Footer navigation">
-                <a href="/about" class="footer-link">About</a>
-                <a href="/reviews" class="footer-link">Reviews</a>
-                <a href="/faq" class="footer-link">FAQ</a>
-                <a href="/contact" class="footer-link">Contact</a>
-            </div>
-            <div class="footer-column footer-column--meta">
-                <p>© {% now "Y" %} Grejty</p>
-                <p>Not associated with Valve Corporation</p>
-            </div>
+        <div class="footer-shell{% if request.resolver_match and request.resolver_match.url_name == 'landing' %} footer-shell--landing{% endif %}">
+            {% if request.resolver_match and request.resolver_match.url_name == 'landing' %}
+                <div class="footer-column footer-column--meta footer-column--landing-meta">
+                    <p>© {% now "Y" %} Grejty</p>
+                    <p>Not associated with Valve Corporation</p>
+                </div>
+            {% else %}
+                <div class="footer-column footer-column--nav" aria-label="Footer navigation">
+                    <a href="/about" class="footer-link">About</a>
+                    <a href="/reviews" class="footer-link">Reviews</a>
+                    <a href="/faq" class="footer-link">FAQ</a>
+                    <a href="/contact" class="footer-link">Contact</a>
+                </div>
+                <div class="footer-column footer-column--meta">
+                    <p>© {% now "Y" %} Grejty</p>
+                    <p>Not associated with Valve Corporation</p>
+                </div>
+            {% endif %}
             <div class="footer-column footer-column--social" aria-label="Social media">
                 <a href="#" class="footer-social footer-social--facebook" data-label="Facebook">
                     <span class="sr-only">Facebook</span>

@@ -98,6 +98,10 @@ main {
     align-items: center;
 }
 
+.footer-shell--landing {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .footer-column {
     display: flex;
     flex-direction: column;
@@ -173,6 +177,11 @@ main {
     text-align: center;
     color: var(--text-secondary);
     line-height: 1.6;
+}
+
+.footer-column--landing-meta {
+    text-align: left;
+    align-items: flex-start;
 }
 
 .footer-column--meta p:first-child {
@@ -281,6 +290,15 @@ main {
     .footer-shell {
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         text-align: center;
+    }
+
+    .footer-shell--landing {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .footer-column--landing-meta {
+        text-align: center;
+        align-items: center;
     }
 
     .footer-column--nav,
