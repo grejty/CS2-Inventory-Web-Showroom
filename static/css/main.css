@@ -186,6 +186,7 @@ main {
     border-radius: 50%;
 }
 
+
 .footer-social::before {
     content: attr(data-label);
     position: absolute;
@@ -206,12 +207,40 @@ main {
     pointer-events: none;
     transition: opacity 0.2s ease, transform 0.2s ease;
     z-index: 5;
+    max-width: calc(100vw - 24px);
+    text-align: center;
 }
 
 .footer-social:hover::before,
 .footer-social:focus-visible::before {
     opacity: 1;
     transform: translate(-50%, 0);
+}
+
+.footer-column--social .footer-social:first-child::before {
+    left: calc(-1 * var(--layout-gutter));
+    transform: translate(0, 6px);
+}
+
+.footer-column--social .footer-social:first-child:hover::before,
+.footer-column--social .footer-social:first-child:focus-visible::before {
+    transform: translate(0, 0);
+}
+
+.footer-column--social .footer-social:last-child::before {
+    left: auto;
+    right: calc(-1 * var(--layout-gutter));
+    transform: translate(0, 6px);
+}
+
+.footer-column--social .footer-social:last-child:hover::before,
+.footer-column--social .footer-social:last-child:focus-visible::before {
+    transform: translate(0, 0);
+}
+
+.footer-column--social .footer-social:last-child:hover::before,
+.footer-column--social .footer-social:last-child:focus-visible::before {
+    transform: translate(0, 0);
 }
 
 .footer-social--facebook {
