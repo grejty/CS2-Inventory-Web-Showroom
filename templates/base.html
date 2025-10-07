@@ -27,6 +27,14 @@
                     <span class="site-title">Grejty - CS2 Shop</span>
                 </a>
             </div>
+            <nav class="site-primary-nav" aria-label="Primary navigation">
+                <ul class="site-primary-nav__list">
+                    <li><a href="/about" class="site-primary-nav__link">About</a></li>
+                    <li><a href="/reviews" class="site-primary-nav__link">Reviews</a></li>
+                    <li><a href="/faq" class="site-primary-nav__link">FAQ</a></li>
+                    <li><a href="/contact" class="site-primary-nav__link">Contact</a></li>
+                </ul>
+            </nav>
             <div class="nav-controls">
                 {% if request.user.is_authenticated and request.resolver_match and request.resolver_match.url_name == 'admin' %}
                     <a href="{% url 'inventory:index' %}" class="nav-link">Check Skins for Sale</a>
@@ -50,24 +58,11 @@
     </main>
 
     <footer class="site-footer" role="contentinfo">
-        <div class="footer-shell{% if request.resolver_match and request.resolver_match.url_name == 'landing' %} footer-shell--landing{% endif %}">
-            {% if request.resolver_match and request.resolver_match.url_name == 'landing' %}
-                <div class="footer-column footer-column--meta footer-column--landing-meta">
-                    <p>© {% now "Y" %} Grejty</p>
-                    <p>Not associated with Valve Corporation</p>
-                </div>
-            {% else %}
-                <div class="footer-column footer-column--nav" aria-label="Footer navigation">
-                    <a href="/about" class="footer-link">About</a>
-                    <a href="/reviews" class="footer-link">Reviews</a>
-                    <a href="/faq" class="footer-link">FAQ</a>
-                    <a href="/contact" class="footer-link">Contact</a>
-                </div>
-                <div class="footer-column footer-column--meta">
-                    <p>© {% now "Y" %} Grejty</p>
-                    <p>Not associated with Valve Corporation</p>
-                </div>
-            {% endif %}
+        <div class="footer-shell">
+            <div class="footer-column footer-column--meta">
+                <p>© {% now "Y" %} Grejty</p>
+                <p>Not associated with Valve Corporation</p>
+            </div>
             <div class="footer-column footer-column--social" aria-label="Social media">
                 <a href="#" class="footer-social footer-social--facebook" data-label="Facebook">
                     <span class="sr-only">Facebook</span>
@@ -99,23 +94,10 @@
     <script>
         // Simplified theme toggle functionality
         document.addEventListener('DOMContentLoaded', function() {
-            const themeToggle = document.getElementById('theme-toggle');
-            
-            // Check for saved theme preference or use default dark theme
-            const currentTheme = localStorage.getItem('theme') || 'dark';
-            document.documentElement.setAttribute('data-theme', currentTheme);
-            
-            // Set the icon based on current theme
-            themeToggle.textContent = currentTheme === 'light' ? '☀️' : '🌙';
-            
-            // Function to switch theme
-            themeToggle.addEventListener('click', function() {
-                const currentTheme = document.documentElement.getAttribute('data-theme');
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                
-                document.documentElement.setAttribute('data-theme', newTheme);
-                localStorage.setItem('theme', newTheme);
-                themeToggle.textContent = newTheme === 'light' ? '☀️' : '🌙';
+                <div class="footer-column footer-column--meta">
+                    <p>© {% now "Y" %} Grejty</p>
+                    <p>Not associated with Valve Corporation</p>
+                </div>
             });
         });
         
