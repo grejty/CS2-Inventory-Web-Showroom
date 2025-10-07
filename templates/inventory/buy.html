@@ -193,9 +193,9 @@
                                 <span class="skin-price__label">Price</span>
                                 {% with price_str=skin.price_eur|stringformat:"s" %}
                                     {% if price_str|length > 3 and price_str|slice:"-3:" == '.00' %}
-                                        <span class="skin-price__value"><span class="skin-price__currency">€</span>{{ price_str|slice:":-3" }}</span>
+                                        <span class="skin-price__value">{{ price_str|slice:":-3" }}<span class="skin-price__currency">€</span></span>
                                     {% else %}
-                                        <span class="skin-price__value"><span class="skin-price__currency">€</span>{{ price_str }}</span>
+                                        <span class="skin-price__value">{{ price_str }}<span class="skin-price__currency">€</span></span>
                                     {% endif %}
                                 {% endwith %}
                             </div>
