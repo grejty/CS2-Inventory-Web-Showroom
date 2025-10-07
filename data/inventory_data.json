@@ -1,6 +1,441 @@
 {
   "skins": [
     {
+      "name": "\u2605 Talon Knife | Rust Coat",
+      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1M5vahf6lsK_WBMWaB_v1iteRlcCK9nBsijDWAm5ngb36TaQQlCcZ1QuYJ5ha_lIfuMLnn5lPbi40UyS32inwaunpu5LxRU6A7uvqAgUSsb98",
+      "exterior": "Battle-Scarred",
+      "tradable_info": {
+        "raw": "Trade Protected until Oct 15, 2025 (9:00:00)",
+        "is_tradable": false,
+        "lock_state": "locked",
+        "unlock_text": "Tradable on 15.10.2025 (9:00)",
+        "unlock_iso": "2025-10-15T09:00:00",
+        "state_class": "meta--locked"
+      },
+      "selected": true,
+      "weapon_type": "Talon Knife",
+      "item_type": "Knife",
+      "stickers": [],
+      "patches": [],
+      "rarity": "Covert",
+      "rarity_color": "#eb4b4b",
+      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46915354953D12154132342237327603",
+      "asset_id": "46915354953",
+      "pattern_template": 231,
+      "float": 0.6665024757385254,
+      "collection": "The Horizon Collection",
+      "price_eur": "355",
+      "note": ""
+    },
+    {
+      "name": "AK-47 | Neon Rider",
+      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wiFO0POlV6poL_6sHG6UxPxJvOhuRz39xkQhsTnVzoygdy7Ea1UoCZQkRe9bs0brl9TvN-m0tVHYjY5CyS35jjQJsHhk4o5zcA",
+      "exterior": "Minimal Wear",
+      "tradable_info": {
+        "raw": "Trade Protected until Oct 15, 2025 (9:00:00)",
+        "is_tradable": false,
+        "lock_state": "locked",
+        "unlock_text": "Tradable on 15.10.2025 (9:00)",
+        "unlock_iso": "2025-10-15T09:00:00",
+        "state_class": "meta--locked"
+      },
+      "selected": true,
+      "weapon_type": "AK-47",
+      "item_type": "Rifle",
+      "stickers": [
+        {
+          "icon_url": "https://cdn.steamstatic.com/apps/730/icons/econ/stickers/pinups_capsule/kimberly.51418b5d1ecff134b18c847607e455eba9e907fb.png",
+          "name": "Kimberly"
+        }
+      ],
+      "patches": [],
+      "rarity": "Covert",
+      "rarity_color": "#eb4b4b",
+      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46914314903D14447767973481447803",
+      "asset_id": "46914314903",
+      "pattern_template": 82,
+      "float": 0.09565556049346924,
+      "collection": "The Horizon Collection",
+      "price_eur": "70",
+      "note": ""
+    },
+    {
+      "name": "USP-S | Printstream",
+      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkjYbf7itX6vytbbZSI-WsG3SA_v5kue99XD2hkBwqjDGMnYftb3yUPFR0XsNyRrNc5kO5ltziMenr5lONj4kXyi2riywc7y9o5LtQAqQ7uvqAkScWnv4",
+      "exterior": "Minimal Wear",
+      "tradable_info": {
+        "raw": "Trade Protected until Oct 15, 2025 (9:00:00)",
+        "is_tradable": false,
+        "lock_state": "locked",
+        "unlock_text": "Tradable on 15.10.2025 (9:00)",
+        "unlock_iso": "2025-10-15T09:00:00",
+        "state_class": "meta--locked"
+      },
+      "selected": true,
+      "weapon_type": "USP-S",
+      "item_type": "Pistol",
+      "stickers": [
+        {
+          "icon_url": "https://cdn.steamstatic.com/apps/730/icons/econ/stickers/pinups_capsule/tamara.ccd244cd59cb88140f0a420a5b987ffc44a6363b.png",
+          "name": "Tamara"
+        }
+      ],
+      "patches": [],
+      "rarity": "Covert",
+      "rarity_color": "#eb4b4b",
+      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46914314892D5371140828189275499",
+      "asset_id": "46914314892",
+      "pattern_template": 657,
+      "float": 0.11710694432258606,
+      "collection": "The Recoil Collection",
+      "price_eur": "45",
+      "note": ""
+    },
+    {
+      "name": "Glock-18 | Neo-Noir",
+      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2kpnj9h1Y-s2pZKtuK8-dAW6C_uJ_t-l9AXznwh9zsjjSn9j9dH-eb1V0CsF3QrNZ4xW8ltPlM-7h4QbYit5NzyzgznQecekkTuo",
+      "exterior": "Minimal Wear",
+      "tradable_info": {
+        "raw": "Trade Protected until Oct 15, 2025 (9:00:00)",
+        "is_tradable": false,
+        "lock_state": "locked",
+        "unlock_text": "Tradable on 15.10.2025 (9:00)",
+        "unlock_iso": "2025-10-15T09:00:00",
+        "state_class": "meta--locked"
+      },
+      "selected": true,
+      "weapon_type": "Glock-18",
+      "item_type": "Pistol",
+      "stickers": [
+        {
+          "icon_url": "https://cdn.steamstatic.com/apps/730/icons/econ/stickers/cph2024/cplx_glitter.3488c3381f5ebdbe0be43ef94b0dc2f82e9f58c3.png",
+          "name": "Complexity Gaming (Glitter) | Copenhagen 2024"
+        }
+      ],
+      "patches": [],
+      "rarity": "Covert",
+      "rarity_color": "#eb4b4b",
+      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46914314877D16197807812467368302",
+      "asset_id": "46914314877",
+      "pattern_template": 962,
+      "float": 0.11883451789617538,
+      "collection": "The Operation Broken Fang Collection",
+      "price_eur": "31",
+      "note": ""
+    },
+    {
+      "name": "MAC-10 | Neon Rider",
+      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8n5WxrR1Y-s2jaac8cM-dC2ie0-dytfNWQyC0nQlp5DzTntmgdC7COABxX5NxQrUOtUS5w4LgMu6zsVCK2IJCmyisjitM6DErvbicsEA0SQ",
+      "exterior": "Factory New",
+      "tradable_info": {
+        "raw": "Trade Protected until Oct 15, 2025 (9:00:00)",
+        "is_tradable": false,
+        "lock_state": "locked",
+        "unlock_text": "Tradable on 15.10.2025 (9:00)",
+        "unlock_iso": "2025-10-15T09:00:00",
+        "state_class": "meta--locked"
+      },
+      "selected": true,
+      "weapon_type": "MAC-10",
+      "item_type": "SMG",
+      "stickers": [],
+      "patches": [],
+      "rarity": "Covert",
+      "rarity_color": "#eb4b4b",
+      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46914314864D11684209128679391311",
+      "asset_id": "46914314864",
+      "pattern_template": 937,
+      "float": 0.06729788333177567,
+      "collection": "The Chroma 2 Collection",
+      "price_eur": "27",
+      "note": ""
+    },
+    {
+      "name": "Special Agent Ava | FBI",
+      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nm_ytk-fO8YaVjNPLdXz6TkLdw5LY4Hnmwl0wktj7dn4r9I3OWPFApC5F1QeAO5xi4lIDiM_SiuVKk3V4ZcQ",
+      "exterior": null,
+      "tradable_info": {
+        "raw": "Trade Protected until Oct 15, 2025 (9:00:00)",
+        "is_tradable": false,
+        "lock_state": "locked",
+        "unlock_text": "Tradable on 15.10.2025 (9:00)",
+        "unlock_iso": "2025-10-15T09:00:00",
+        "state_class": "meta--locked"
+      },
+      "selected": true,
+      "weapon_type": "Other",
+      "item_type": "Agent",
+      "stickers": [],
+      "patches": [],
+      "rarity": "Master",
+      "rarity_color": "#eb4b4b",
+      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46914314852D4614302197129754918",
+      "asset_id": "46914314852",
+      "pattern_template": null,
+      "float": null,
+      "collection": "Shattered Web Agents",
+      "price_eur": "28",
+      "note": ""
+    },
+    {
+      "name": "AWP | Hyper Beast",
+      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwiYbf_jdk7uW-V6x0MPWBMWWVwP1ij-1gSCGn20pxtm_WzNuoeHKeaFAnCZUiTe5bt0HqxofmZOrm5Q2IjoMQzS_5iShXrnE8NzWs__c",
+      "exterior": "Factory New",
+      "tradable_info": {
+        "raw": "Trade Protected until Oct 15, 2025 (9:00:00)",
+        "is_tradable": false,
+        "lock_state": "locked",
+        "unlock_text": "Tradable on 15.10.2025 (9:00)",
+        "unlock_iso": "2025-10-15T09:00:00",
+        "state_class": "meta--locked"
+      },
+      "selected": true,
+      "weapon_type": "AWP",
+      "item_type": "Sniper Rifle",
+      "stickers": [],
+      "patches": [],
+      "rarity": "Covert",
+      "rarity_color": "#eb4b4b",
+      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46914314844D12404116945191746159",
+      "asset_id": "46914314844",
+      "pattern_template": 673,
+      "float": 0.06926079839468002,
+      "collection": "The Falchion Collection",
+      "price_eur": "220",
+      "note": ""
+    },
+    {
+      "name": "\u2605 Bayonet | Doppler",
+      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzn4_v8ydP0POjV6BiMOCfC3Wv0eZ3o-Q6cCW6khUz_T_TydyheXmVZwYoXpR5R-YIsRe6lIazP-7h4Qzbj4hEzSyq3HgY7ix1o7FVS1Hc8lA",
+      "exterior": "Factory New",
+      "tradable_info": {
+        "raw": "Trade Protected until Oct 15, 2025 (9:00:00)",
+        "is_tradable": false,
+        "lock_state": "locked",
+        "unlock_text": "Tradable on 15.10.2025 (9:00)",
+        "unlock_iso": "2025-10-15T09:00:00",
+        "state_class": "meta--locked"
+      },
+      "selected": true,
+      "weapon_type": "Bayonet",
+      "item_type": "Knife",
+      "stickers": [],
+      "patches": [],
+      "rarity": "Covert",
+      "rarity_color": "#eb4b4b",
+      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46914314829D7929302166369946082",
+      "asset_id": "46914314829",
+      "pattern_template": 405,
+      "float": 0.06850923597812653,
+      "collection": null,
+      "price_eur": "620",
+      "note": ""
+    },
+    {
+      "name": "SSG 08 | Dragonfire",
+      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLijZGwpR1Y-s29e6M9eM-XHGaXzuBwufNscDqwmg0ijDGMnYftbyrFPVAoWcQjELQOuxO4k4e1N-nnsQfW2I5Mz3ivi3wb7Stj5ukAUKY7uvqAqS55_Pw",
+      "exterior": "Minimal Wear",
+      "tradable_info": {
+        "raw": "Trade Protected until Oct 15, 2025 (9:00:00)",
+        "is_tradable": false,
+        "lock_state": "locked",
+        "unlock_text": "Tradable on 15.10.2025 (9:00)",
+        "unlock_iso": "2025-10-15T09:00:00",
+        "state_class": "meta--locked"
+      },
+      "selected": true,
+      "weapon_type": "SSG 08",
+      "item_type": "Sniper Rifle",
+      "stickers": [
+        {
+          "icon_url": "https://cdn.steamstatic.com/apps/730/icons/econ/stickers/cph2024/spir.b3e7c9bc08c2381aac2f7c57d45aac48a621702c.png",
+          "name": "Team Spirit | Copenhagen 2024"
+        }
+      ],
+      "patches": [],
+      "rarity": "Covert",
+      "rarity_color": "#eb4b4b",
+      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46914314820D7208750273027701378",
+      "asset_id": "46914314820",
+      "pattern_template": 1,
+      "float": 0.12377552688121796,
+      "collection": "The Glove Collection",
+      "price_eur": "17",
+      "note": ""
+    },
+    {
+      "name": "M4A4 | Temukau",
+      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwiFO0P_6afBSNPWeG2yR1NF6ueZhW2ewlBtx5W6AmYv9JS6XaAV1CJEmTeUL4UTpxNzjZO3jtgaIjN9ExCuskGoXuRnyRhBA",
+      "exterior": "Minimal Wear",
+      "tradable_info": {
+        "raw": "Trade Protected until Oct 15, 2025 (9:00:00)",
+        "is_tradable": false,
+        "lock_state": "locked",
+        "unlock_text": "Tradable on 15.10.2025 (9:00)",
+        "unlock_iso": "2025-10-15T09:00:00",
+        "state_class": "meta--locked"
+      },
+      "selected": true,
+      "weapon_type": "M4A4",
+      "item_type": "Rifle",
+      "stickers": [],
+      "patches": [],
+      "rarity": "Covert",
+      "rarity_color": "#eb4b4b",
+      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46914314810D16882940162332794990",
+      "asset_id": "46914314810",
+      "pattern_template": 178,
+      "float": 0.1458510160446167,
+      "collection": "The Revolution Collection",
+      "price_eur": "31",
+      "note": ""
+    },
+    {
+      "name": "Number K | The Professionals",
+      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oYby8iRe_OGnZ6psLM-FD3WZj7wuseM-GnG2lh4h5m2EmderdX7DaA9zW8N2QuBbtBG-mty2N-i0tADAy9USaSI87As",
+      "exterior": null,
+      "tradable_info": {
+        "raw": "Trade Protected until Oct 15, 2025 (9:00:00)",
+        "is_tradable": false,
+        "lock_state": "locked",
+        "unlock_text": "Tradable on 15.10.2025 (9:00)",
+        "unlock_iso": "2025-10-15T09:00:00",
+        "state_class": "meta--locked"
+      },
+      "selected": true,
+      "weapon_type": "Other",
+      "item_type": "Agent",
+      "stickers": [],
+      "patches": [
+        {
+          "icon_url": "https://cdn.steamstatic.com/apps/730/icons/econ/patches/stockh2021/patch_mouz.e8bb5c0508ae364670d086c3ae1be3982fe1edc0.png",
+          "name": "MOUZ | Stockholm 2021"
+        }
+      ],
+      "rarity": "Superior",
+      "rarity_color": "#d32ce6",
+      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46914314798D7695999188151128454",
+      "asset_id": "46914314798",
+      "pattern_template": null,
+      "float": null,
+      "collection": "Broken Fang Agents",
+      "price_eur": "77",
+      "note": ""
+    },
+    {
+      "name": "M4A1-S | Player Two",
+      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwjFS4_ega6F_H_OGMWrEwL9lj-J6SCbhxUl_jDGMnYftby7BbVdyCsB0EeZY4RPukNfhZOO2sQ3W398Qy3_6jHxIunptsO9TUqs7uvqAAWrfZoM",
+      "exterior": "Minimal Wear",
+      "tradable_info": {
+        "raw": "Trade Protected until Oct 15, 2025 (9:00:00)",
+        "is_tradable": false,
+        "lock_state": "locked",
+        "unlock_text": "Tradable on 15.10.2025 (9:00)",
+        "unlock_iso": "2025-10-15T09:00:00",
+        "state_class": "meta--locked"
+      },
+      "selected": true,
+      "weapon_type": "M4A1-S",
+      "item_type": "Rifle",
+      "stickers": [],
+      "patches": [],
+      "rarity": "Covert",
+      "rarity_color": "#eb4b4b",
+      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46914314778D7677659813638395662",
+      "asset_id": "46914314778",
+      "pattern_template": 367,
+      "float": 0.117568239569664,
+      "collection": "The Prisma 2 Collection",
+      "price_eur": "41",
+      "note": ""
+    },
+    {
+      "name": "Desert Eagle | Printstream",
+      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL1m5fn8Sdk7OeRbKFsJ8-DHG6e1f1iouRoQha_nBovp3OGmdeqInyVP1V0XsYlRbEI50a5wNyzZr605AyI3t5MmCSohylAuC89_a9cBoMY9UkV",
+      "exterior": "Minimal Wear",
+      "tradable_info": {
+        "raw": "Trade Protected until Oct 15, 2025 (9:00:00)",
+        "is_tradable": false,
+        "lock_state": "locked",
+        "unlock_text": "Tradable on 15.10.2025 (9:00)",
+        "unlock_iso": "2025-10-15T09:00:00",
+        "state_class": "meta--locked"
+      },
+      "selected": true,
+      "weapon_type": "Desert Eagle",
+      "item_type": "Pistol",
+      "stickers": [
+        {
+          "icon_url": "https://cdn.steamstatic.com/apps/730/icons/econ/stickers/cs20/cs20_surf.21a0dc2204f559e8afd1c53f049de504849556e0.png",
+          "name": "Surf's Up"
+        }
+      ],
+      "patches": [],
+      "rarity": "Covert",
+      "rarity_color": "#eb4b4b",
+      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46914314771D9245435818054412803",
+      "asset_id": "46914314771",
+      "pattern_template": 75,
+      "float": 0.14495503902435303,
+      "collection": "The Fracture Collection",
+      "price_eur": "38",
+      "note": ""
+    },
+    {
+      "name": "\u2605 Falchion Knife | Freehand",
+      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1d7v6tYK1iLs-SA1idwPx9teVWWjmMzE0YvjiBk5r0b3OQbAAhCJV0QbIDsEKwx9KxM-_gtFeNjohGynj52yod6ChpteoCUvA7uvqAikCxnzE",
+      "exterior": "Field-Tested",
+      "tradable_info": {
+        "raw": "Trade Protected until Oct 14, 2025 (9:00:00)",
+        "is_tradable": false,
+        "lock_state": "locked",
+        "unlock_text": "Tradable on 14.10.2025 (9:00)",
+        "unlock_iso": "2025-10-14T09:00:00",
+        "state_class": "meta--locked"
+      },
+      "selected": true,
+      "weapon_type": "Falchion Knife",
+      "item_type": "Knife",
+      "stickers": [],
+      "patches": [],
+      "rarity": "Covert",
+      "rarity_color": "#eb4b4b",
+      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46901366568D2621729094426986082",
+      "asset_id": "46901366568",
+      "pattern_template": 147,
+      "float": 0.302925705909729,
+      "collection": "The Falchion Collection",
+      "price_eur": "135",
+      "note": ""
+    },
+    {
+      "name": "\u2605 Nomad Knife | Marble Fade",
+      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1U-uaqZ6t_H_GeMWqR0-x6td5vTi22qhEutDWR1NqsdS6Wa1UpC8cjQ7QJ5BHqx9zjZurgsgfZiYgXn3r7hy8b6yo_5OocEf1y7tM7KOE",
+      "exterior": "Factory New",
+      "tradable_info": {
+        "raw": "Trade Protected until Oct 14, 2025 (9:00:00)",
+        "is_tradable": false,
+        "lock_state": "locked",
+        "unlock_text": "Tradable on 14.10.2025 (9:00)",
+        "unlock_iso": "2025-10-14T09:00:00",
+        "state_class": "meta--locked"
+      },
+      "selected": true,
+      "weapon_type": "Nomad Knife",
+      "item_type": "Knife",
+      "stickers": [],
+      "patches": [],
+      "rarity": "Covert",
+      "rarity_color": "#eb4b4b",
+      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46899766245D12008933043787814991",
+      "asset_id": "46899766245",
+      "pattern_template": 977,
+      "float": 0.034929968416690826,
+      "collection": "The Shattered Web Collection",
+      "price_eur": "455",
+      "note": ""
+    },
+    {
       "name": "\u2605 Survival Knife | Doppler",
       "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Y7vyne5tsLc-XAXeAzetkj_FhTjq2xiIrujqNjsH_IHmVbw4gDpIlF7Nb5kO4k9CzZr_q5FbaiopNyyqoii0cvSZjsOcKT-N7rcPcFrXZ",
       "exterior": "Factory New",
@@ -457,12 +892,12 @@
       "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzn4_v8ydP0POjV6lsMvuWCliF0dF6ueZhW2e1zUh36zuEnteqeSqTOlUnXMYhFOcDuxfpkIblM-zj4gSLi45EniSqkGoXuTHKXCgo",
       "exterior": "Minimal Wear",
       "tradable_info": {
-        "raw": "Trade Protected until Oct 07, 2025 (9:00:00)",
-        "is_tradable": false,
-        "lock_state": "locked",
-        "unlock_text": "Tradable on 7.10.2025 (9:00)",
-        "unlock_iso": "2025-10-07T09:00:00",
-        "state_class": "meta--locked"
+        "raw": "Yes",
+        "is_tradable": true,
+        "lock_state": "unlocked",
+        "unlock_text": null,
+        "unlock_iso": null,
+        "state_class": "meta--unlocked"
       },
       "selected": true,
       "weapon_type": "Bayonet",
@@ -471,39 +906,12 @@
       "patches": [],
       "rarity": "Covert",
       "rarity_color": "#eb4b4b",
-      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46723248738D5503475998590217606",
+      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46723248738D14611542527662713224",
       "asset_id": "46723248738",
       "pattern_template": 153,
       "float": 0.0944933220744133,
       "collection": null,
       "price_eur": "265",
-      "note": ""
-    },
-    {
-      "name": "AWP | Printstream",
-      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwiYbf_DVL0OK8Yap5M-SBC2ad_uNztOh8QmexzUt1tj7UnN-vc3KWbw8nCpJzRrJY5xa8xNHuZOLr51bYjtkXyyj5kGoXuQMtNgKM",
-      "exterior": "Field-Tested",
-      "tradable_info": {
-        "raw": "Yes",
-        "is_tradable": true,
-        "lock_state": "unlocked",
-        "unlock_text": null,
-        "unlock_iso": null,
-        "state_class": "meta--unlocked"
-      },
-      "selected": false,
-      "weapon_type": "AWP",
-      "item_type": "Sniper Rifle",
-      "stickers": [],
-      "patches": [],
-      "rarity": "Covert",
-      "rarity_color": "#eb4b4b",
-      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46700059151D2516000151823194305",
-      "asset_id": "46700059151",
-      "pattern_template": 970,
-      "float": 0.3796481490135193,
-      "collection": "The Fever Collection",
-      "price_eur": null,
       "note": ""
     },
     {
@@ -531,90 +939,6 @@
       "float": 0.36774834990501404,
       "collection": null,
       "price_eur": "175",
-      "note": ""
-    },
-    {
-      "name": "StatTrak\u2122 USP-S | Overgrowth",
-      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkjYbf7itX6vytbbZSKOmsHW6VxutJsvNoWSaMmBgjuiiI1N78dCiRZwQnD5J3QuAJ5xe_ldLhY-K04w3b2YwRmCyrh3gfvyo567kcEf1yPBZMvcQ",
-      "exterior": "Field-Tested",
-      "tradable_info": {
-        "raw": "Yes",
-        "is_tradable": true,
-        "lock_state": "unlocked",
-        "unlock_text": null,
-        "unlock_iso": null,
-        "state_class": "meta--unlocked"
-      },
-      "selected": false,
-      "weapon_type": "USP-S",
-      "item_type": "Pistol",
-      "stickers": [
-        {
-          "icon_url": "https://cdn.steamstatic.com/apps/730/icons/econ/stickers/sha2024/3dm.7191f22136f54ff47287dfcdc6db474085721803.png",
-          "name": "3DMAX | Shanghai 2024"
-        },
-        {
-          "icon_url": "https://cdn.steamstatic.com/apps/730/icons/econ/stickers/community02/blitzkrieg.802ef518a8e25569063b1758faf3d92fd6130717.png",
-          "name": "Blitzkrieg"
-        },
-        {
-          "icon_url": "https://cdn.steamstatic.com/apps/730/icons/econ/stickers/community/sticker_craft/holo_tongue.118022d554abdf43e81361f7280c58e09790411d.png",
-          "name": "Taste Buddy (Holo)"
-        }
-      ],
-      "patches": [],
-      "rarity": "Restricted",
-      "rarity_color": "#8847ff",
-      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46698223508D16728109012030575909",
-      "asset_id": "46698223508",
-      "pattern_template": 664,
-      "float": 0.2746635377407074,
-      "collection": "The Bravo Collection",
-      "price_eur": "33",
-      "note": "Marek Krupa"
-    },
-    {
-      "name": "AK-47 | X-Ray",
-      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wiFO0POlV7x_IemsA2KUyPt7_rJtS3zikBtxsDjdyIuueXLEPwF1C5J0Q-8C4Bi4m9PlPuvq5AzbgoxbjXKpfF7XeYM",
-      "exterior": "Well-Worn",
-      "tradable_info": {
-        "raw": "Yes",
-        "is_tradable": true,
-        "lock_state": "unlocked",
-        "unlock_text": null,
-        "unlock_iso": null,
-        "state_class": "meta--unlocked"
-      },
-      "selected": true,
-      "weapon_type": "AK-47",
-      "item_type": "Rifle",
-      "stickers": [
-        {
-          "icon_url": "https://cdn.steamstatic.com/apps/730/icons/econ/stickers/paris2023/fntc_holo.92586aede0509a52c6b381f8c374b39487a14e12.png",
-          "name": "Fnatic (Holo) | Paris 2023"
-        },
-        {
-          "icon_url": "https://cdn.steamstatic.com/apps/730/icons/econ/stickers/paris2023/fntc_holo.92586aede0509a52c6b381f8c374b39487a14e12.png",
-          "name": "Fnatic (Holo) | Paris 2023"
-        },
-        {
-          "icon_url": "https://cdn.steamstatic.com/apps/730/icons/econ/stickers/paris2023/fntc_holo.92586aede0509a52c6b381f8c374b39487a14e12.png",
-          "name": "Fnatic (Holo) | Paris 2023"
-        },
-        {
-          "icon_url": "https://cdn.steamstatic.com/apps/730/icons/econ/stickers/community/sticker_craft/paper_wings.2e95670d4bc74e03e693cbdc0870a08124763538.png",
-          "name": "Fly High"
-        }
-      ],
-      "patches": [],
-      "rarity": "Covert",
-      "rarity_color": "#eb4b4b",
-      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46698223498D335768906661400049",
-      "asset_id": "46698223498",
-      "pattern_template": 221,
-      "float": 0.40126073360443115,
-      "collection": "The Havoc Collection",
-      "price_eur": "400",
       "note": ""
     },
     {
@@ -669,33 +993,6 @@
       "float": 0.37265193462371826,
       "collection": null,
       "price_eur": "175",
-      "note": ""
-    },
-    {
-      "name": "StatTrak\u2122 Desert Eagle | Hypnotic",
-      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL1m5fn8Sdk7vORfqF_NPmUAVicyOl-pK9qSyyywxgjtmnVytyocnLGPA4iWcYmRLYIu0S-xtbuMLjg51DXjoJC02yg2VjGnh4J",
-      "exterior": "Factory New",
-      "tradable_info": {
-        "raw": "Yes",
-        "is_tradable": true,
-        "lock_state": "unlocked",
-        "unlock_text": null,
-        "unlock_iso": null,
-        "state_class": "meta--unlocked"
-      },
-      "selected": true,
-      "weapon_type": "Desert Eagle",
-      "item_type": "Pistol",
-      "stickers": [],
-      "patches": [],
-      "rarity": "Classified",
-      "rarity_color": "#d32ce6",
-      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46375268048D14322127149750830697",
-      "asset_id": "46375268048",
-      "pattern_template": 77,
-      "float": 0.010346801020205021,
-      "collection": "The Arms Deal Collection",
-      "price_eur": "150",
       "note": ""
     },
     {
@@ -1149,7 +1446,7 @@
       "patches": [],
       "rarity": "Covert",
       "rarity_color": "#eb4b4b",
-      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A36770980563D14332189861545670960",
+      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A36770980563D767558193615229852",
       "asset_id": "36770980563",
       "pattern_template": 181,
       "float": 0.3233148455619812,
@@ -1527,7 +1824,7 @@
       "patches": [],
       "rarity": "Covert",
       "rarity_color": "#eb4b4b",
-      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A29832444448D5523678776701284400",
+      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A29832444448D17167770776636907196",
       "asset_id": "29832444448",
       "pattern_template": 138,
       "float": 0.24554550647735596,
@@ -1703,7 +2000,7 @@
       "note": ""
     },
     {
-      "name": "Patch: Vitality | Stockholm 2021",
+      "name": "Lieutenant Rex Krikey | SEAL Frogman",
       "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nk9DRe_c24abZkIf6HDSmUxbd05bIxH3vqzRgj4GXTm4qtJXPGbg8oXpt2QeVYs0TpkdDmMuPq-UWA3P4QMOVd",
       "exterior": null,
       "tradable_info": {
@@ -4443,7 +4740,7 @@
       "patches": [],
       "rarity": "Exotic",
       "rarity_color": "#d32ce6",
-      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A18283742525D16880559123483937820",
+      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A18283742525D301050232735221872",
       "asset_id": "18283742525",
       "pattern_template": null,
       "float": null,
@@ -5175,7 +5472,7 @@
       "patches": [],
       "rarity": "Mil-Spec Grade",
       "rarity_color": "#4b69ff",
-      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A14041054373D631148975886400960",
+      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A14041054373D16303738738832822528",
       "asset_id": "14041054373",
       "pattern_template": 574,
       "float": 0.11834846436977386,
@@ -5272,6 +5569,6 @@
       "note": ""
     }
   ],
-  "total": 185,
-  "total_before_filters": 243
+  "total": 196,
+  "total_before_filters": 254
 }
