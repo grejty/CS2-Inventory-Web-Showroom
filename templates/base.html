@@ -92,15 +92,82 @@
     </div>
     
     <script>
-        // Simplified theme toggle functionality
-        document.addEventListener('DOMContentLoaded', function() {
-                <div class="footer-column footer-column--meta">
-                    <p>© {% now "Y" %} Grejty</p>
-                    <p>Not associated with Valve Corporation</p>
-                </div>
+        const THEME_STORAGE_KEY = 'preferred-theme';
+        const LIGHT_THEME = 'light';
+        const DARK_THEME = 'dark';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const root = document.documentElement;
+            const toggle = document.getElementById('theme-toggle');
+            if (!toggle) {
+                return;
+            }
+
+            const systemPreference = typeof window.matchMedia === 'function'
+                ? window.matchMedia('(prefers-color-scheme: light)')
+                : null;
+
+            const getStoredTheme = () => {
+                try {
+                    return localStorage.getItem(THEME_STORAGE_KEY);
+                } catch (error) {
+                    return null;
+                }
+            };
+
+            const storeTheme = (theme) => {
+                try {
+                    localStorage.setItem(THEME_STORAGE_KEY, theme);
+                } catch (error) {
+                    /* no-op if storage is unavailable */
+                }
+            };
+
+            const updateButton = (theme) => {
+                if (theme === LIGHT_THEME) {
+                    toggle.setAttribute('aria-label', 'Switch to dark mode');
+                    toggle.textContent = '☀️';
+                } else {
+                    toggle.setAttribute('aria-label', 'Switch to light mode');
+                    toggle.textContent = '🌙';
+                }
+            };
+
+            const applyTheme = (theme) => {
+                const targetTheme = theme === LIGHT_THEME ? LIGHT_THEME : DARK_THEME;
+                root.setAttribute('data-theme', targetTheme);
+                updateButton(targetTheme);
+            };
+
+            const savedTheme = getStoredTheme();
+            if (savedTheme === LIGHT_THEME || savedTheme === DARK_THEME) {
+                applyTheme(savedTheme);
+            } else {
+                const prefersLight = systemPreference ? systemPreference.matches : false;
+                applyTheme(prefersLight ? LIGHT_THEME : DARK_THEME);
+            }
+
+            toggle.addEventListener('click', () => {
+                const currentTheme = root.getAttribute('data-theme') === LIGHT_THEME ? LIGHT_THEME : DARK_THEME;
+                const nextTheme = currentTheme === DARK_THEME ? LIGHT_THEME : DARK_THEME;
+                applyTheme(nextTheme);
+                storeTheme(nextTheme);
             });
+
+            const handleSystemPreferenceChange = (event) => {
+                const hasSavedPreference = getStoredTheme();
+                if (hasSavedPreference !== LIGHT_THEME && hasSavedPreference !== DARK_THEME) {
+                    applyTheme(event.matches ? LIGHT_THEME : DARK_THEME);
+                }
+            };
+
+            if (systemPreference && typeof systemPreference.addEventListener === 'function') {
+                systemPreference.addEventListener('change', handleSystemPreferenceChange);
+            } else if (systemPreference && typeof systemPreference.addListener === 'function') {
+                systemPreference.addListener(handleSystemPreferenceChange);
+            }
         });
-        
+
         function formatSkinTitles() {
             document.querySelectorAll('.skin-title').forEach(title => {
                 if (title.dataset.formatted === 'true') {
