@@ -20,7 +20,7 @@
     --success-color: #0077b6;
     --error-color: #e63946;
     --layout-max-width: 1600px;
-    --layout-gutter: clamp(16px, 5vw, 32px);
+    --layout-gutter: clamp(16px, 5vw, 10px);
 }
 
 [data-theme="light"] {
@@ -294,7 +294,6 @@ main {
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
-    column-gap: 32px;
     width: 100%;
     padding: 0 var(--layout-gutter);
     box-sizing: border-box;
