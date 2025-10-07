@@ -128,6 +128,10 @@
     <script>
         const THEME_STORAGE_KEY = 'preferred-theme';
         const LOCALE_STORAGE_KEY = 'display-settings';
+        const DEFAULT_LOCALE = {
+            language: 'en',
+            currency: 'EUR'
+        };
         const LIGHT_THEME = 'light';
         const DARK_THEME = 'dark';
 
@@ -258,17 +262,29 @@
                 };
 
                 const applyStoredLocale = () => {
-                    const { language, currency } = getStoredLocale();
+                    const stored = getStoredLocale();
 
-                    if (language && languageSelect.querySelector(`option[value="${language}"]`)) {
-                        languageSelect.value = language;
+                    let languageValue = stored.language;
+                    if (!languageValue || !languageSelect.querySelector(`option[value="${languageValue}"]`)) {
+                        languageValue = DEFAULT_LOCALE.language;
                     }
 
-                    if (currency && currencySelect.querySelector(`option[value="${currency}"]`)) {
-                        currencySelect.value = currency;
+                    let currencyValue = stored.currency;
+                    if (!currencyValue || !currencySelect.querySelector(`option[value="${currencyValue}"]`)) {
+                        currencyValue = DEFAULT_LOCALE.currency;
                     }
+
+                    languageSelect.value = languageValue;
+                    currencySelect.value = currencyValue;
 
                     updateButtonLabel();
+
+                    if (stored.language !== languageValue || stored.currency !== currencyValue) {
+                        storeLocale({
+                            language: languageValue,
+                            currency: currencyValue
+                        });
+                    }
                 };
 
                 const openPanel = () => {
