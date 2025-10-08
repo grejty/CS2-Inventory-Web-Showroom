@@ -1,6 +1,7 @@
 .env
 /config
 /pgdata
+db.sqlite3
 cs2_showroom/__pycache__/
 inventory/__pycache__/
 inventory/migrations/__pycache__/
