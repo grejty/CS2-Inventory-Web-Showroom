@@ -371,7 +371,7 @@
         "unlock_iso": "2025-10-15T09:00:00",
         "state_class": "meta--locked"
       },
-      "selected": true,
+      "selected": false,
       "weapon_type": "Desert Eagle",
       "item_type": "Pistol",
       "stickers": [
@@ -389,7 +389,7 @@
       "float": 0.14495503902435303,
       "collection": "The Fracture Collection",
       "price_eur": "38",
-      "note": "",
+      "note": "Michal Uhl\u00edk",
       "wear_rating": 0.14495503902435303
     },
     {
