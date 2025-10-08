@@ -3,6 +3,8 @@ import os
 
 from django.apps import AppConfig
 from django.conf import settings
+from django.core.signals import request_started
+from django.db.models.signals import post_migrate
 
 
 logger = logging.getLogger(__name__)
@@ -18,6 +20,24 @@ class InventoryConfig(AppConfig):
         if cache_dir:
             os.makedirs(cache_dir, exist_ok=True)
 
+        dispatch_uid = 'inventory.ensure_admin_user'
+
+        post_migrate.connect(
+            self._handle_post_migrate,
+            sender=self,
+            dispatch_uid=f'{dispatch_uid}.post_migrate',
+        )
+
+        request_started.connect(
+            self._handle_request_started,
+            dispatch_uid=f'{dispatch_uid}.request_started',
+        )
+
+    def _handle_post_migrate(self, **kwargs):
+        self._ensure_admin_user()
+
+    def _handle_request_started(self, **kwargs):
+        request_started.disconnect(dispatch_uid='inventory.ensure_admin_user.request_started')
         self._ensure_admin_user()
 
     def _ensure_admin_user(self):
