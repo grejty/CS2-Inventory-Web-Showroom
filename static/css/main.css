@@ -1040,12 +1040,18 @@ main {
 }
 
 .filter-option input[type="checkbox"]:checked::after {
-    content: "Ă˘Ĺ›â€ś";
+    content: "✔";
     position: absolute;
-    color: white;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0d0d0d;
     font-size: 12px;
-    left: 2px;
-    top: -1px;
+    font-weight: 600;
 }
 
 .filter-option label {
