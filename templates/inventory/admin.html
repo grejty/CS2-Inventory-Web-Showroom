@@ -159,6 +159,7 @@
             const regularItems = items.filter(item => item.dataset.reserved !== 'true');
             const defaultRegularOrder = regularItems.slice();
             const defaultReservedOrder = reservedItems.slice();
+            const allItems = defaultRegularOrder.concat(defaultReservedOrder);
 
             const makeNumericSorter = (datasetKey, ascending) => (a, b) => {
                 const valueA = parseFloat(a.dataset[datasetKey]);
@@ -179,18 +180,22 @@
                 'price-desc': makeNumericSorter('price', false)
             };
 
-            const getOrderedItems = () => {
-                if (!sortSelect) {
-                    return defaultRegularOrder.concat(defaultReservedOrder);
-                }
+            const getSortComparator = (mode) => sortComparators[mode] || null;
 
-                const mode = sortSelect.value;
-                const sortFn = sortComparators[mode];
+            const matchesFilters = (item, activeFilters, searchTerm) => {
+                const tradable = item.dataset.tradable;
+                const weapon = item.dataset.weapon;
+                const type = item.dataset.type;
+                const dataName = (item.dataset.name || '').toLowerCase();
+                const itemText = (item.textContent || '').toLowerCase();
+                const searchableText = dataName ? `${dataName} ${itemText}` : itemText;
 
-                const orderedRegular = sortFn ? defaultRegularOrder.slice().sort(sortFn) : defaultRegularOrder.slice();
-                const orderedReserved = sortFn ? defaultReservedOrder.slice().sort(sortFn) : defaultReservedOrder.slice();
+                const matchesTradable = activeFilters.tradable.length === 0 || activeFilters.tradable.includes(tradable);
+                const matchesWeapon = activeFilters.weapon.length === 0 || activeFilters.weapon.includes(weapon);
+                const matchesType = activeFilters.type.length === 0 || activeFilters.type.includes(type);
+                const matchesSearch = searchTerm === '' || searchableText.includes(searchTerm);
 
-                return orderedRegular.concat(orderedReserved);
+                return matchesTradable && matchesWeapon && matchesType && matchesSearch;
             };
 
             const updateReservedHeadingVisibility = (visibleReservedCount = reservedItems.length) => {
@@ -389,44 +394,54 @@
             
             // Filter application function
             function applyFilters() {
-                const searchTerm = searchBox.value.toLowerCase();
+                const searchTerm = searchBox.value.toLowerCase().trim();
                 const activeFilters = {
                     tradable: getActiveValues('tradable'),
                     weapon: getActiveValues('weapon'),
                     type: getActiveValues('type')
                 };
-                
-                let visibleCount = 0;
-                let visibleReserved = 0;
 
-                const orderedItems = getOrderedItems();
+                const sortFn = sortSelect ? getSortComparator(sortSelect.value) : null;
 
-                orderedItems.forEach(item => {
-                    const tradable = item.dataset.tradable;
-                    const weapon = item.dataset.weapon;
-                    const type = item.dataset.type;
-                    const itemText = item.textContent.toLowerCase();
-                    
-                    const matchesTradable = activeFilters.tradable.length === 0 || activeFilters.tradable.includes(tradable);
-                    const matchesWeapon = activeFilters.weapon.length === 0 || activeFilters.weapon.includes(weapon);
-                    const matchesType = activeFilters.type.length === 0 || activeFilters.type.includes(type);
-                    const matchesSearch = searchTerm === '' || itemText.includes(searchTerm);
-                    
-                    const isVisible = matchesTradable && matchesWeapon && matchesType && matchesSearch;
-                    item.style.display = isVisible ? 'flex' : 'none';
-                    inventoryContainer.appendChild(item);
-                    
-                    if (isVisible) {
-                        visibleCount++;
-                        if (item.dataset.reserved === 'true') {
-                            visibleReserved++;
-                        }
+                const filteredRegular = defaultRegularOrder.filter(item => matchesFilters(item, activeFilters, searchTerm));
+                const filteredReserved = defaultReservedOrder.filter(item => matchesFilters(item, activeFilters, searchTerm));
+
+                const orderedRegular = sortFn ? filteredRegular.slice().sort(sortFn) : filteredRegular.slice();
+                const orderedReserved = sortFn ? filteredReserved.slice().sort(sortFn) : filteredReserved.slice();
+
+                allItems.forEach(item => {
+                    if (item.style.display !== 'none') {
+                        item.style.display = 'none';
                     }
                 });
-                
+
+                const fragment = document.createDocumentFragment();
+
+                orderedRegular.forEach(item => {
+                    item.style.display = 'flex';
+                    fragment.appendChild(item);
+                });
+
+                const visibleReserved = orderedReserved.length;
                 updateReservedHeadingVisibility(visibleReserved);
 
-                // Update count
+                if (reservedHeading) {
+                    if (reservedHeading.parentNode) {
+                        reservedHeading.parentNode.removeChild(reservedHeading);
+                    }
+                    if (visibleReserved > 0) {
+                        fragment.appendChild(reservedHeading);
+                    }
+                }
+
+                orderedReserved.forEach(item => {
+                    item.style.display = 'flex';
+                    fragment.appendChild(item);
+                });
+
+                inventoryContainer.appendChild(fragment);
+
+                const visibleCount = orderedRegular.length + orderedReserved.length;
                 showingCount.textContent = visibleCount;
             }
             

@@ -92,6 +92,7 @@
                  data-name="{{ skin.name|escape }}"
                  data-float="{% if skin.float is not None %}{{ skin.float|floatformat:6 }}{% endif %}"
                  data-price="{% if skin.price_eur %}{{ skin.price_eur }}{% endif %}"
+                 data-reserved="{{ skin.is_reserved|yesno:'true,false' }}"
                      {% if skin.rarity %}data-rarity="{{ skin.rarity }}"{% endif %}
                      {% if skin.rarity_color %}style="--rarity-color: {{ skin.rarity_color }};"{% endif %}>
                     <div class="skin-header">
@@ -233,6 +234,8 @@
             const inventoryContainer = document.getElementById('inventory');
             const items = Array.from(inventoryContainer.querySelectorAll('.skin-item'));
             const defaultOrder = items.slice();
+            const defaultRegularOrder = defaultOrder.filter(item => item.dataset.reserved !== 'true');
+            const defaultReservedOrder = defaultOrder.filter(item => item.dataset.reserved === 'true');
             const sortSelect = document.getElementById('sort-select');
             const showingCount = document.getElementById('showing-count');
             const checkboxes = document.querySelectorAll('.filter-checkbox');
@@ -252,75 +255,82 @@
                 });
             });
             
+            function getSortComparator(mode) {
+                if (mode === 'float-asc' || mode === 'float-desc') {
+                    const isAsc = mode === 'float-asc';
+                    return (a, b) => {
+                        const floatA = parseFloat(a.dataset.float);
+                        const floatB = parseFloat(b.dataset.float);
+
+                        const aValid = Number.isFinite(floatA);
+                        const bValid = Number.isFinite(floatB);
+                        if (!aValid && !bValid) return 0;
+                        if (!aValid) return 1;
+                        if (!bValid) return -1;
+                        return isAsc ? floatA - floatB : floatB - floatA;
+                    };
+                }
+
+                if (mode === 'price-asc' || mode === 'price-desc') {
+                    const isAsc = mode === 'price-asc';
+                    return (a, b) => {
+                        const priceA = parseFloat(a.dataset.price);
+                        const priceB = parseFloat(b.dataset.price);
+
+                        const aValid = Number.isFinite(priceA);
+                        const bValid = Number.isFinite(priceB);
+                        if (!aValid && !bValid) return 0;
+                        if (!aValid) return 1;
+                        if (!bValid) return -1;
+                        return isAsc ? priceA - priceB : priceB - priceA;
+                    };
+                }
+
+                return null;
+            }
+
+            function matchesFilters(item, activeFilters, searchTerm) {
+                const tradable = item.dataset.tradable;
+                const weapon = item.dataset.weapon;
+                const type = item.dataset.type;
+                const itemText = item.textContent.toLowerCase();
+
+                const matchesTradable = activeFilters.tradable.length === 0 || activeFilters.tradable.includes(tradable);
+                const matchesWeapon = activeFilters.weapon.length === 0 || activeFilters.weapon.includes(weapon);
+                const matchesType = activeFilters.type.length === 0 || activeFilters.type.includes(type);
+                const matchesSearch = searchTerm === '' || itemText.includes(searchTerm);
+
+                return matchesTradable && matchesWeapon && matchesType && matchesSearch;
+            }
+
             function applyFilters() {
                 const searchTerm = searchBox.value.toLowerCase();
                 const activeFilters = {
                     tradable: getActiveValues('tradable'),
-                    weapon: getActiveValues('weapon_type'),  // Fixed: was 'weapon'
-                    type: getActiveValues('item_type')       // Fixed: was 'type'
+                    weapon: getActiveValues('weapon_type'),
+                    type: getActiveValues('item_type')
                 };
-                
-                let visibleCount = 0;
-                
-                // Apply filters to each item
-                let orderedItems;
-                if (!sortSelect) {
-                    orderedItems = defaultOrder;
-                } else {
-                    const mode = sortSelect.value;
-                    if (mode === 'float-asc' || mode === 'float-desc') {
-                        orderedItems = [...defaultOrder].sort((a, b) => {
-                            const floatA = parseFloat(a.dataset.float);
-                            const floatB = parseFloat(b.dataset.float);
-                            const isAsc = mode === 'float-asc';
 
-                            const aValid = Number.isFinite(floatA);
-                            const bValid = Number.isFinite(floatB);
-                            if (!aValid && !bValid) return 0;
-                            if (!aValid) return 1;
-                            if (!bValid) return -1;
-                            return isAsc ? floatA - floatB : floatB - floatA;
-                        });
-                    } else if (mode === 'price-asc' || mode === 'price-desc') {
-                        orderedItems = [...defaultOrder].sort((a, b) => {
-                            const priceA = parseFloat(a.dataset.price);
-                            const priceB = parseFloat(b.dataset.price);
-                            const isAsc = mode === 'price-asc';
+                const filteredRegular = defaultRegularOrder.filter(item => matchesFilters(item, activeFilters, searchTerm));
+                const filteredReserved = defaultReservedOrder.filter(item => matchesFilters(item, activeFilters, searchTerm));
 
-                            const aValid = Number.isFinite(priceA);
-                            const bValid = Number.isFinite(priceB);
-                            if (!aValid && !bValid) return 0;
-                            if (!aValid) return 1;
-                            if (!bValid) return -1;
-                            return isAsc ? priceA - priceB : priceB - priceA;
-                        });
-                    } else {
-                        orderedItems = defaultOrder;
-                    }
-                }
+                const mode = sortSelect ? sortSelect.value : null;
+                const sortFn = getSortComparator(mode);
+
+                const orderedRegular = sortFn ? filteredRegular.slice().sort(sortFn) : filteredRegular;
+                const orderedReserved = sortFn ? filteredReserved.slice().sort(sortFn) : filteredReserved;
+                const orderedItems = orderedRegular.concat(orderedReserved);
+
+                defaultOrder.forEach(item => {
+                    item.style.display = 'none';
+                });
 
                 orderedItems.forEach(item => {
-                    const tradable = item.dataset.tradable;
-                    const weapon = item.dataset.weapon;
-                    const type = item.dataset.type;
-                    const itemText = item.textContent.toLowerCase();
-                    
-                    const matchesTradable = activeFilters.tradable.length === 0 || activeFilters.tradable.includes(tradable);
-                    const matchesWeapon = activeFilters.weapon.length === 0 || activeFilters.weapon.includes(weapon);
-                    const matchesType = activeFilters.type.length === 0 || activeFilters.type.includes(type);
-                    const matchesSearch = searchTerm === '' || itemText.includes(searchTerm);
-                    
-                    const isVisible = matchesTradable && matchesWeapon && matchesType && matchesSearch;
-                    item.style.display = isVisible ? 'flex' : 'none';
+                    item.style.display = 'flex';
                     inventoryContainer.appendChild(item);
-                    
-                    if (isVisible) {
-                        visibleCount++;
-                    }
                 });
-                
-                // Update count
-                showingCount.textContent = visibleCount;
+
+                showingCount.textContent = orderedItems.length;
             }
             
             // Helper to get active values for a filter category

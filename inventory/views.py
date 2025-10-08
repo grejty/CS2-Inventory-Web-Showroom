@@ -84,6 +84,14 @@ def index(request):
         
         # Filter to only selected skins
         selected_skins = [skin for skin in skins if skin.get("selected", False)]
+
+        for skin in selected_skins:
+            note_value = skin.get('note')
+            if isinstance(note_value, str):
+                is_reserved = bool(note_value.strip())
+            else:
+                is_reserved = False
+            skin['is_reserved'] = is_reserved
         
         # Get filters with counts
         filters = get_filter_counts(selected_skins)
