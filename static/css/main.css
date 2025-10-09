@@ -274,6 +274,7 @@ main {
     .nav-controls {
         justify-self: end;
     }
+
 }
 
 @media (max-width: 600px) {
@@ -314,6 +315,8 @@ main {
     align-items: center;
     gap: 12px;
     height: 100%;
+    justify-self: start;
+    margin-right: auto;
 }
 
 .site-logo {
@@ -323,25 +326,62 @@ main {
     transition: transform 0.2s ease;
 }
 
-.site-title {
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--text-color);
-    margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+.site-branding a {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, filter 0.2s ease;
 }
 
-.site-branding a {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-    color: var(--text-color);
+.site-branding a::before,
+.site-branding a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.site-branding a::before {
+    background: radial-gradient(circle at center, rgba(var(--accent-color-rgb), 0.45) 0%, rgba(var(--accent-color-rgb), 0.12) 38%, rgba(var(--accent-color-rgb), 0) 65%);
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    filter: blur(6px);
+}
+
+.site-branding a::after {
+    box-shadow: 0 0 0 rgba(var(--accent-color-rgb), 0);
+    transition: box-shadow 0.2s ease;
+}
+
+.site-branding a:focus-visible {
+    outline: none;
+    transform: translateY(-2px);
+}
+
+.site-branding a:hover,
+.site-branding a:focus-visible {
+    transform: translateY(-2px);
+}
+
+.site-branding a:hover::after,
+.site-branding a:focus-visible::after {
+    box-shadow: 0 12px 28px rgba(var(--accent-color-rgb), 0.22);
+}
+
+.site-branding a:hover::before,
+.site-branding a:focus-visible::before {
+    opacity: 1;
+    transform: scale(1.05);
 }
 
 .site-branding a:hover .site-logo {
     transform: scale(1.05);
+    filter: brightness(1.08);
 }
 
 .nav-controls {
