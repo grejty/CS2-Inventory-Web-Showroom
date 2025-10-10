@@ -1,6 +1,51 @@
 {
   "skins": [
     {
+      "name": "AK-47 | Midnight Laminate",
+      "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wjFU6s2neq1pJeOQC2mE_v5jovFlSha_nBovp3PRnt36d36UOlUmCcF2TOZfsRC_ldW1ML625AbZ2dhHyn_7jSgauCtp_a9cBpVVSdXG",
+      "exterior": "Factory New",
+      "tradable_info": {
+        "raw": "Trade Protected until Oct 17, 2025 (9:00:00)",
+        "is_tradable": false,
+        "lock_state": "locked",
+        "unlock_text": "Tradable on 17.10.2025 (9:00)",
+        "unlock_iso": "2025-10-17T09:00:00",
+        "state_class": "meta--locked"
+      },
+      "selected": true,
+      "weapon_type": "AK-47",
+      "item_type": "Rifle",
+      "stickers": [
+        {
+          "icon_url": "https://cdn.steamstatic.com/apps/730/icons/econ/stickers/cph2024/spir.b3e7c9bc08c2381aac2f7c57d45aac48a621702c.png",
+          "name": "Team Spirit | Copenhagen 2024"
+        },
+        {
+          "icon_url": "https://cdn.steamstatic.com/apps/730/icons/econ/stickers/cph2024/spir.b3e7c9bc08c2381aac2f7c57d45aac48a621702c.png",
+          "name": "Team Spirit | Copenhagen 2024"
+        },
+        {
+          "icon_url": "https://cdn.steamstatic.com/apps/730/icons/econ/stickers/cph2024/spir.b3e7c9bc08c2381aac2f7c57d45aac48a621702c.png",
+          "name": "Team Spirit | Copenhagen 2024"
+        },
+        {
+          "icon_url": "https://cdn.steamstatic.com/apps/730/icons/econ/stickers/cph2024/spir.b3e7c9bc08c2381aac2f7c57d45aac48a621702c.png",
+          "name": "Team Spirit | Copenhagen 2024"
+        }
+      ],
+      "patches": [],
+      "rarity": "Restricted",
+      "rarity_color": "#8847ff",
+      "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198096622937A46979270202D4783496551089963923",
+      "asset_id": "46979270202",
+      "pattern_template": 759,
+      "float": 0.04890994727611542,
+      "collection": "The Ascent Collection",
+      "price_eur": "52",
+      "note": "",
+      "wear_rating": 0.04890994727611542
+    },
+    {
       "name": "\u2605 Survival Knife | Safari Mesh",
       "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Y7vyne5t-MM-eC3SY_vp3vt5kSi26gBBpt2_TnIz4di-ePVIlCJV0ELRZ5hPul9DiZOuxsQbXi4oUyn6oiCwduzErvbjSIiNorA",
       "exterior": "Field-Tested",
@@ -12,7 +57,7 @@
         "unlock_iso": "2025-10-17T09:00:00",
         "state_class": "meta--locked"
       },
-      "selected": true,
+      "selected": false,
       "weapon_type": "Survival Knife",
       "item_type": "Knife",
       "stickers": [],
@@ -25,7 +70,7 @@
       "float": 0.32208436727523804,
       "collection": "The Shattered Web Collection",
       "price_eur": "75",
-      "note": "",
+      "note": "Dominik Podzimek",
       "wear_rating": 0.32208436727523804
     },
     {
@@ -5784,6 +5829,6 @@
       "wear_rating": 0.060317907482385635
     }
   ],
-  "total": 200,
-  "total_before_filters": 258
+  "total": 201,
+  "total_before_filters": 259
 }
